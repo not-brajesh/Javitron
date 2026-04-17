@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseParallax: { x: 0, y: 0 }, // desktop fallback
 
         CONFIG: {
-            modelPath: './assets/car.glb',
+            modelPath: 'https://github.com/not-brajesh/Javitron/releases/download/v1.0/car.glb',
             fov: 45,
 
             // Responsive scaling multipliers
