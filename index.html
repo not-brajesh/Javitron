@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVITRON | Hypercars of the Future</title>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- CINEMATIC LOADING SCREEN -->
+    <div id="cinematic-loader">
+        <!-- Glowing orb background -->
+        <div class="loader-orb"></div>
+        <div class="loader-orb loader-orb-secondary"></div>
+        
+        <!-- Particle effect -->
+        <div class="loader-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="loader-content">
+            <div class="loader-logo">JAVITRON</div>
+            <div class="loader-tagline">Built to Race • Engineered to Win</div>
+            
+            <!-- Loading bar -->
+            <div class="loader-bar-container">
+                <div class="loader-bar">
+                    <div class="loader-fill" id="loaderFill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
+    <!-- TRANSITION OVERLAY -->
+    <div id="transitionOverlay" class="transition-overlay">
+        <div class="transition-flash"></div>
+        <div class="transition-speed-lines"></div>
+    </div>
+
+    <!-- CAR -->
+    <div id="car-bg-container">
+        <div id="rotating-car"></div>
+        <div class="car-glow"></div>
+    </div>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="logo" id="logoSwitch" data-mode="normal">JAVITRON</div>
+        <div class="hamburger" id="hamburger">☰</div>
+
+        <ul class="nav-links">
+            <li><a href="#home" data-cursor="link">Home</a></li>
+            <li><a href="#about" data-cursor="link">About</a></li>
+            <li><a href="#team" data-cursor="link">Team</a></li>
+            <li><a href="#vehicle" data-cursor="link">Vehicle</a></li>
+            <li><a href="#achievements" data-cursor="link">Achievements</a></li>
+            <li><a href="#competitions" data-cursor="link">Competitions</a></li>
+            <li><a href="#gallery" data-cursor="link">Gallery</a></li>
+            <li><a href="#sponsors" data-cursor="link">Sponsors</a></li>
+            <li><a href="#contact" data-cursor="link">Contact</a></li>
+        </ul>
+
+        <div class="hamburger" id="hamburger">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul>
+            <li><a href="#home" class="mobile-link">Home</a></li>
+            <li><a href="#about" class="mobile-link">About</a></li>
+            <li><a href="#team" class="mobile-link">Team</a></li>
+            <li><a href="#vehicle" class="mobile-link">Vehicle</a></li>
+            <li><a href="#achievements" class="mobile-link">Achievements</a></li>
+            <li><a href="#competitions" class="mobile-link">Competitions</a></li>
+            <li><a href="#gallery" class="mobile-link">Gallery</a></li>
+            <li><a href="#sponsors" class="mobile-link">Sponsors</a></li>
+            <li><a href="#contact" class="mobile-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- ===================== HERO CAROUSEL ===================== -->
+    <header id="home" class="hero-carousel normal-content">
+
+        <div class="carousel-slide active" style="background-image: url('assets/image_1.png');">
+            <div class="slide-noise"></div>
+            <div class="carousel-content">
+                <div class="hero-eyebrow">— Formula Student Racing</div>
+                <h1>BUILT TO RACE<br><em>DRIVEN BY PASSION</em></h1>
+                <p>Javitron Racing – Official Formula Student & Go-Kart Racing Team</p>
+                <div class="hero-actions">
+                    <a href="#team" class="btn btn-primary" data-cursor="link">Meet the Team</a>
+                    <a href="#vehicle" class="btn btn-ghost" data-cursor="link">Explore Our Karts</a>
+                </div>
+            </div>
+            <div class="slide-counter">01 / 03</div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: url('assets/image_2.png');">
+            <div class="slide-noise"></div>
+            <div class="carousel-content">
+                <div class="hero-eyebrow">— GKDC 2026</div>
+                <h1>AIR 6<br><em>1st Autocross</em></h1>
+                <p>Achieving excellence in engineering and performance on the track.</p>
+                <div class="hero-actions">
+                    <a href="#achievements" class="btn btn-primary" data-cursor="link">View Achievements</a>
+                    <a href="#team" class="btn btn-ghost" data-cursor="link">Our Team</a>
+                </div>
+            </div>
+            <div class="slide-counter">02 / 03</div>
+        </div>
+
+        <div class="carousel-slide" style="background-image: url('assets/image_3.png');">
+            <div class="slide-noise"></div>
+            <div class="carousel-content">
+                <div class="hero-eyebrow">— Cleanest Pit Award</div>
+                <h1>ENGINEERING<br><em>EXCELLENCE</em></h1>
+                <p>Recognized for organization, professionalism, and technical excellence.</p>
+                <div class="hero-actions">
+                    <a href="#vehicle" class="btn btn-primary" data-cursor="link">Our Vehicle</a>
+                    <a href="#sponsors" class="btn btn-ghost" data-cursor="link">Sponsors</a>
+                </div>
+            </div>
+            <div class="slide-counter">03 / 03</div>
+        </div>
+
+        <!-- Controls -->
+        <button class="carousel-btn prev-btn" data-cursor="link"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next-btn" data-cursor="link"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-indicators">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="scroll-hint">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </header>
+
+    <!-- ===================== ABOUT SECTION ===================== -->
+    <section id="about" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— About Us</div>
+                <h2>Who We Are</h2>
+                <p>Team Javitron Racing is a Formula Student racing team from Ajeenkya D. Y. Patil University, Pune. We are passionate engineering students dedicated to designing, manufacturing, and racing go-karts. Built our first competition kart in just 1 month using CAD, FEA analysis, custom chassis design, and optimized powertrain engineering.</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Innovation</h3>
+                        <p>Pushing boundaries with cutting-edge engineering solutions and creative problem-solving.</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Teamwork</h3>
+                        <p>20+ members collaborating across multiple departments to achieve common goals.</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Excellence</h3>
+                        <p>Commitment to precision, quality, and continuous improvement in everything we do.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== ACHIEVEMENTS SECTION ===================== -->
+    <section id="achievements" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Our Legacy</div>
+                <h2>Achievements</h2>
+                <p>Celebrating our victories and milestones in Formula Student competitions.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">1st Place</h3>
+                        <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem;">Autocross</h4>
+                        <p>Fastest lap time and superior handling performance</p>
+                        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎖️</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">Winner</h3>
+                        <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem;">Cleanest Pit Award</h4>
+                        <p>Recognized for organization and professionalism</p>
+                        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🥈</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">2nd Place</h3>
+                        <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem;">Design Evaluation</h4>
+                        <p>Excellence in engineering design and innovation</p>
+                        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-3 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">AIR 6</h3>
+                        <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 1rem;">Overall Championship</h4>
+                        <p>Top performance across all competition events</p>
+                        <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== VEHICLE SECTION ===================== -->
+    <section id="vehicle" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Our Machine</div>
+                <h2>The Vehicle</h2>
+                <p>Engineering excellence in every component. Meet our Formula Student race car.</p>
+            </div>
+
+            <!-- Vehicle Overview -->
+            <div class="team-grid">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Javitron Racing Kart</h3>
+                        <p style="margin-bottom: 1.5rem;">Built in just 30 days, our competition kart features lightweight chassis, high-performance braking, and optimized aerodynamics for track dominance.</p>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);">30</span>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Days Build</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);">1st</span>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Autocross</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);">Light</span>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Chassis</div>
+                            </div>
+                            <div style="text-align: center; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                                <span style="font-family: var(--font-display); font-size: 1.5rem; color: var(--accent);">Aero</span>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Design</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="margin-bottom: 0.8rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> Lightweight chassis
+                            </li>
+                            <li style="margin-bottom: 0.8rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> High performance braking
+                            </li>
+                            <li style="margin-bottom: 0.8rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> Aerodynamic bodywork
+                            </li>
+                            <li style="margin-bottom: 0.8rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> Optimized powertrain
+                            </li>
+                            <li style="margin-bottom: 0.8rem; display: flex; align-items: center;">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> Custom design
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Performance</h3>
+                        <p style="margin-bottom: 1rem;">Achieved 1st place in Autocross at GKDC 2026 with superior handling and acceleration.</p>
+                        <p>Designed to meet all competition regulations while maximizing track performance.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Process Flow -->
+            <div class="section-header fade-up" style="margin-top: 4rem;">
+                <div class="section-label">— Development Process</div>
+                <h2>Design → Manufacturing → Testing</h2>
+            </div>
+            <div class="process-flow-container">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">01</h3>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Design</h3>
+                        <p>CAD modeling, CFD analysis, FEA simulation, and iterative optimization for maximum performance.</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">02</h3>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Manufacturing</h3>
+                        <p>Precision CNC machining, tube frame fabrication, carbon fiber layup, and quality control.</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">03</h3>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Testing</h3>
+                        <p>Dyno testing, driver training, suspension tuning, and data-driven optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== TEAM SECTION (Normal Mode) ===================== -->
+    <section id="team" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— The Team</div>
+                <h2>Meet Our<br>Team</h2>
+                <p>20+ passionate engineering students across multiple departments building championship-winning vehicles.</p>
+            </div>
+
+            <!-- Department Filter -->
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;" class="fade-up">
+                <button class="btn btn-primary" style="padding: 0.7rem 1.5rem; border-radius: 30px;">All</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Mechanical</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Design</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Management</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Media</button>
+            </div>
+
+            <div class="team-grid">
+                <!-- Captain -->
+                <div class="team-card fade-up">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Captain</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_9.png" alt="Ashutosh">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Ashutosh</h3>
+                        <span>Team Captain & Driver</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Vice Captain -->
+                <div class="team-card fade-up delay-1">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Vice Captain</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_10.png" alt="Preet">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Preet</h3>
+                        <span>Vice Captain</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Driver 1 -->
+                <div class="team-card fade-up delay-2">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Driver</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_11.png" alt="Harshal">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Harshal</h3>
+                        <span>Driver</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Breaking Head -->
+                <div class="team-card fade-up">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Breaking Head</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_15.png" alt="Sahil">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Sahil</h3>
+                        <span>Breaking Head</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Management Head -->
+                <div class="team-card fade-up delay-1">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Management Head</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_16.png" alt="Nitisha">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Nitisha</h3>
+                        <span>Management Head</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Electrical Head -->
+                <div class="team-card fade-up delay-2">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Electrical Head</div>
+                    <div class="img-wrapper">
+                        <img src="assets/image_17.png" alt="Pranay">
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Pranay</h3>
+                        <span>Electrical Head</span>
+                        <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">Robotics</div>
+                        <div class="team-socials">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Join CTA -->
+            <div class="team-card fade-up glass-panel" style="margin-top: 4rem; text-align: center; padding: 3rem;">
+                <h3 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem;">Join Our Team</h3>
+                <p style="margin-bottom: 2rem;">Be part of the next generation of racing engineers. We're always looking for passionate individuals.</p>
+                <a href="#recruitment" class="btn btn-primary" data-cursor="link">Apply Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== JOURNEY / PROCESS SECTION ===================== -->
+    <section id="journey" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Our Process</div>
+                <h2>The Journey</h2>
+                <p>From concept to competition, our systematic approach to building championship-winning vehicles.</p>
+            </div>
+
+            <div class="team-grid" style="max-width: 900px; margin: 0 auto;">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">1</div>
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin: 0;">Design Phase</h3>
+                        </div>
+                        <p style="margin-bottom: 1rem;">Concept development, CAD modeling, simulation, and design optimization. CFD and FEA analysis ensure performance before manufacturing begins.</p>
+                        <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">3-4 Months</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">2</div>
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin: 0;">Manufacturing Phase</h3>
+                        </div>
+                        <p style="margin-bottom: 1rem;">Fabrication of chassis, suspension, bodywork, and assembly of all components. Precision machining and quality control throughout.</p>
+                        <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">4-5 Months</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">3</div>
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin: 0;">Testing Phase</h3>
+                        </div>
+                        <p style="margin-bottom: 1rem;">Dyno testing, driver training, suspension tuning, and reliability testing. Data analysis and optimization for peak performance.</p>
+                        <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2-3 Months</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-3 glass-panel">
+                    <div class="team-info" style="padding: 2rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">4</div>
+                            <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin: 0;">Competition Phase</h3>
+                        </div>
+                        <p style="margin-bottom: 1rem;">Static and dynamic events including design presentation, cost analysis, acceleration, skidpad, autocross, and endurance.</p>
+                        <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">Event Week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== COMPETITIONS SECTION ===================== -->
+    <section id="competitions" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Where We Race</div>
+                <h2>Competitions</h2>
+                <p>Competing at the highest level of Formula Student across India.</p>
+            </div>
+
+            <!-- GKDC Card -->
+            <div class="team-card fade-up glass-panel" style="margin-bottom: 3rem;">
+                <div class="team-info" style="padding: 2rem;">
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                        <div style="text-align: center; padding: 2rem;">
+                            <h3 style="font-family: var(--font-display); font-size: 4rem; color: var(--accent); letter-spacing: 0.1em; margin: 0;">GKDC</h3>
+                            <div style="font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">2026</div>
+                        </div>
+                        <div>
+                            <h3 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem;">Formula Bharat - GKDC</h3>
+                            <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-mid);">Coimbatore</p>
+                            <p style="margin-bottom: 2rem;">The premier Formula Student competition in India, testing engineering skills through design, manufacturing, and on-track performance. Achieved AIR 6 with dominant autocross performance.</p>
+                            <div style="display: flex; gap: 3rem;">
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">6</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">AIR</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">1st</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">Autocross</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">🏆</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">Cleanest Pit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- HFKC Card -->
+            <div class="team-card fade-up delay-1 glass-panel hfkc-card" style="margin-bottom: 3rem;">
+                <div class="team-info" style="padding: 2rem;">
+                    <div class="hfkc-card-inner" style="display: grid; grid-template-columns: 1fr 2fr; gap: 2rem;">
+                        <div style="text-align: center; padding: 2rem;">
+                            <h3 style="font-family: var(--font-display); font-size: 4rem; color: var(--accent); letter-spacing: 0.1em; margin: 0;">HFKC</h3>
+                            <div style="font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Season-5</div>
+                        </div>
+                        <div>
+                            <h3 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem;">Himalayan Formula Karting Championship</h3>
+                            <p style="margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-mid);">Bhopal</p>
+                            <p style="margin-bottom: 2rem;">Competitive kart racing championship featuring challenging tracks and top teams from across India. Strong endurance performance with consistent results.</p>
+                            <div style="display: flex; gap: 3rem;">
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">4</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">AIR</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">2nd</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">Acceleration</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span style="font-family: var(--font-display); font-size: 2rem; color: var(--accent);">✓</span>
+                                    <div style="font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim);">Endurance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Highlights -->
+            <div class="section-header fade-up" style="margin-top: 4rem;">
+                <div class="section-label">— Performance</div>
+                <h2>Highlights</h2>
+            </div>
+            <div class="team-grid">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">1st</span>
+                        <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Autocross</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">2nd</span>
+                        <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Acceleration</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">✓</span>
+                        <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Endurance</div>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-3 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">100%</span>
+                        <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Tech Inspection</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SHOWCASE SECTION ===================== -->
+    <section id="showcase" class="showcase-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— The Lineup</div>
+                <h2>Engineering<br>Masterpieces</h2>
+                <p>Discover our lineup of track-focused and luxury grand tourers.</p>
+            </div>
+        </div>
+        <div class="showcase-grid">
+            <div class="showcase-item fade-up" data-cursor="explore">
+                <div class="showcase-img" style="background-image: url('assets/image_5.png');"></div>
+                <div class="showcase-overlay">
+                    <div class="overlay-label">Track Weapon</div>
+                    <h3>JAVITRON Apex</h3>
+                    <p>Track-focused hypercar</p>
+                    <a href="#" class="view-btn" data-cursor="link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="showcase-item fade-up delay-1" data-cursor="explore">
+                <div class="showcase-img" style="background-image: url('assets/image_6.png');"></div>
+                <div class="showcase-overlay">
+                    <div class="overlay-label">Stealth Edition</div>
+                    <h3>JAVITRON Stealth</h3>
+                    <p>Matte-black aerodynamic beauty</p>
+                    <a href="#" class="view-btn" data-cursor="link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="showcase-item fade-up delay-2" data-cursor="explore">
+                <div class="showcase-img" style="background-image: url('assets/image_3.png');"></div>
+                <div class="showcase-overlay">
+                    <div class="overlay-label">Grand Tourer</div>
+                    <h3>JAVITRON GT</h3>
+                    <p>Luxurious Grand Tourer</p>
+                    <a href="#" class="view-btn" data-cursor="link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="showcase-item fade-up delay-3" data-cursor="explore">
+                <div class="showcase-img" style="background-image: url('assets/image_8.png');"></div>
+                <div class="showcase-overlay">
+                    <div class="overlay-label">Future Series</div>
+                    <h3>JAVITRON Electron</h3>
+                    <p>Next-gen electric supercar</p>
+                    <a href="#" class="view-btn" data-cursor="link">Explore <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== SPONSORS SECTION ===================== -->
+    <section id="sponsors" class="sponsors-section normal-content">
+        <div class="sponsors-bg-gradient"></div>
+        <div class="sponsors-particles"></div>
+
+        <div class="container">
+            <!-- Heading Area -->
+            <div class="sponsors-header fade-up">
+                <div class="section-label">— Our Partners</div>
+                <h2>OUR SPONSORS</h2>
+                <p class="sponsors-subtitle">Powered by Innovation and Support</p>
+            </div>
+
+            <!-- Sponsor Carousel -->
+            <div class="sponsor-carousel-container fade-up">
+                <div class="sponsor-carousel" id="sponsorCarousel">
+                    <!-- Title Sponsors -->
+                    <div class="sponsor-item" data-sponsor-id="adypu" data-sponsor-name="Ajeenkya D. Y. Patil University" data-sponsor-desc="Main Support Partner" data-sponsor-details="ADYPU provides comprehensive support including funding, technical expertise, and infrastructure for our Formula Student racing team.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="20">ADYPU</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="mechanical" data-sponsor-name="Mechanical Department" data-sponsor-desc="Technical Support" data-sponsor-details="Mechanical Department provides technical guidance, workshop facilities, and expert mentorship for vehicle design and manufacturing.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="18">Mechanical Dept</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Gold Sponsors -->
+                    <div class="sponsor-item" data-sponsor-id="gold1" data-sponsor-name="Gold Sponsor 1" data-sponsor-desc="Gold Partner" data-sponsor-details="Gold sponsor providing financial support and technical partnership.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">GOLD 1</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="gold2" data-sponsor-name="Gold Sponsor 2" data-sponsor-desc="Gold Partner" data-sponsor-details="Gold sponsor providing financial support and technical partnership.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">GOLD 2</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="gold3" data-sponsor-name="Gold Sponsor 3" data-sponsor-desc="Gold Partner" data-sponsor-details="Gold sponsor providing financial support and technical partnership.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 120 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">GOLD 3</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Support Partners -->
+                    <div class="sponsor-item" data-sponsor-id="partner1" data-sponsor-name="Partner 1" data-sponsor-desc="Support Partner" data-sponsor-details="Support partner providing essential components and services.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PARTNER 1</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="partner2" data-sponsor-name="Partner 2" data-sponsor-desc="Support Partner" data-sponsor-details="Support partner providing essential components and services.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PARTNER 2</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="partner3" data-sponsor-name="Partner 3" data-sponsor-desc="Support Partner" data-sponsor-details="Support partner providing essential components and services.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PARTNER 3</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sponsor-item" data-sponsor-id="partner4" data-sponsor-name="Partner 4" data-sponsor-desc="Support Partner" data-sponsor-details="Support partner providing essential components and services.">
+                        <div class="sponsor-logo-wrapper glass-panel">
+                            <div class="sponsor-logo">
+                                <svg viewBox="0 0 100 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="12">PARTNER 4</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="sponsors-cta fade-up delay-3">
+                <a href="#contact" class="btn btn-primary" data-cursor="link">
+                    Become a Sponsor
+                </a>
+                <p class="cta-text">Join us in building the future of racing.</p>
+                <div class="tagline">Built to Race. Engineered to Win.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsor Popup Modal -->
+    <div class="sponsor-popup-backdrop" id="sponsorPopupBackdrop"></div>
+    <div class="sponsor-popup" id="sponsorPopup">
+        <button class="sponsor-popup-close" id="sponsorPopupClose">×</button>
+        <h3 id="sponsorPopupName">Sponsor Name</h3>
+        <div class="sponsor-tier" id="sponsorPopupTier">Partner Type</div>
+        <p id="sponsorPopupDetails">Sponsor details will appear here.</p>
+    </div>
+
+    <!-- Developer Popup Modal -->
+    <div class="dev-popup-backdrop" id="devPopupBackdrop"></div>
+    <div class="dev-popup" id="devPopup">
+        <button class="dev-popup-close" id="devPopupClose">×</button>
+        <h3>not-brajesh</h3>
+        <div class="dev-title">Full Stack Developer</div>
+        <p>Passionate about building modern web experiences with cutting-edge technologies.</p>
+        <div class="dev-socials">
+            <a href="https://www.linkedin.com/in/not-brajesh" target="_blank" class="dev-social-link">
+                <i class="fab fa-linkedin"></i>
+                <span>LinkedIn</span>
+            </a>
+            <a href="https://www.instagram.com/notbrajesh" target="_blank" class="dev-social-link">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://wa.me/9576569747" target="_blank" class="dev-social-link">
+                <i class="fab fa-whatsapp"></i>
+                <span>WhatsApp</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- ===================== SPONSOR DETAIL OVERLAY ===================== -->
+    <div id="sponsor-overlay" class="sponsor-overlay">
+        <div class="overlay-backdrop"></div>
+        <div class="overlay-content">
+            <button class="overlay-close" data-cursor="link">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="overlay-inner">
+                <div class="sponsor-detail-logo" id="overlay-logo"></div>
+                <h2 class="sponsor-detail-name" id="overlay-name"></h2>
+                <p class="sponsor-detail-tagline" id="overlay-tagline"></p>
+                <p class="sponsor-detail-description" id="overlay-description"></p>
+                <div class="sponsor-detail-contribution">
+                    <h3>Contribution</h3>
+                    <ul id="overlay-contribution"></ul>
+                </div>
+                <a href="#contact" class="btn btn-primary overlay-cta" data-cursor="link">Get in Touch</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================== GALLERY SECTION ===================== -->
+    <section id="gallery" class="showcase-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Visual Journey</div>
+                <h2>Gallery</h2>
+                <p>Behind the scenes: our workshop, cars, team, and competition moments.</p>
+            </div>
+
+            <!-- Gallery Filter -->
+            <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap;" class="fade-up">
+                <button class="btn btn-primary" style="padding: 0.7rem 1.5rem; border-radius: 30px;">All</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Track</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Workshop</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Team</button>
+                <button class="btn btn-ghost" style="padding: 0.7rem 1.5rem; border-radius: 30px;">Competitions</button>
+            </div>
+
+            <div class="showcase-grid">
+                <div class="showcase-item fade-up" data-category="workshop">
+                    <div class="showcase-img" style="background-image: url('assets/image_5.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Workshop</div>
+                        <h3>Manufacturing Process</h3>
+                        <p>Precision assembly</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-1" data-category="vehicles">
+                    <div class="showcase-img" style="background-image: url('assets/image_6.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Vehicles</div>
+                        <h3>Javitron Mk-III</h3>
+                        <p>Aerodynamic design</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-2" data-category="team">
+                    <div class="showcase-img" style="background-image: url('assets/image_9.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Team</div>
+                        <h3>Our Engineers</h3>
+                        <p>Working together</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-3" data-category="competition">
+                    <div class="showcase-img" style="background-image: url('assets/image_3.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Competition</div>
+                        <h3>Track Action</h3>
+                        <p>Racing moments</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up" data-category="workshop">
+                    <div class="showcase-img" style="background-image: url('assets/image_7.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Workshop</div>
+                        <h3>Fabrication</h3>
+                        <p>Building components</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-1" data-category="vehicles">
+                    <div class="showcase-img" style="background-image: url('assets/image_1.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Vehicles</div>
+                        <h3>Aerodynamics</h3>
+                        <p>Wind tunnel testing</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-2" data-category="team">
+                    <div class="showcase-img" style="background-image: url('assets/image_10.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Team</div>
+                        <h3>Collaboration</h3>
+                        <p>Team meetings</p>
+                    </div>
+                </div>
+                <div class="showcase-item fade-up delay-3" data-category="competition">
+                    <div class="showcase-img" style="background-image: url('assets/image_2.png');"></div>
+                    <div class="showcase-overlay">
+                        <div class="overlay-label">Competition</div>
+                        <h3>Victory</h3>
+                        <p>Award ceremony</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== HIGHLIGHTS / MEDIA SECTION ===================== -->
+    <section id="highlights" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Media</div>
+                <h2>Highlights</h2>
+                <p>Instagram-style highlights from our journey.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🏁</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">GKDC 2024</h3>
+                        <p>Our championship run at Formula Bharat</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Practice Sessions</h3>
+                        <p>Driver training and track testing</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-2 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🛠️</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Workshops</h3>
+                        <p>Manufacturing and fabrication</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-3 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Designing</h3>
+                        <p>CAD modeling and CFD analysis</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Meetings</h3>
+                        <p>Team coordination and planning</p>
+                    </div>
+                </div>
+                <div class="team-card fade-up delay-1 glass-panel">
+                    <div class="team-info" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Awards</h3>
+                        <p>Celebrating our achievements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== RECRUITMENT / JOIN US SECTION ===================== -->
+    <section id="recruitment" class="team-section normal-content">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">— Join Us</div>
+                <h2>Recruitment</h2>
+                <p>Be part of Team Javitron Racing and build your engineering career.</p>
+            </div>
+
+            <div class="team-card fade-up glass-panel" style="margin-bottom: 3rem;">
+                <div class="team-info" style="padding: 3rem; text-align: center;">
+                    <h3 style="font-family: var(--font-display); font-size: 2.5rem; margin-bottom: 1rem;">Join Team Javitron Racing</h3>
+                    <p style="margin-bottom: 2rem;">We are looking for passionate engineering students to join our team. Gain hands-on experience in automotive design, manufacturing, and racing.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem;">⚙️</div>
+                            <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem;">Mechanical</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-mid);">Chassis, suspension, engine</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem;">🎨</div>
+                            <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem;">Design</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-mid);">Aerodynamics, CAD, CFD</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem;">📊</div>
+                            <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem;">Management</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-mid);">Operations, finance, marketing</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 2rem; color: var(--accent); margin-bottom: 0.5rem;">📸</div>
+                            <h4 style="font-family: var(--font-display); font-size: 1.2rem; margin-bottom: 0.5rem;">Media</h4>
+                            <p style="font-size: 0.85rem; color: var(--text-mid);">Photography, social media</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h4 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem;">Skills Required</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-mid);">CAD software (SolidWorks, CATIA), CFD analysis, programming, communication skills, teamwork, passion for motorsports.</p>
+                    </div>
+
+                    <a href="#contact" class="btn btn-primary" data-cursor="link">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== CAR UNOBSTRUCTED SPACE ===================== -->
+    <div class="car-showcase-space normal-content">
+        <div class="car-space-text fade-up">
+            <div class="section-label">— TEAM JAVITRON</div>
+            <h2>Built To Race<br>Driven By Passion</h2>
+        </div>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer id="contact" class="footer normal-content">
+        <div class="footer-glow"></div>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>TEAM JAVITRON RACING</h2>
+                <p>Formula Student Racing Team | Ajeenkya D. Y. Patil University, Pune</p>
+                <div class="footer-accent-line"></div>
+            </div>
+            <div class="footer-links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="#vehicle">Vehicle</a></li>
+                    <li><a href="#sponsors">Sponsors</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h3>Connect</h3>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/company/javitron-racing/posts/?feedView=all" target="_blank" data-cursor="link"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/team_javitron_racing?igsh=czMwN250YWxtZmZ0" target="_blank" data-cursor="link"><i class="fab fa-instagram"></i></a>
+                </div>
+                <div class="footer-newsletter">
+                    <p>Stay in the circuit.</p>
+                    <div class="newsletter-input">
+                        <input type="email" placeholder="your@email.com">
+                        <button>→</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Team Javitron Racing. All Rights Reserved.</p>
+            <p class="footer-made">Built to Race. Engineered to Win.</p>
+            <p class="footer-designed">Designed & Developed by <span style="color: var(--accent); cursor: pointer;" id="devCredit">not-brajesh</span></p>
+        </div>
+    </footer>
+
+    <!-- ===================== HIDDEN JOURNEY SECTION ===================== -->
+    <section id="journey-overlay" class="journey-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg-dark); z-index: 9999; overflow-y: auto;">
+        <div class="container">
+            <div class="journey-close-btn" id="closeJourney" style="position: fixed; top: 2rem; right: 2rem; background: var(--accent); color: var(--text-light); border: none; padding: 1rem 2rem; border-radius: 30px; cursor: pointer; font-family: var(--font-body); font-size: 1rem; letter-spacing: 0.1em; z-index: 10000;">✕ Close</div>
+            
+            <div class="back-to-home-btn" id="backToHome" style="position: fixed; top: 2rem; left: 2rem; background: transparent; color: var(--text-light); border: 1px solid var(--accent); padding: 1rem 2rem; border-radius: 30px; cursor: pointer; font-family: var(--font-body); font-size: 1rem; letter-spacing: 0.1em; z-index: 10000;">← Back to Home</div>
+            
+            <div class="section-header fade-up" style="margin-top: 4rem;">
+                <div class="section-label">— Our Story</div>
+                <h2 style="font-family: var(--font-display); font-size: 4rem; letter-spacing: 0.1em;">THE STORY OF JAVITRON</h2>
+                <p>From Passion to Performance</p>
+            </div>
+
+            <!-- Timeline -->
+            <div class="journey-timeline" style="margin-top: 4rem; position: relative; max-width: 1000px; margin-left: auto; margin-right: auto;">
+                <!-- Timeline Line -->
+                <div class="timeline-line" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); transform: translateX(-50%);"></div>
+                
+                <!-- 2025 - The Beginning -->
+                <div class="timeline-item timeline-left fade-up" style="margin-bottom: 4rem; position: relative;">
+                    <div class="timeline-dot" style="position: absolute; left: 50%; top: 2rem; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 20px var(--accent); z-index: 2;"></div>
+                    <div class="timeline-content glass-panel" style="max-width: 45%; margin-right: auto; padding: 2rem; margin-left: 0;">
+                        <div style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: bold;">2025</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1rem;">THE BEGINNING</h3>
+                        <p style="line-height: 1.7; color: var(--text-mid);">It started inside Ajeenkya D.Y. Patil University, where a group of passionate engineering students decided to build something extraordinary.</p>
+                        <p style="line-height: 1.7; color: var(--text-mid); margin-top: 0.5rem;">With no prior experience and limited resources, Team Javitron Racing took on the challenge of designing and building a competitive go-kart from scratch.</p>
+                    </div>
+                </div>
+                
+                <!-- 2025 - The Build -->
+                <div class="timeline-item timeline-right fade-up delay-1" style="margin-bottom: 4rem; position: relative;">
+                    <div class="timeline-dot" style="position: absolute; left: 50%; top: 2rem; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 20px var(--accent); z-index: 2;"></div>
+                    <div class="timeline-content glass-panel" style="max-width: 45%; margin-left: auto; padding: 2rem; margin-right: 0;">
+                        <div style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: bold;">2025</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1rem;">THE BUILD</h3>
+                        <p style="line-height: 1.7; color: var(--text-mid);">In just one month, the team worked day and night on design, fabrication, and testing — transforming ideas into a fully functional race machine.</p>
+                    </div>
+                </div>
+                
+                <!-- 2026 - The Breakthrough -->
+                <div class="timeline-item timeline-left fade-up delay-2" style="margin-bottom: 4rem; position: relative;">
+                    <div class="timeline-dot" style="position: absolute; left: 50%; top: 2rem; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 20px var(--accent); z-index: 2;"></div>
+                    <div class="timeline-content glass-panel" style="max-width: 45%; margin-right: auto; padding: 2rem; margin-left: 0;">
+                        <div style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: bold;">2026</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1rem;">THE BREAKTHROUGH</h3>
+                        <p style="margin-bottom: 1rem; line-height: 1.7; color: var(--text-mid);">At GKDC, the team entered as underdogs and achieved:</p>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 1rem;">
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; color: var(--text-mid);">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> 1st Position in Autocross
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; color: var(--text-mid);">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> 2nd in Design Evaluation
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; color: var(--text-mid);">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> 2nd in Acceleration
+                            </li>
+                            <li style="margin-bottom: 0.5rem; display: flex; align-items: center; color: var(--text-mid);">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> Cleanest Pit Award
+                            </li>
+                            <li style="display: flex; align-items: center; color: var(--text-mid);">
+                                <span style="color: var(--accent); margin-right: 0.5rem;">→</span> All India Rank 6
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Present - The Future -->
+                <div class="timeline-item timeline-right fade-up glass-panel" style="margin-bottom: 4rem; position: relative;">
+                    <div class="timeline-dot" style="position: absolute; left: 50%; top: 2rem; width: 16px; height: 16px; background: var(--accent); border-radius: 50%; transform: translateX(-50%); box-shadow: 0 0 20px var(--accent); z-index: 2;"></div>
+                    <div class="timeline-content" style="max-width: 45%; margin-left: auto; padding: 2rem; margin-right: 0;">
+                        <div style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); font-weight: bold;">PRESENT</div>
+                        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 1rem;">THE FUTURE</h3>
+                        <p style="line-height: 1.7; color: var(--text-mid);">Today, Team Javitron Racing continues to grow — building better machines, competing at higher levels, and pushing the limits of student engineering.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Journey Overlay Logic
+        const logo = document.getElementById('logoSwitch');
+        const journeyOverlay = document.getElementById('journey-overlay');
+        const closeJourney = document.getElementById('closeJourney');
+        const backToHome = document.getElementById('backToHome');
+        
+        // Get all main content sections
+        const mainSections = document.querySelectorAll('section:not(#journey-overlay), .stats-strip, .car-showcase-space, footer');
+
+        // Open Journey when logo is clicked
+        logo.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Hide all main sections
+            mainSections.forEach(section => {
+                section.style.display = 'none';
+            });
+            // Show Journey overlay
+            journeyOverlay.style.display = 'block';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close Journey when close button is clicked
+        closeJourney.addEventListener('click', function() {
+            // Hide Journey overlay
+            journeyOverlay.style.display = 'none';
+            // Show all main sections
+            mainSections.forEach(section => {
+                section.style.display = '';
+            });
+            document.body.style.overflow = 'auto';
+            // Reset logo to JAVITRON mode
+            if (logo) {
+                logo.textContent = 'JAVITRON';
+                logo.setAttribute('data-mode', 'normal');
+                logo.classList.remove('team-mode');
+                document.body.classList.remove('team-mode');
+            }
+        });
+
+        // Back to Home button
+        if (backToHome) {
+            backToHome.addEventListener('click', function() {
+                // Hide Journey overlay
+                journeyOverlay.style.display = 'none';
+                // Show all main sections
+                mainSections.forEach(section => {
+                    section.style.display = '';
+                });
+                document.body.style.overflow = 'auto';
+                // Reset logo to JAVITRON mode
+                if (logo) {
+                    logo.textContent = 'JAVITRON';
+                    logo.setAttribute('data-mode', 'normal');
+                    logo.classList.remove('team-mode');
+                    document.body.classList.remove('team-mode');
+                }
+                // Scroll to home section
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+
+        // Sponsor Overlay Logic
+        const sponsorOverlay = document.getElementById('sponsor-overlay');
+        const overlayClose = document.querySelector('.overlay-close');
+        const overlayLogo = document.getElementById('overlay-logo');
+        const overlayName = document.getElementById('overlay-name');
+        const overlayTagline = document.getElementById('overlay-tagline');
+        const overlayDescription = document.getElementById('overlay-description');
+        const overlayContribution = document.getElementById('overlay-contribution');
+
+        // Sponsor data
+        const sponsorData = {
+            'adypu': {
+                name: 'Ajeenkya D. Y. Patil University',
+                tagline: 'Empowering Innovation Through Engineering Excellence',
+                description: 'Ajeenkya D. Y. Patil University serves as the foundation of Team Javitron Racing, providing not only infrastructure but also continuous academic and technical support. The university fosters an environment where innovation thrives, enabling students to push boundaries in motorsport engineering.',
+                contribution: ['Workshop facilities', 'Technical mentorship', 'Financial and institutional support'],
+                logo: '<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="20">ADYPU</text></svg>'
+            },
+            'mechanical': {
+                name: 'Mechanical Department',
+                tagline: 'Engineering Precision. Driving Performance.',
+                description: 'The Mechanical Department plays a critical role in guiding the design, fabrication, and optimization of the race vehicle. With deep expertise in core engineering domains, the department ensures that every component meets high performance and safety standards.',
+                contribution: ['Design validation', 'Manufacturing guidance', 'Testing and performance analysis'],
+                logo: '<svg viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg"><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="18">Mechanical Dept</text></svg>'
+            }
+        };
+
+        // Open sponsor overlay
+        function openSponsorOverlay(sponsorId) {
+            const data = sponsorData[sponsorId];
+            if (!data) return;
+
+            overlayLogo.innerHTML = data.logo;
+            overlayName.textContent = data.name;
+            overlayTagline.textContent = data.tagline;
+            overlayDescription.textContent = data.description;
+            
+            overlayContribution.innerHTML = '';
+            data.contribution.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                overlayContribution.appendChild(li);
+            });
+
+            sponsorOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close sponsor overlay
+        function closeSponsorOverlay() {
+            sponsorOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Add click handlers to Title and Gold sponsors
+        document.querySelectorAll('.sponsor-card.clickable').forEach(card => {
+            card.addEventListener('click', function(e) {
+                e.preventDefault();
+                const sponsorId = this.dataset.sponsorId;
+                if (sponsorId) {
+                    openSponsorOverlay(sponsorId);
+                }
+            });
+        });
+
+        // Close button
+        overlayClose.addEventListener('click', closeSponsorOverlay);
+
+        // Close on backdrop click
+        sponsorOverlay.addEventListener('click', function(e) {
+            if (e.target === sponsorOverlay || e.target.classList.contains('overlay-backdrop')) {
+                closeSponsorOverlay();
+            }
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && sponsorOverlay.classList.contains('active')) {
+                closeSponsorOverlay();
+            }
+        });
+    </script>
+</body>
+
+</html>
