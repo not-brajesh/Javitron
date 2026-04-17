@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseParallax: { x: 0, y: 0 }, // desktop fallback
 
         CONFIG: {
-            modelPath: 'https://cdn.jsdelivr.net/gh/not-brajesh/Javitron@v1.0/assets/car.glb',
+            modelPath: 'https://github.com/not-brajesh/Javitron/releases/download/v1.0/car.glb',
             fov: 45,
 
             // Responsive scaling multipliers
@@ -526,12 +526,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const loader = new THREE.GLTFLoader();
 
-            // Temporarily disabled due to file size limit (110MB exceeds GitHub 100MB limit)
-            console.log('3D car model temporarily disabled due to file size limit');
-            return; // Skip 3D model loading for now
-
-            // Original loader.load code (commented out):
-            /*
             loader.load(
                 this.CONFIG.modelPath,
                 (gltf) => {
@@ -597,7 +591,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.error('CinematicCar: Model load failed', err);
                 }
             );
-            */
         },
 
         // Smooth bezier interpolation between keyframes
