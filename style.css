@@ -3610,10 +3610,26 @@ body.team-mode .navbar {
     .footer-bottom {
         margin-top: 0.1rem;
         padding-top: 0.1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
     }
 
     .footer-bottom p {
         font-size: 0.35rem !important;
+    }
+
+    .footer-designed {
+        display: block !important;
+        font-size: 0.4rem !important;
+    }
+
+    .footer-links ul {
+        display: none !important;
+    }
+
+    .mobile-scroll-top {
+        display: block !important;
     }
     
     /* Buttons */
