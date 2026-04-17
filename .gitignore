@@ -35,4 +35,3 @@ node_modules/
 # Build outputs (if any)
 dist/
 build/
-*.glb
