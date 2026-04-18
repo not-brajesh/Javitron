@@ -346,6 +346,8 @@ document.addEventListener('DOMContentLoaded', () => {
             desktopScale: 1,
             tabletScale: 0.8,
             mobileScale: 0.6,
+            ultraWideScale: 1.3,
+            largeDesktopScale: 1.15,
 
             // [2] SCROLL CHOREOGRAPHY
             // 5 keyframes: Front → Low Side → Headlight → Drone → Right Sweep
@@ -405,12 +407,47 @@ document.addEventListener('DOMContentLoaded', () => {
         },
 
         detectMobile() {
-            return window.innerWidth <= 600 || 
+            return window.innerWidth <= 600 ||
                    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         },
 
         detectTablet() {
             return window.innerWidth > 600 && window.innerWidth <= 1024;
+        },
+
+        detectScreenSize() {
+            const width = window.innerWidth;
+
+            if (width >= 2560) return 'ultraWide';
+            if (width >= 1920) return 'largeDesktop';
+            if (width >= 1440) return 'desktop';
+            if (width >= 1024) return 'laptop';
+            if (width >= 768) return 'tablet';
+            if (width >= 480) return 'mobileLandscape';
+            return 'mobilePortrait';
+        },
+
+        getScaleMultiplier() {
+            const screenSize = this.detectScreenSize();
+
+            switch(screenSize) {
+                case 'ultraWide':
+                    return this.CONFIG.ultraWideScale;
+                case 'largeDesktop':
+                    return this.CONFIG.largeDesktopScale;
+                case 'desktop':
+                    return this.CONFIG.desktopScale;
+                case 'laptop':
+                    return this.CONFIG.desktopScale * 0.9;
+                case 'tablet':
+                    return this.CONFIG.tabletScale;
+                case 'mobileLandscape':
+                    return this.CONFIG.mobileScale * 0.9;
+                case 'mobilePortrait':
+                    return this.CONFIG.mobileScale;
+                default:
+                    return this.CONFIG.desktopScale;
+            }
         },
 
         applyMobileOptimizations() {
@@ -538,13 +575,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     const maxDim = Math.max(size.x, size.y, size.z);
                     this.maxDim = maxDim; // Store for scroll-based scaling
 
-                    // Apply responsive scaling multiplier
-                    let scaleMultiplier = this.CONFIG.desktopScale;
-                    if (this.isMobile) {
-                        scaleMultiplier = this.CONFIG.mobileScale;
-                    } else if (this.isTablet) {
-                        scaleMultiplier = this.CONFIG.tabletScale;
-                    }
+                    // Apply responsive scaling multiplier based on automatic screen detection
+                    let scaleMultiplier = this.getScaleMultiplier();
 
                     // Increase base scale by 2x (from 2.0 to 4.0)
                     const targetScale = (4.0 / maxDim) * scaleMultiplier;
@@ -803,11 +835,25 @@ document.addEventListener('DOMContentLoaded', () => {
         handleResize(container) {
             window.addEventListener('resize', () => {
                 if (!this.camera || !this.renderer) return;
+
                 const w = container.clientWidth;
                 const h = container.clientHeight;
                 this.camera.aspect = w / h;
                 this.camera.updateProjectionMatrix();
                 this.renderer.setSize(w, h);
+
+                // Re-detect screen size and adjust car model scale
+                this.isMobile = this.detectMobile();
+                this.isTablet = this.detectTablet();
+
+                if (this.carModel) {
+                    const newScaleMultiplier = this.getScaleMultiplier();
+                    const box = new THREE.Box3().setFromObject(this.carModel);
+                    const size = box.getSize(new THREE.Vector3());
+                    const maxDim = Math.max(size.x, size.y, size.z);
+                    const targetScale = (4.0 / maxDim) * newScaleMultiplier;
+                    this.carModel.scale.setScalar(targetScale);
+                }
             });
         },
 
