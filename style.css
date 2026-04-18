@@ -3748,3 +3748,273 @@ body.team-mode .navbar {
         font-size: 0.7rem;
     }
 }
+
+/* ============================================================
+   COMPREHENSIVE RESPONSIVE DESIGN - All Screen Sizes
+   ============================================================ */
+
+/* Ultra-wide screens (49" curved monitors, ultra-wide displays) */
+@media (min-width: 2560px) {
+    .container {
+        max-width: 1600px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(3.5rem, 6vw, 5rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(2.5rem, 4vw, 4rem);
+    }
+
+    .team-card,
+    .sponsor-card {
+        transform: scale(1.1);
+    }
+}
+
+/* Large desktops (32" - 49" monitors, 4K TVs) */
+@media (min-width: 1920px) and (max-width: 2559px) {
+    .container {
+        max-width: 1400px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(3rem, 5vw, 4.5rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(2rem, 3.5vw, 3.5rem);
+    }
+}
+
+/* Desktops (24" - 32" monitors) */
+@media (min-width: 1440px) and (max-width: 1919px) {
+    .container {
+        max-width: 1200px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(2.5rem, 4vw, 3.5rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.8rem, 3vw, 2.8rem);
+    }
+}
+
+/* Laptops (13" - 17") */
+@media (min-width: 1024px) and (max-width: 1439px) {
+    .container {
+        max-width: 1100px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(2rem, 3.5vw, 3rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    }
+}
+
+/* Tablets (iPad, large tablets) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        max-width: 900px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.3rem, 3vw, 2rem);
+    }
+
+    .team-grid,
+    .sponsors-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile landscape (large phones in landscape) */
+@media (min-width: 480px) and (max-width: 767px) and (orientation: landscape) {
+    .container {
+        max-width: 700px;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .team-grid,
+    .sponsors-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile portrait (standard phones) */
+@media (max-width: 479px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .carousel-content h1 {
+        font-size: clamp(1.5rem, 8vw, 2rem);
+    }
+
+    .section-header h2 {
+        font-size: clamp(1.2rem, 6vw, 1.8rem);
+    }
+
+    .team-grid,
+    .sponsors-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Portrait orientation adjustments (phones in portrait) */
+@media (orientation: portrait) {
+    .carousel-content h1 {
+        font-size: clamp(1.5rem, 7vw, 3rem);
+    }
+}
+
+/* Landscape orientation adjustments (TVs, monitors in landscape) */
+@media (orientation: landscape) {
+    .carousel-content h1 {
+        font-size: clamp(2rem, 4vw, 4.5rem);
+    }
+}
+
+/* High DPI/Retina displays */
+@media (-webkit-min-device-pixel-ratio: 2),
+       (min-resolution: 192dpi) {
+    .team-card img,
+    .sponsor-card img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Touch devices (phones, tablets) */
+@media (hover: none) and (pointer: coarse) {
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .sponsor-card,
+    .team-card {
+        cursor: pointer;
+    }
+}
+
+/* Mouse devices (desktops, laptops) */
+@media (hover: hover) and (pointer: fine) {
+    .sponsor-card:hover,
+    .team-card:hover {
+        transform: translateY(-5px);
+    }
+}
+
+/* Dark mode preference */
+@media (prefers-color-scheme: dark) {
+    /* Already dark theme, but can add adjustments if needed */
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Fluid typography for automatic scaling */
+html {
+    font-size: clamp(14px, 0.875vw + 0.5rem, 18px);
+}
+
+/* Fluid spacing */
+.section {
+    padding: clamp(3rem, 8vh, 6rem) 0;
+}
+
+/* Responsive 3D car model */
+#car-canvas-container {
+    width: 100%;
+    height: 100vh;
+    max-height: clamp(400px, 60vh, 800px);
+}
+
+/* Responsive images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive videos */
+video,
+iframe {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Responsive tables */
+table {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Automatic font scaling based on viewport */
+h1 {
+    font-size: clamp(1.8rem, 4vw, 4rem);
+}
+
+h2 {
+    font-size: clamp(1.5rem, 3vw, 3rem);
+}
+
+h3 {
+    font-size: clamp(1.2rem, 2.5vw, 2rem);
+}
+
+p {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+}
+
+/* Responsive padding/margins */
+.container {
+    padding: 0 clamp(1rem, 2vw, 2rem);
+}
+
+/* Responsive grid layouts */
+.team-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+.sponsors-grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(1rem, 2vw, 2rem);
+}
+
+/* Responsive buttons */
+.btn {
+    padding: clamp(0.6rem, 1vw, 1rem) clamp(1.2rem, 2vw, 2rem);
+    font-size: clamp(0.85rem, 1.2vw, 1rem);
+}
+
+/* Responsive navigation */
+.nav-links {
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+}
+
+/* Responsive footer */
+.footer-container {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: clamp(2rem, 4vw, 3rem);
+}
