@@ -1,5 +1,6 @@
 
 
+---
 
 ## 🔁 1. GCD using Recursion
 
@@ -15,7 +16,8 @@ int gcd(int a, int b){
 int main(){
     int a,b;
     scanf("%d %d",&a,&b);
-    printf("GCD = %d", gcd(a,b));
+    printf("GCD = %d\n", gcd(a,b));
+    return 0;
 }
 ```
 
@@ -52,7 +54,9 @@ int main(){
     printf("Length = %d\n", length(s1));
 
     concat(s1, s2);
-    printf("Concatenated = %s", s1);
+    printf("Concatenated = %s\n", s1);
+
+    return 0;
 }
 ```
 
@@ -66,6 +70,7 @@ int main(){
 int main(){
     int n,i,j,min,temp;
     scanf("%d",&n);
+
     int arr[n];
 
     for(i=0;i<n;i++) scanf("%d",&arr[i]);
@@ -82,6 +87,8 @@ int main(){
     }
 
     for(i=0;i<n;i++) printf("%d ",arr[i]);
+
+    return 0;
 }
 ```
 
@@ -95,6 +102,7 @@ int main(){
 int main(){
     int n,i,j,key;
     scanf("%d",&n);
+
     int arr[n];
 
     for(i=0;i<n;i++) scanf("%d",&arr[i]);
@@ -111,6 +119,8 @@ int main(){
     }
 
     for(i=0;i<n;i++) printf("%d ",arr[i]);
+
+    return 0;
 }
 ```
 
@@ -137,19 +147,25 @@ void push(int x){
 }
 
 void pop(){
-    if(top==NULL) printf("Underflow");
-    else{
-        struct node *temp=top;
-        printf("%d", temp->data);
-        top=top->next;
-        free(temp);
+    if(top==NULL){
+        printf("Underflow\n");
+        return;
     }
+
+    struct node *temp=top;
+    printf("%d\n", temp->data);
+    top=top->next;
+    free(temp);
 }
 
 int main(){
     push(10);
     push(20);
     pop();
+    pop();
+    pop(); // test underflow
+
+    return 0;
 }
 ```
 
@@ -173,28 +189,39 @@ void enqueue(int x){
     newnode->data=x;
     newnode->next=NULL;
 
-    if(rear==NULL)
+    if(rear==NULL){
         front=rear=newnode;
-    else{
-        rear->next=newnode;
-        rear=newnode;
+        return;
     }
+
+    rear->next=newnode;
+    rear=newnode;
 }
 
 void dequeue(){
-    if(front==NULL) printf("Underflow");
-    else{
-        struct node *temp=front;
-        printf("%d", temp->data);
-        front=front->next;
-        free(temp);
+    if(front==NULL){
+        printf("Underflow\n");
+        return;
     }
+
+    struct node *temp=front;
+    printf("%d\n", temp->data);
+    front=front->next;
+
+    if(front==NULL)
+        rear=NULL;
+
+    free(temp);
 }
 
 int main(){
     enqueue(10);
     enqueue(20);
     dequeue();
+    dequeue();
+    dequeue(); // test underflow
+
+    return 0;
 }
 ```
 
@@ -214,15 +241,16 @@ struct node{
 struct node *head=NULL;
 
 void create(int n){
-    struct node *temp,*newnode;
+    struct node *temp=NULL,*newnode;
 
     for(int i=0;i<n;i++){
         newnode=(struct node*)malloc(sizeof(struct node));
         scanf("%d",&newnode->data);
         newnode->next=NULL;
 
-        if(head==NULL) head=temp=newnode;
-        else{
+        if(head==NULL){
+            head=temp=newnode;
+        } else{
             temp->next=newnode;
             temp=newnode;
         }
@@ -232,22 +260,26 @@ void create(int n){
 void display(){
     struct node *temp=head;
     while(temp!=NULL){
-        printf("%d->",temp->data);
+        printf("%d -> ",temp->data);
         temp=temp->next;
     }
+    printf("NULL\n");
 }
 
 int main(){
     int n;
     scanf("%d",&n);
+
     create(n);
     display();
+
+    return 0;
 }
 ```
 
 ---
 
-## ❌ 8. Delete First Node in Linked List
+## 🔗 8. Delete First Node in Linked List
 
 ```c
 #include <stdio.h>
@@ -260,7 +292,6 @@ struct node{
 
 struct node *head = NULL;
 
-// insert at end (taaki data aa sake)
 void insert(int val){
     struct node *newnode = (struct node*)malloc(sizeof(struct node));
     newnode->data = val;
@@ -279,7 +310,10 @@ void insert(int val){
 }
 
 void deleteFirst(){
-    if(head == NULL) return;
+    if(head == NULL){
+        printf("List Empty\n");
+        return;
+    }
 
     struct node *temp = head;
     head = head->next;
@@ -311,7 +345,7 @@ int main(){
 
 ---
 
-## 🌳 9. Binary Tree Traversal
+## 🌳 9. Binary Tree Traversal (Inorder)
 
 ```c
 #include <stdio.h>
@@ -343,12 +377,14 @@ int main(){
     root->right=create(3);
 
     inorder(root);
+
+    return 0;
 }
 ```
 
 ---
 
-## 🌐 10. Graph Traversal (BFS & DFS)
+## 🌐 10. Graph Traversal (DFS & BFS)
 
 ```c
 #include <stdio.h>
@@ -391,13 +427,21 @@ int main(){
         for(int j=0;j<n;j++)
             scanf("%d",&graph[i][j]);
 
+    // DFS
+    for(int i=0;i<n;i++) visited[i]=0;
     dfs(0);
 
+    // BFS
     for(int i=0;i<n;i++) visited[i]=0;
-
     printf("\n");
     bfs(0);
+
+    return 0;
 }
 ```
 
 ---
+
+
+👉 main isko **professional GitHub project (badges + folder structure)** bana deta hoon
+👉 ya **viva questions + expected outputs** bhi de deta hoon
