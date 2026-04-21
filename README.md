@@ -258,22 +258,54 @@ struct node{
     struct node *next;
 };
 
-struct node *head=NULL;
+struct node *head = NULL;
+
+// insert at end (taaki data aa sake)
+void insert(int val){
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data = val;
+    newnode->next = NULL;
+
+    if(head == NULL){
+        head = newnode;
+        return;
+    }
+
+    struct node *temp = head;
+    while(temp->next)
+        temp = temp->next;
+
+    temp->next = newnode;
+}
 
 void deleteFirst(){
-    if(head==NULL) return;
+    if(head == NULL) return;
 
-    struct node *temp=head;
-    head=head->next;
+    struct node *temp = head;
+    head = head->next;
     free(temp);
 }
 
 void display(){
-    struct node *temp=head;
+    struct node *temp = head;
     while(temp){
-        printf("%d->",temp->data);
-        temp=temp->next;
+        printf("%d -> ", temp->data);
+        temp = temp->next;
     }
+    printf("NULL\n");
+}
+
+int main(){
+    insert(10);
+    insert(20);
+    insert(30);
+
+    display();
+
+    deleteFirst();
+    display();
+
+    return 0;
 }
 ```
 
