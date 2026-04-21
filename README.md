@@ -1,85 +1,149 @@
-Here’s your **clean, properly formatted README.md** (copy–paste ready):
 
----
 
-# 📘 Data Structures & C Programs
 
-This repository contains basic C programs for fundamental concepts like searching, stack, queue, linked list, recursion, etc.
-
----
-
-## 🔍 1. Linear Search
+## 🔁 1. GCD using Recursion
 
 ```c
 #include <stdio.h>
-int main() {
-    int n, i, key;
-    scanf("%d", &n);
-    int arr[n];
 
-    for(i=0;i<n;i++) scanf("%d",&arr[i]);
+int gcd(int a, int b){
+    if(b==0)
+        return a;
+    return gcd(b, a % b);
+}
 
-    scanf("%d",&key);
-
-    for(i=0;i<n;i++){
-        if(arr[i]==key){
-            printf("Found at %d", i+1);
-            return 0;
-        }
-    }
-    printf("Not Found");
+int main(){
+    int a,b;
+    scanf("%d %d",&a,&b);
+    printf("GCD = %d", gcd(a,b));
 }
 ```
 
 ---
 
-## 🔍 2. Binary Search
+## 🔗 2. String Length & Concatenation using Pointers
 
 ```c
 #include <stdio.h>
-int main() {
-    int n, i, key, low=0, high, mid;
+
+int length(char *str){
+    int count=0;
+    while(*str!='\0'){
+        count++;
+        str++;
+    }
+    return count;
+}
+
+void concat(char *s1, char *s2){
+    while(*s1!='\0') s1++;
+    while(*s2!='\0'){
+        *s1 = *s2;
+        s1++;
+        s2++;
+    }
+    *s1 = '\0';
+}
+
+int main(){
+    char s1[100], s2[100];
+    scanf("%s %s", s1, s2);
+
+    printf("Length = %d\n", length(s1));
+
+    concat(s1, s2);
+    printf("Concatenated = %s", s1);
+}
+```
+
+---
+
+## 📊 3. Selection Sort
+
+```c
+#include <stdio.h>
+
+int main(){
+    int n,i,j,min,temp;
     scanf("%d",&n);
     int arr[n];
 
     for(i=0;i<n;i++) scanf("%d",&arr[i]);
 
-    scanf("%d",&key);
-
-    high=n-1;
-
-    while(low<=high){
-        mid=(low+high)/2;
-
-        if(arr[mid]==key){
-            printf("Found at %d",mid+1);
-            return 0;
+    for(i=0;i<n-1;i++){
+        min=i;
+        for(j=i+1;j<n;j++){
+            if(arr[j]<arr[min])
+                min=j;
         }
-        else if(arr[mid]<key) low=mid+1;
-        else high=mid-1;
+        temp=arr[i];
+        arr[i]=arr[min];
+        arr[min]=temp;
     }
-    printf("Not Found");
+
+    for(i=0;i<n;i++) printf("%d ",arr[i]);
 }
 ```
 
 ---
 
-## 📚 3. Stack using Array
+## 📊 4. Insertion Sort
 
 ```c
 #include <stdio.h>
-#define MAX 5
 
-int stack[MAX], top=-1;
+int main(){
+    int n,i,j,key;
+    scanf("%d",&n);
+    int arr[n];
+
+    for(i=0;i<n;i++) scanf("%d",&arr[i]);
+
+    for(i=1;i<n;i++){
+        key=arr[i];
+        j=i-1;
+
+        while(j>=0 && arr[j]>key){
+            arr[j+1]=arr[j];
+            j--;
+        }
+        arr[j+1]=key;
+    }
+
+    for(i=0;i<n;i++) printf("%d ",arr[i]);
+}
+```
+
+---
+
+## 📚 5. Stack using Pointers
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *top=NULL;
 
 void push(int x){
-    if(top==MAX-1) printf("Overflow");
-    else stack[++top]=x;
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    newnode->data=x;
+    newnode->next=top;
+    top=newnode;
 }
 
 void pop(){
-    if(top==-1) printf("Underflow");
-    else printf("%d", stack[top--]);
+    if(top==NULL) printf("Underflow");
+    else{
+        struct node *temp=top;
+        printf("%d", temp->data);
+        top=top->next;
+        free(temp);
+    }
 }
 
 int main(){
@@ -91,25 +155,40 @@ int main(){
 
 ---
 
-## 📚 4. Queue using Array
+## 📚 6. Queue using Pointers
 
 ```c
 #include <stdio.h>
-#define MAX 5
+#include <stdlib.h>
 
-int q[MAX], front=-1, rear=-1;
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *front=NULL,*rear=NULL;
 
 void enqueue(int x){
-    if(rear==MAX-1) printf("Overflow");
+    struct node *newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=x;
+    newnode->next=NULL;
+
+    if(rear==NULL)
+        front=rear=newnode;
     else{
-        if(front==-1) front=0;
-        q[++rear]=x;
+        rear->next=newnode;
+        rear=newnode;
     }
 }
 
 void dequeue(){
-    if(front==-1 || front>rear) printf("Underflow");
-    else printf("%d", q[front++]);
+    if(front==NULL) printf("Underflow");
+    else{
+        struct node *temp=front;
+        printf("%d", temp->data);
+        front=front->next;
+        free(temp);
+    }
 }
 
 int main(){
@@ -121,7 +200,7 @@ int main(){
 
 ---
 
-## 🔗 5. Linked List (Create & Display)
+## 🔗 7. Singly Linked List (Create & Display)
 
 ```c
 #include <stdio.h>
@@ -168,153 +247,125 @@ int main(){
 
 ---
 
-## 🔄 6. Reverse Array
+## ❌ 8. Delete First Node in Linked List
 
 ```c
 #include <stdio.h>
-int main() {
-    int n, i;
-    scanf("%d", &n);
-    int arr[n];
+#include <stdlib.h>
 
-    for(i=0;i<n;i++) scanf("%d",&arr[i]);
+struct node{
+    int data;
+    struct node *next;
+};
 
-    for(i=n-1;i>=0;i--) printf("%d ", arr[i]);
+struct node *head=NULL;
+
+void deleteFirst(){
+    if(head==NULL) return;
+
+    struct node *temp=head;
+    head=head->next;
+    free(temp);
 }
-```
 
----
-
-## 📊 7. Max & Min in Array
-
-```c
-#include <stdio.h>
-int main() {
-    int n, i, max, min;
-    scanf("%d",&n);
-    int arr[n];
-
-    for(i=0;i<n;i++) scanf("%d",&arr[i]);
-
-    max = min = arr[0];
-
-    for(i=1;i<n;i++){
-        if(arr[i]>max) max=arr[i];
-        if(arr[i]<min) min=arr[i];
+void display(){
+    struct node *temp=head;
+    while(temp){
+        printf("%d->",temp->data);
+        temp=temp->next;
     }
-
-    printf("Max=%d Min=%d", max, min);
 }
 ```
 
 ---
 
-## 🔁 8. Factorial (Recursion)
+## 🌳 9. Binary Tree Traversal
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    int data;
+    struct node *left,*right;
+};
+
+struct node* create(int data){
+    struct node* newnode=(struct node*)malloc(sizeof(struct node));
+    newnode->data=data;
+    newnode->left=newnode->right=NULL;
+    return newnode;
+}
+
+void inorder(struct node* root){
+    if(root){
+        inorder(root->left);
+        printf("%d ",root->data);
+        inorder(root->right);
+    }
+}
+
+int main(){
+    struct node* root=create(1);
+    root->left=create(2);
+    root->right=create(3);
+
+    inorder(root);
+}
+```
+
+---
+
+## 🌐 10. Graph Traversal (BFS & DFS)
 
 ```c
 #include <stdio.h>
 
-int fact(int n){
-    if(n==0 || n==1)
-        return 1;
-    else
-        return n * fact(n-1);
+int graph[10][10], visited[10], n;
+
+void dfs(int v){
+    printf("%d ",v);
+    visited[v]=1;
+
+    for(int i=0;i<n;i++){
+        if(graph[v][i] && !visited[i])
+            dfs(i);
+    }
+}
+
+void bfs(int v){
+    int queue[10], front=0,rear=0;
+
+    visited[v]=1;
+    queue[rear++]=v;
+
+    while(front<rear){
+        int node=queue[front++];
+        printf("%d ",node);
+
+        for(int i=0;i<n;i++){
+            if(graph[node][i] && !visited[i]){
+                visited[i]=1;
+                queue[rear++]=i;
+            }
+        }
+    }
 }
 
 int main(){
-    int n;
     scanf("%d",&n);
-    printf("%d", fact(n));
+
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            scanf("%d",&graph[i][j]);
+
+    dfs(0);
+
+    for(int i=0;i<n;i++) visited[i]=0;
+
+    printf("\n");
+    bfs(0);
 }
 ```
 
 ---
-
-## 🔁 9. Fibonacci (Recursion)
-
-```c
-#include <stdio.h>
-
-int fib(int n){
-    if(n==0) return 0;
-    if(n==1) return 1;
-    return fib(n-1) + fib(n-2);
-}
-
-int main(){
-    int n,i;
-    scanf("%d",&n);
-
-    for(i=0;i<n;i++)
-        printf("%d ", fib(i));
-}
-```
-
----
-
-## 🔁 10. Sum of Digits (Recursion)
-
-```c
-#include <stdio.h>
-
-int sum(int n){
-    if(n==0)
-        return 0;
-    else
-        return (n%10) + sum(n/10);
-}
-
-int main(){
-    int n;
-    scanf("%d",&n);
-    printf("%d", sum(n));
-}
-```
-
----
-
-## 🔁 11. Reverse Number (Recursion)
-
-```c
-#include <stdio.h>
-
-int rev(int n, int r){
-    if(n==0)
-        return r;
-    else
-        return rev(n/10, r*10 + n%10);
-}
-
-int main(){
-    int n;
-    scanf("%d",&n);
-    printf("%d", rev(n,0));
-}
-```
-
----
-
-## 🔁 12. Power of Number (Recursion)
-
-```c
-#include <stdio.h>
-
-int power(int a, int b){
-    if(b==0)
-        return 1;
-    else
-        return a * power(a, b-1);
-}
-
-int main(){
-    int a,b;
-    scanf("%d %d",&a,&b);
-    printf("%d", power(a,b));
-}
-```
-
----
-
-✅ **Done — clean, structured, GitHub-ready README**
-
-If you want, I can make it **🔥 premium GitHub style (badges + table + navigation + output examples)** — just tell me.
