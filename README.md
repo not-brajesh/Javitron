@@ -441,7 +441,3 @@ int main(){
 ```
 
 ---
-
-
-👉 main isko **professional GitHub project (badges + folder structure)** bana deta hoon
-👉 ya **viva questions + expected outputs** bhi de deta hoon
