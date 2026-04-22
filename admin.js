@@ -165,14 +165,18 @@ async function checkAdminAccess() {
 
         const userData = userDoc.data();
 
+        // TEMPORARILY DISABLE ADMIN CHECK - allow all logged-in users to access
+        // Uncomment this to re-enable admin access check
+        /*
         // Check if user has admin role
         if (userData.role !== 'admin' && userData.teamRole !== 'admin') {
             showError('Access denied. Admin privileges required.');
             loading.innerHTML = '<p style="color: #ff6b6b;">Access denied. Admin privileges required.</p>';
             return;
         }
+        */
 
-        // User is admin, show admin content
+        // User is admin (or temporarily allowed), show admin content
         loading.style.display = 'none';
         adminContent.style.display = 'block';
         loadTeamCodes();

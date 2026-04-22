@@ -3,8 +3,6 @@ import { app, auth, db } from "./firebase-config.js";
 import {
     signInWithEmailAndPassword,
     createUserWithEmailAndPassword,
-    signInWithPopup,
-    GoogleAuthProvider,
     onAuthStateChanged,
     setPersistence,
     browserLocalPersistence
@@ -22,14 +20,10 @@ setPersistence(auth, browserLocalPersistence).catch((error) => {
     console.error('Error setting auth persistence:', error);
 });
 
-// Initialize Google Provider
-const googleProvider = new GoogleAuthProvider();
-
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const loginTab = document.getElementById('loginTab');
 const registerTab = document.getElementById('registerTab');
-const googleAuthBtn = document.getElementById('googleAuthBtn');
 const errorMessage = document.getElementById('errorMessage');
 const successMessage = document.getElementById('successMessage');
 
@@ -185,51 +179,6 @@ registerForm.addEventListener('submit', async (e) => {
         }, 1500);
     } catch (error) {
         registerForm.classList.remove('loading');
-        showError(error.message);
-    }
-});
-
-// Google Authentication
-googleAuthBtn.addEventListener('click', async () => {
-    clearMessages();
-    googleAuthBtn.classList.add('loading');
-
-    try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
-
-        // Check if user profile exists
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-
-        if (!userDoc.exists()) {
-            // Create user document
-            await setDoc(doc(db, 'users', user.uid), {
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                createdAt: serverTimestamp(),
-                role: 'member',
-                profileCompleted: false
-            });
-
-            showSuccess('Google login successful! Redirecting to complete profile...');
-            setTimeout(() => {
-                window.location.href = 'complete-profile.html';
-            }, 1500);
-        } else {
-            const userData = userDoc.data();
-
-            // Check if user is admin
-            const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
-
-            // Redirect to admin page if admin, otherwise profile page
-            showSuccess('Google login successful! Redirecting...');
-            setTimeout(() => {
-                window.location.href = isAdmin ? 'admin.html' : 'profile.html';
-            }, 1500);
-        }
-    } catch (error) {
-        googleAuthBtn.classList.remove('loading');
         showError(error.message);
     }
 });
