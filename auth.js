@@ -164,7 +164,7 @@ googleAuthBtn.addEventListener('click', async () => {
     googleAuthBtn.classList.add('loading');
 
     try {
-        const result = await auth.signInWithPopup(googleProvider);
+        const result = await auth.signInWithPopup(window.googleProvider);
         const user = result.user;
 
         // Check if user profile exists

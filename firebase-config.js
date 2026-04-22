@@ -17,5 +17,5 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-// Google Auth Provider
-const googleProvider = new firebase.auth.GoogleAuthProvider();
+// Google Auth Provider - Make globally accessible
+window.googleProvider = new firebase.auth.GoogleAuthProvider();
