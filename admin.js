@@ -40,8 +40,11 @@ if (goToProfileBtn) {
 
 // Make Me Admin
 if (makeMeAdminBtn) {
+    console.log('Make Me Admin button found');
     makeMeAdminBtn.addEventListener('click', async () => {
+        console.log('Make Me Admin button clicked');
         const user = auth.currentUser;
+        console.log('Current user:', user);
 
         if (!user) {
             makeAdminResult.style.display = 'block';
@@ -55,6 +58,8 @@ if (makeMeAdminBtn) {
             makeAdminResult.style.background = 'rgba(255, 255, 255, 0.1)';
             makeAdminResult.innerHTML = '<p>Making you admin...</p>';
 
+            console.log('Updating user document:', user.uid);
+
             // Update current user role to admin
             await updateDoc(doc(db, 'users', user.uid), {
                 role: 'admin',
@@ -64,6 +69,7 @@ if (makeMeAdminBtn) {
             makeAdminResult.style.background = 'rgba(0, 255, 0, 0.2)';
             makeAdminResult.innerHTML = '<p style="color: #4ade80;">Successfully made you an admin!</p>';
             makeAdminResult.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for changes to take effect.</p>';
+            makeAdminResult.innerHTML += '<p style="margin-top: 10px;"><a href="login.html" style="color: #4ade80;">Click here to logout and login again</a></p>';
 
             console.log('Admin created successfully for:', user.email);
 
@@ -73,6 +79,8 @@ if (makeMeAdminBtn) {
             console.error('Error making admin:', error);
         }
     });
+} else {
+    console.log('Make Me Admin button not found');
 }
 
 // Logout
