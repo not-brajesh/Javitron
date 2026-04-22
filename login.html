@@ -223,6 +223,31 @@
             pointer-events: none;
         }
 
+        /* Custom Cursor */
+        .cursor {
+            width: 12px;
+            height: 12px;
+            background: #ff6b35;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            transition: all 0.15s ease;
+        }
+
         @media (max-width: 768px) {
             .auth-box {
                 padding: 2rem;
@@ -302,7 +327,12 @@
         </div>
     </div>
 
+    <!-- CURSOR -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-follower" id="cursorFollower"></div>
+
     <!-- Firebase SDK - Modular -->
     <script type="module" src="auth.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
