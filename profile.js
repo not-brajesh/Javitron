@@ -18,10 +18,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const editProfileBtn = document.getElementById('editProfileBtn');
     const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
+    const chatBtn = document.getElementById('chatBtn');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
 
     console.log('DOM loaded - editProfileBtn:', editProfileBtn);
+
+    // Chat
+    if (chatBtn) {
+        chatBtn.addEventListener('click', () => {
+            window.location.href = 'chat.html';
+        });
+    }
 
     // Go to Website
     if (goToWebsiteBtn) {

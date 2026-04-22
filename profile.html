@@ -60,6 +60,24 @@
             transform: translateY(-2px);
         }
 
+        .btn-chat {
+            background: rgba(107, 107, 255, 0.2);
+            color: #6b6bff;
+            border: 1px solid rgba(107, 107, 255, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+
+        .btn-chat:hover {
+            background: rgba(107, 107, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
         .btn-edit {
             background: rgba(255, 107, 53, 0.2);
             color: #ff6b35;
@@ -360,6 +378,9 @@
         <div class="profile-header">
             <h1>My Profile</h1>
             <div class="profile-actions">
+                <button class="btn-chat" id="chatBtn">
+                    <i class="fas fa-comments"></i> Chat
+                </button>
                 <button class="btn-website" id="goToWebsiteBtn">
                     <i class="fas fa-home"></i> Go to Website
                 </button>
