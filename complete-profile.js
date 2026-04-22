@@ -22,6 +22,8 @@ const photoPreview = document.getElementById('photoPreview');
 const errorMessage = document.getElementById('errorMessage');
 const successMessage = document.getElementById('successMessage');
 const submitBtn = document.querySelector('.btn-submit');
+const loadingOverlay = document.getElementById('loadingOverlay');
+const loadingText = document.getElementById('loadingText');
 
 let photoFile = null;
 let isEditMode = false;
@@ -50,6 +52,17 @@ photoInput.addEventListener('change', (e) => {
     }
 });
 
+// Show loading overlay
+function showLoading(text = 'Updating profile...') {
+    loadingText.textContent = text;
+    loadingOverlay.classList.add('active');
+}
+
+// Hide loading overlay
+function hideLoading() {
+    loadingOverlay.classList.remove('active');
+}
+
 // Clear messages
 function clearMessages() {
     errorMessage.style.display = 'none';
@@ -70,39 +83,48 @@ function showSuccess(message) {
     errorMessage.style.display = 'none';
 }
 
-// Upload photo to Firebase Storage
+// Upload photo to Firebase Storage (optimized)
 async function uploadPhoto(userId, file) {
     if (!file) return null;
 
-    const storageRef = ref(storage, `profile-photos/${userId}/${Date.now()}_${file.name}`);
-    const snapshot = await uploadBytes(storageRef, file);
-    return await getDownloadURL(snapshot.ref);
-}
-
-// Load existing profile data for edit
-async function loadExistingProfile() {
-    const editData = sessionStorage.getItem('editProfileData');
-    if (editData) {
-        const userData = JSON.parse(editData);
-
-        // Pre-fill form fields
-        document.getElementById('department').value = userData.department || '';
-        document.getElementById('role').value = userData.role || '';
-        document.getElementById('linkedin').value = userData.linkedin || '';
-        document.getElementById('instagram').value = userData.instagram || '';
-        document.getElementById('whatsapp').value = userData.whatsapp || '';
-        document.getElementById('bio').value = userData.bio || '';
-
-        // Show existing photo
-        if (userData.photoURL) {
-            photoPreview.innerHTML = `<img src="${userData.photoURL}" alt="Profile Photo">`;
-        }
-
-        sessionStorage.removeItem('editProfileData');
+    try {
+        const storageRef = ref(storage, `profile-photos/${userId}/${Date.now()}_${file.name}`);
+        const snapshot = await uploadBytes(storageRef, file);
+        return await getDownloadURL(snapshot.ref);
+    } catch (error) {
+        console.error('Photo upload error:', error);
+        throw error;
     }
 }
 
-// Submit profile form
+// Load existing profile data for edit (optimized)
+async function loadExistingProfile() {
+    const editData = sessionStorage.getItem('editProfileData');
+    if (editData) {
+        try {
+            const userData = JSON.parse(editData);
+
+            // Pre-fill form fields
+            document.getElementById('department').value = userData.department || '';
+            document.getElementById('role').value = userData.role || '';
+            document.getElementById('linkedin').value = userData.linkedin || '';
+            document.getElementById('instagram').value = userData.instagram || '';
+            document.getElementById('whatsapp').value = userData.whatsapp || '';
+            document.getElementById('bio').value = userData.bio || '';
+
+            // Show existing photo
+            if (userData.photoURL) {
+                photoPreview.innerHTML = `<img src="${userData.photoURL}" alt="Profile Photo">`;
+            }
+
+            sessionStorage.removeItem('editProfileData');
+        } catch (error) {
+            console.error('Error loading existing profile:', error);
+        }
+    }
+}
+
+// Submit profile form (optimized)
 profileForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearMessages();
@@ -115,20 +137,30 @@ profileForm.addEventListener('submit', async (e) => {
     }
 
     try {
-        profileForm.classList.add('loading');
+        showLoading('Updating profile...');
 
-        // Upload photo if selected
-        let photoURL = user.photoURL;
-        if (photoFile) {
-            photoURL = await uploadPhoto(user.uid, photoFile);
-        } else if (isEditMode) {
-            // Keep existing photo if not changed in edit mode
-            const userDoc = await getDoc(doc(db, 'users', user.uid));
-            if (userDoc.exists()) {
-                photoURL = userDoc.data().photoURL || user.photoURL;
+        // Get existing data first (only in edit mode)
+        let existingPhotoURL = user.photoURL;
+        if (isEditMode) {
+            try {
+                const userDoc = await getDoc(doc(db, 'users', user.uid));
+                if (userDoc.exists()) {
+                    existingPhotoURL = userDoc.data().photoURL || user.photoURL;
+                }
+            } catch (error) {
+                console.error('Error fetching existing data:', error);
             }
         }
 
+        // Upload photo if selected (parallel processing)
+        let photoURL = existingPhotoURL;
+        if (photoFile) {
+            showLoading('Uploading photo...');
+            photoURL = await uploadPhoto(user.uid, photoFile);
+        }
+
+        // Prepare profile data
+        showLoading('Saving profile...');
         const profileData = {
             department: document.getElementById('department').value,
             role: document.getElementById('role').value,
@@ -141,23 +173,25 @@ profileForm.addEventListener('submit', async (e) => {
             updatedAt: serverTimestamp()
         };
 
+        // Save to Firestore
         if (isEditMode) {
-            // Update existing profile
             await updateDoc(doc(db, 'users', user.uid), profileData);
-            showSuccess('Profile updated successfully! Redirecting to profile page...');
         } else {
-            // Create new profile
             profileData.createdAt = serverTimestamp();
             await setDoc(doc(db, 'users', user.uid), profileData);
-            showSuccess('Profile completed successfully! Redirecting to profile page...');
         }
 
+        hideLoading();
+        showSuccess(isEditMode ? 'Profile updated successfully!' : 'Profile completed successfully!');
+
+        // Quick redirect
         setTimeout(() => {
             window.location.href = 'profile.html';
-        }, 1500);
+        }, 800);
     } catch (error) {
-        profileForm.classList.remove('loading');
-        showError(error.message);
+        hideLoading();
+        console.error('Profile update error:', error);
+        showError(error.message || 'Failed to update profile. Please try again.');
     }
 });
 
@@ -174,6 +208,8 @@ onAuthStateChanged(auth, (user) => {
                 if (doc.exists() && doc.data().profileCompleted) {
                     window.location.href = 'profile.html';
                 }
+            }).catch(error => {
+                console.error('Error checking profile status:', error);
             });
         }
     }
