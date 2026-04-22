@@ -10,6 +10,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const logoutBtn = document.getElementById('logoutBtn');
+const editProfileBtn = document.getElementById('editProfileBtn');
 const loading = document.getElementById('loading');
 const profileContent = document.getElementById('profileContent');
 
@@ -20,6 +21,27 @@ logoutBtn.addEventListener('click', async () => {
         window.location.href = 'login.html';
     } catch (error) {
         console.error('Logout error:', error);
+    }
+});
+
+// Edit Profile
+editProfileBtn.addEventListener('click', async () => {
+    try {
+        const user = auth.currentUser;
+        if (!user) {
+            window.location.href = 'login.html';
+            return;
+        }
+
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            // Store current profile data in sessionStorage
+            sessionStorage.setItem('editProfileData', JSON.stringify(userData));
+            window.location.href = 'complete-profile.html?edit=true';
+        }
+    } catch (error) {
+        console.error('Error loading profile for edit:', error);
     }
 });
 

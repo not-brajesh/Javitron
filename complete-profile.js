@@ -6,6 +6,7 @@ import {
 import {
     doc,
     getDoc,
+    setDoc,
     updateDoc,
     serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -20,8 +21,17 @@ const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
 const errorMessage = document.getElementById('errorMessage');
 const successMessage = document.getElementById('successMessage');
+const submitBtn = document.querySelector('.btn-submit');
 
 let photoFile = null;
+let isEditMode = false;
+
+// Check if edit mode
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('edit') === 'true') {
+    isEditMode = true;
+    submitBtn.textContent = 'Update Profile';
+}
 
 // Photo upload preview
 photoPreview.addEventListener('click', () => {
@@ -69,6 +79,29 @@ async function uploadPhoto(userId, file) {
     return await getDownloadURL(snapshot.ref);
 }
 
+// Load existing profile data for edit
+async function loadExistingProfile() {
+    const editData = sessionStorage.getItem('editProfileData');
+    if (editData) {
+        const userData = JSON.parse(editData);
+
+        // Pre-fill form fields
+        document.getElementById('department').value = userData.department || '';
+        document.getElementById('role').value = userData.role || '';
+        document.getElementById('linkedin').value = userData.linkedin || '';
+        document.getElementById('instagram').value = userData.instagram || '';
+        document.getElementById('whatsapp').value = userData.whatsapp || '';
+        document.getElementById('bio').value = userData.bio || '';
+
+        // Show existing photo
+        if (userData.photoURL) {
+            photoPreview.innerHTML = `<img src="${userData.photoURL}" alt="Profile Photo">`;
+        }
+
+        sessionStorage.removeItem('editProfileData');
+    }
+}
+
 // Submit profile form
 profileForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -88,10 +121,15 @@ profileForm.addEventListener('submit', async (e) => {
         let photoURL = user.photoURL;
         if (photoFile) {
             photoURL = await uploadPhoto(user.uid, photoFile);
+        } else if (isEditMode) {
+            // Keep existing photo if not changed in edit mode
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
+            if (userDoc.exists()) {
+                photoURL = userDoc.data().photoURL || user.photoURL;
+            }
         }
 
-        // Update user profile in Firestore
-        await updateDoc(doc(db, 'users', user.uid), {
+        const profileData = {
             department: document.getElementById('department').value,
             role: document.getElementById('role').value,
             linkedin: document.getElementById('linkedin').value,
@@ -101,9 +139,18 @@ profileForm.addEventListener('submit', async (e) => {
             photoURL: photoURL,
             profileCompleted: true,
             updatedAt: serverTimestamp()
-        });
+        };
 
-        showSuccess('Profile completed successfully! Redirecting to profile page...');
+        if (isEditMode) {
+            // Update existing profile
+            await updateDoc(doc(db, 'users', user.uid), profileData);
+            showSuccess('Profile updated successfully! Redirecting to profile page...');
+        } else {
+            // Create new profile
+            profileData.createdAt = serverTimestamp();
+            await setDoc(doc(db, 'users', user.uid), profileData);
+            showSuccess('Profile completed successfully! Redirecting to profile page...');
+        }
 
         setTimeout(() => {
             window.location.href = 'profile.html';
@@ -119,11 +166,15 @@ onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = 'login.html';
     } else {
-        // Check if profile is already completed
-        getDoc(doc(db, 'users', user.uid)).then((doc) => {
-            if (doc.exists() && doc.data().profileCompleted) {
-                window.location.href = 'profile.html';
-            }
-        });
+        if (isEditMode) {
+            loadExistingProfile();
+        } else {
+            // Check if profile is already completed
+            getDoc(doc(db, 'users', user.uid)).then((doc) => {
+                if (doc.exists() && doc.data().profileCompleted) {
+                    window.location.href = 'profile.html';
+                }
+            });
+        }
     }
 });
