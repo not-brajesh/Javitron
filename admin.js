@@ -8,8 +8,10 @@ import {
     doc,
     getDoc,
     setDoc,
+    updateDoc,
     query,
     collection,
+    where,
     orderBy,
     limit,
     getDocs,
@@ -19,7 +21,7 @@ import {
 const logoutBtn = document.getElementById('logoutBtn');
 const goToProfileBtn = document.getElementById('goToProfileBtn');
 const generateCodeForm = document.getElementById('generateCodeForm');
-const makeAdminForm = document.getElementById('makeAdminForm');
+const makeMeAdminBtn = document.getElementById('makeMeAdminBtn');
 const codeDisplay = document.getElementById('codeDisplay');
 const generatedCode = document.getElementById('generatedCode');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
@@ -36,47 +38,34 @@ if (goToProfileBtn) {
     });
 }
 
-// Make User Admin
-if (makeAdminForm) {
-    makeAdminForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = document.getElementById('adminEmail').value.trim();
+// Make Me Admin
+if (makeMeAdminBtn) {
+    makeMeAdminBtn.addEventListener('click', async () => {
+        const user = auth.currentUser;
+
+        if (!user) {
+            makeAdminResult.style.display = 'block';
+            makeAdminResult.style.background = 'rgba(255, 0, 0, 0.2)';
+            makeAdminResult.innerHTML = '<p style="color: #ff6b6b;">Please login first!</p>';
+            return;
+        }
 
         try {
             makeAdminResult.style.display = 'block';
             makeAdminResult.style.background = 'rgba(255, 255, 255, 0.1)';
-            makeAdminResult.innerHTML = '<p>Searching for user...</p>';
+            makeAdminResult.innerHTML = '<p>Making you admin...</p>';
 
-            // Query users collection to find the user by email
-            const snapshot = await getDocs(query(collection(db, 'users'), where('email', '==', email)));
-
-            if (snapshot.empty) {
-                makeAdminResult.style.background = 'rgba(255, 0, 0, 0.2)';
-                makeAdminResult.innerHTML = `<p style="color: #ff6b6b;">User not found with email: ${email}</p>`;
-                makeAdminResult.innerHTML += '<p style="margin-top: 10px;">Make sure the user has logged in at least once.</p>';
-                return;
-            }
-
-            let userId = null;
-            snapshot.forEach((doc) => {
-                userId = doc.id;
-            });
-
-            makeAdminResult.innerHTML = `<p>Found user with email: ${email}</p>`;
-            makeAdminResult.innerHTML += '<p>Updating user role to admin...</p>';
-
-            // Update user role to admin
-            await updateDoc(doc(db, 'users', userId), {
+            // Update current user role to admin
+            await updateDoc(doc(db, 'users', user.uid), {
                 role: 'admin',
                 teamRole: 'admin'
             });
 
             makeAdminResult.style.background = 'rgba(0, 255, 0, 0.2)';
-            makeAdminResult.innerHTML = `<p style="color: #4ade80;">Successfully made ${email} an admin!</p>`;
-            makeAdminResult.innerHTML += '<p style="margin-top: 10px;">User should logout and login again for changes to take effect.</p>';
-            makeAdminForm.reset();
+            makeAdminResult.innerHTML = '<p style="color: #4ade80;">Successfully made you an admin!</p>';
+            makeAdminResult.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for changes to take effect.</p>';
 
-            console.log('Admin created successfully for:', email);
+            console.log('Admin created successfully for:', user.email);
 
         } catch (error) {
             makeAdminResult.style.background = 'rgba(255, 0, 0, 0.2)';
