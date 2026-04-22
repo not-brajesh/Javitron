@@ -664,6 +664,24 @@ body.transition-active .team-story-section {
     transform: scaleX(1);
 }
 
+.btn-login {
+    background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%) !important;
+    color: #fff !important;
+    padding: 0.6rem 1.4rem !important;
+    border-radius: var(--glass-radius-sm) !important;
+    font-weight: 600 !important;
+    border: none !important;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+}
+
+.btn-login::after {
+    display: none !important;
+}
+
 .nav-cta .nav-btn {
     text-decoration: none;
     font-size: 0.75rem;

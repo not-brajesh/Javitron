@@ -1,0 +1,172 @@
+// Authentication Functions
+const loginForm = document.getElementById('loginForm');
+const registerForm = document.getElementById('registerForm');
+const loginTab = document.getElementById('loginTab');
+const registerTab = document.getElementById('registerTab');
+const googleAuthBtn = document.getElementById('googleAuthBtn');
+const errorMessage = document.getElementById('errorMessage');
+const successMessage = document.getElementById('successMessage');
+
+// Tab switching
+loginTab.addEventListener('click', () => {
+    loginTab.classList.add('active');
+    registerTab.classList.remove('active');
+    loginForm.style.display = 'block';
+    registerForm.style.display = 'none';
+    clearMessages();
+});
+
+registerTab.addEventListener('click', () => {
+    registerTab.classList.add('active');
+    loginTab.classList.remove('active');
+    registerForm.style.display = 'block';
+    loginForm.style.display = 'none';
+    clearMessages();
+});
+
+// Clear messages
+function clearMessages() {
+    errorMessage.style.display = 'none';
+    successMessage.style.display = 'none';
+}
+
+// Show error message
+function showError(message) {
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    successMessage.style.display = 'none';
+}
+
+// Show success message
+function showSuccess(message) {
+    successMessage.textContent = message;
+    successMessage.style.display = 'block';
+    errorMessage.style.display = 'none';
+}
+
+// Email/Password Login
+loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMessages();
+
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    try {
+        loginForm.classList.add('loading');
+        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        showSuccess('Login successful! Redirecting...');
+
+        // Check if user profile exists
+        const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
+
+        if (userDoc.exists) {
+            // Redirect to profile page
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1500);
+        } else {
+            // Redirect to complete profile
+            setTimeout(() => {
+                window.location.href = 'complete-profile.html';
+            }, 1500);
+        }
+    } catch (error) {
+        loginForm.classList.remove('loading');
+        showError(error.message);
+    }
+});
+
+// Email/Password Registration
+registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearMessages();
+
+    const name = document.getElementById('registerName').value;
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+    if (password !== confirmPassword) {
+        showError('Passwords do not match');
+        return;
+    }
+
+    if (password.length < 6) {
+        showError('Password must be at least 6 characters');
+        return;
+    }
+
+    try {
+        registerForm.classList.add('loading');
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+
+        // Create user document in Firestore
+        await db.collection('users').doc(userCredential.user.uid).set({
+            name: name,
+            email: email,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            role: 'member', // Default role
+            profileCompleted: false
+        });
+
+        showSuccess('Registration successful! Redirecting to complete profile...');
+
+        setTimeout(() => {
+            window.location.href = 'complete-profile.html';
+        }, 1500);
+    } catch (error) {
+        registerForm.classList.remove('loading');
+        showError(error.message);
+    }
+});
+
+// Google Authentication
+googleAuthBtn.addEventListener('click', async () => {
+    clearMessages();
+    googleAuthBtn.classList.add('loading');
+
+    try {
+        const result = await auth.signInWithPopup(googleProvider);
+        const user = result.user;
+
+        // Check if user profile exists
+        const userDoc = await db.collection('users').doc(user.uid).get();
+
+        if (!userDoc.exists) {
+            // Create user document
+            await db.collection('users').doc(user.uid).set({
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                role: 'member',
+                profileCompleted: false
+            });
+
+            showSuccess('Google login successful! Redirecting to complete profile...');
+            setTimeout(() => {
+                window.location.href = 'complete-profile.html';
+            }, 1500);
+        } else {
+            showSuccess('Google login successful! Redirecting to profile...');
+            setTimeout(() => {
+                window.location.href = 'profile.html';
+            }, 1500);
+        }
+    } catch (error) {
+        googleAuthBtn.classList.remove('loading');
+        showError(error.message);
+    }
+});
+
+// Auth State Observer
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in
+        console.log('User is signed in:', user.email);
+    } else {
+        // User is signed out
+        console.log('User is signed out');
+    }
+});

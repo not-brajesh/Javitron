@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Complete Profile | JAVITRON Racing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            padding: 2rem;
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .profile-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-header p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+
+        .profile-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .photo-upload {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .photo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .photo-preview:hover {
+            border-color: #ff6b35;
+        }
+
+        .photo-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-preview i {
+            font-size: 3rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .photo-upload input[type="file"] {
+            display: none;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .error-message {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #ff6b6b;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #6bff6b;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .profile-box {
+                padding: 2rem;
+            }
+
+            .profile-header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>Complete Your Profile</h1>
+            <p>Tell us more about yourself</p>
+        </div>
+
+        <div class="profile-box">
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+
+            <form id="profileForm">
+                <div class="photo-upload">
+                    <div class="photo-preview" id="photoPreview">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <input type="file" id="photoInput" accept="image/*">
+                    <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Click to upload profile photo</p>
+                </div>
+
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Electrical">Electrical</option>
+                        <option value="Software">Software</option>
+                        <option value="Design">Design</option>
+                        <option value="Management">Management</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="member">Team Member</option>
+                        <option value="lead">Team Lead</option>
+                        <option value="captain">Captain</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>LinkedIn Profile URL</label>
+                    <input type="url" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                </div>
+
+                <div class="form-group">
+                    <label>Instagram Profile URL</label>
+                    <input type="url" id="instagram" placeholder="https://instagram.com/yourprofile">
+                </div>
+
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" id="whatsapp" placeholder="+91 9876543210">
+                </div>
+
+                <div class="form-group">
+                    <label>Bio</label>
+                    <textarea id="bio" placeholder="Tell us about yourself..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Complete Profile</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="complete-profile.js"></script>
+</body>
+</html>

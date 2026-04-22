@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Profile | JAVITRON Racing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .profile-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            padding: 2rem;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .profile-header h1 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .btn-logout {
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            border-radius: 10px;
+            color: #ff6b35;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 107, 53, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .profile-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            margin-bottom: 2rem;
+        }
+
+        .profile-photo-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 3px solid #ff6b35;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-photo i {
+            font-size: 4rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .profile-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+        }
+
+        .profile-role {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 20px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .profile-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .info-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .info-item p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: #fff;
+            margin: 0;
+        }
+
+        .info-item a {
+            color: #ff6b35;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-item a:hover {
+            color: #f7931e;
+        }
+
+        .profile-bio {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .profile-bio h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .profile-bio p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-family: 'Outfit', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .profile-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .profile-card {
+                padding: 2rem;
+            }
+
+            .profile-info {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>My Profile</h1>
+            <button class="btn-logout" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+
+        <div class="profile-content">
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Loading profile...
+            </div>
+
+            <div id="profileContent" style="display: none;">
+                <div class="profile-card">
+                    <div class="profile-photo-section">
+                        <div class="profile-photo" id="profilePhoto">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 class="profile-name" id="profileName">Loading...</h2>
+                        <p class="profile-email" id="profileEmail">Loading...</p>
+                        <span class="profile-role" id="profileRole">Loading...</span>
+                    </div>
+
+                    <div class="profile-info">
+                        <div class="info-item">
+                            <i class="fas fa-building"></i>
+                            <h3>Department</h3>
+                            <p id="profileDepartment">Loading...</p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-linkedin"></i>
+                            <h3>LinkedIn</h3>
+                            <p><a href="#" id="profileLinkedin" target="_blank">View Profile</a></p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-instagram"></i>
+                            <h3>Instagram</h3>
+                            <p><a href="#" id="profileInstagram" target="_blank">View Profile</a></p>
+                        </div>
+                        <div class="info-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <h3>WhatsApp</h3>
+                            <p id="profileWhatsapp">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div class="profile-bio" id="bioSection" style="display: none;">
+                        <h3>About</h3>
+                        <p id="profileBio">Loading...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>
