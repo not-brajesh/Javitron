@@ -737,16 +737,20 @@ body.transition-active .team-story-section {
 .hamburger {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     cursor: pointer;
-    padding: 4px;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    z-index: 1001;
 }
 
 .hamburger span {
     display: block;
-    width: 22px;
-    height: 1px;
+    width: 28px;
+    height: 3px;
     background: var(--text-light);
+    border-radius: 2px;
     transition: transform var(--transition-mid), opacity var(--transition-mid);
 }
 
