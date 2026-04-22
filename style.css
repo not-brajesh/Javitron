@@ -3808,12 +3808,66 @@ body.team-mode .navbar {
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 1rem 4%;
+        z-index: 1000;
+    }
+
+    .logo {
+        font-size: 1.5rem;
+        z-index: 1001;
+    }
+
     .hamburger {
         display: block;
+        z-index: 1001;
     }
 
     .nav-links {
         display: none;
+    }
+
+    .mobile-menu.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.75rem 1.5rem;
+    }
+
+    .logo {
+        font-size: 1.25rem;
+    }
+
+    .hamburger {
+        padding: 6px;
+    }
+
+    .hamburger span {
+        width: 24px;
+        height: 2.5px;
+    }
+}
+
+@media (max-width: 360px) {
+    .navbar {
+        padding: 0.5rem 1rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .hamburger {
+        padding: 4px;
+    }
+
+    .hamburger span {
+        width: 20px;
+        height: 2px;
     }
 }
 
