@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Admin - Javitron</title>
+</head>
+<body>
+    <h1>Make Brajesh Kumar an Admin</h1>
+    <button id="makeAdminBtn">Click to make admin</button>
+    <div id="result"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script type="module">
+        // Import modular SDK
+        import { app, db } from "./firebase-config.js";
+        import {
+            getDocs,
+            collection,
+            doc,
+            updateDoc
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        document.getElementById('makeAdminBtn').addEventListener('click', async () => {
+            const email = 'kbrajesh5688@gmail.com';
+            const name = 'Brajesh Kumar';
+            const resultDiv = document.getElementById('result');
+
+            try {
+                resultDiv.innerHTML = '<p>Searching for user...</p>';
+
+                // Query users collection to find the user by email
+                const usersSnapshot = await getDocs(collection(db, 'users'));
+
+                let userDoc = null;
+                let userId = null;
+
+                usersSnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    if (userData.email === email) {
+                        userDoc = doc;
+                        userId = doc.id;
+                    }
+                });
+
+                if (!userDoc) {
+                    resultDiv.innerHTML = `<p style="color: red;">User not found with email: ${email}</p>`;
+                    return;
+                }
+
+                // Update user role to admin
+                await updateDoc(doc(db, 'users', userId), {
+                    role: 'admin',
+                    teamRole: 'admin'
+                });
+
+                resultDiv.innerHTML = `<p style="color: green;">Successfully made ${name} (${email}) an admin!</p>`;
+                console.log('Admin created successfully');
+
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+                console.error('Error making admin:', error);
+            }
+        });
+    </script>
+</body>
+</html>
