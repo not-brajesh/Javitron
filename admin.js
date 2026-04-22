@@ -17,6 +17,7 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const logoutBtn = document.getElementById('logoutBtn');
+const goToProfileBtn = document.getElementById('goToProfileBtn');
 const generateCodeForm = document.getElementById('generateCodeForm');
 const codeDisplay = document.getElementById('codeDisplay');
 const generatedCode = document.getElementById('generatedCode');
@@ -25,6 +26,13 @@ const codesList = document.getElementById('codesList');
 const errorMessage = document.getElementById('errorMessage');
 const loading = document.getElementById('loading');
 const adminContent = document.getElementById('adminContent');
+
+// Go to Profile
+if (goToProfileBtn) {
+    goToProfileBtn.addEventListener('click', () => {
+        window.location.href = 'profile.html';
+    });
+}
 
 // Logout
 logoutBtn.addEventListener('click', async () => {
