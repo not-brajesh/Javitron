@@ -84,6 +84,7 @@ registerForm.addEventListener('submit', async (e) => {
 
     const name = document.getElementById('registerName').value;
     const email = document.getElementById('registerEmail').value;
+    const teamCode = document.getElementById('teamCode').value;
     const password = document.getElementById('registerPassword').value;
     const confirmPassword = document.getElementById('registerConfirmPassword').value;
 
@@ -99,15 +100,51 @@ registerForm.addEventListener('submit', async (e) => {
 
     try {
         registerForm.classList.add('loading');
+
+        // Verify team code
+        const teamCodeDoc = await db.collection('teamCodes').doc(teamCode).get();
+
+        if (!teamCodeDoc.exists) {
+            registerForm.classList.remove('loading');
+            showError('Invalid team code. Please contact your team admin for the correct code.');
+            return;
+        }
+
+        const teamCodeData = teamCodeDoc.data();
+
+        // Check if team code is still valid
+        if (teamCodeData.used) {
+            registerForm.classList.remove('loading');
+            showError('This team code has already been used. Please contact your team admin.');
+            return;
+        }
+
+        // Check if team code is expired
+        if (teamCodeData.expiresAt && teamCodeData.expiresAt.toDate() < new Date()) {
+            registerForm.classList.remove('loading');
+            showError('This team code has expired. Please contact your team admin.');
+            return;
+        }
+
+        // Create user account
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
 
         // Create user document in Firestore
         await db.collection('users').doc(userCredential.user.uid).set({
             name: name,
             email: email,
+            teamCode: teamCode,
+            teamRole: teamCodeData.role || 'member',
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
             role: 'member', // Default role
             profileCompleted: false
+        });
+
+        // Mark team code as used
+        await db.collection('teamCodes').doc(teamCode).update({
+            used: true,
+            usedBy: userCredential.user.uid,
+            usedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
         showSuccess('Registration successful! Redirecting to complete profile...');
