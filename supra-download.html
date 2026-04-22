@@ -66,82 +66,146 @@
             transform: translateY(-2px);
         }
 
-        .files-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .file-card {
+        .app-container {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .file-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-5px);
-            border-color: rgba(255, 107, 53, 0.5);
-        }
-
-        .file-icon {
-            width: 50px;
-            height: 50px;
+        .app-icon-large {
+            width: 100px;
+            height: 100px;
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            border-radius: 12px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.25rem;
+            margin: 0 auto 2rem;
+            font-size: 3rem;
             color: #fff;
         }
 
-        .file-card h3 {
+        .app-container h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .app-container p {
             font-family: 'Outfit', sans-serif;
             font-size: 1rem;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            word-break: break-word;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 2rem;
         }
 
-        .file-card p {
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 1rem;
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .download-btn {
+        .btn-primary {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            padding: 0.6rem 1.2rem;
+            padding: 1rem 2rem;
             background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             color: #fff;
             text-decoration: none;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .download-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .download-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .download-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .download-file {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .download-file:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .download-file a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            border-radius: 8px;
+            color: #ff6b35;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
-        }
-
-        .section-title {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.5rem;
-            color: #fff;
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(255, 107, 53, 0.5);
+        .download-file a:hover {
+            background: rgba(255, 107, 53, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -153,8 +217,14 @@
                 font-size: 2rem;
             }
 
-            .files-grid {
-                grid-template-columns: 1fr;
+            .app-container {
+                padding: 2rem;
+            }
+
+            .app-icon-large {
+                width: 80px;
+                height: 80px;
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -167,196 +237,85 @@
 
         <div class="header">
             <h1>Supra Cost Report</h1>
-            <p>Download cost report files and tools for Javitron Racing</p>
+            <p>Cost report application for Javitron Racing</p>
         </div>
 
-        <h2 class="section-title">Main Files</h2>
-        <div class="files-grid">
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
-                </div>
-                <h3>SUPRA_SAEINDIA_Cost_Report_Javitron_2025-26.xlsx</h3>
-                <p>Main cost report file for 2025-26 season</p>
-                <a href="SUPRA REPORt/SUPRA_SAEINDIA_Cost_Report_Javitron_2025-26.xlsx" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
+        <div class="app-container">
+            <div class="app-icon-large">
+                <i class="fas fa-file-excel"></i>
             </div>
+            <h2>Supra Cost Report App</h2>
+            <p>Run the cost report application or add it to your home screen for quick access.</p>
 
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-pdf"></i>
-                </div>
-                <h3>Cost Report Guidelines.pdf</h3>
-                <p>Official cost report guidelines from SAEINDIA</p>
-                <a href="SUPRA REPORt/Cost Report Guidelines.pdf" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
+            <div class="action-buttons">
+                <a href="SUPRA REPORt/SUPRA_SAEINDIA_Cost_Report_Javitron_2025-26.xlsx" target="_blank" class="btn-primary">
+                    <i class="fas fa-play"></i> Run App
                 </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-pdf"></i>
-                </div>
-                <h3>Appendix_C1_CostMethodology.pdf</h3>
-                <p>Cost methodology appendix</p>
-                <a href="SUPRA REPORt/Appendix_C1_CostMethodology.pdf" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
+                <button onclick="installPWA()" class="btn-secondary">
+                    <i class="fas fa-plus"></i> Add to Home Screen
+                </button>
             </div>
         </div>
 
-        <h2 class="section-title">Cost Tables</h2>
-        <div class="files-grid">
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+        <div class="download-section">
+            <h3>Download Cost Tables (Excel Only)</h3>
+            <div class="download-files">
+                <div class="download-file">
+                    <a href="SUPRA REPORt/CostTable_Fasteners_2025.xlsx" download>
+                        <i class="fas fa-download"></i> Fasteners
+                    </a>
                 </div>
-                <h3>CostTable_Fasteners_2025.xlsx</h3>
-                <p>Fasteners cost table for 2025</p>
-                <a href="SUPRA REPORt/CostTable_Fasteners_2025.xlsx" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+                <div class="download-file">
+                    <a href="SUPRA REPORt/CostTable_Materials_2025.xls" download>
+                        <i class="fas fa-download"></i> Materials
+                    </a>
                 </div>
-                <h3>CostTable_Materials_2025.xls</h3>
-                <p>Materials cost table for 2025</p>
-                <a href="SUPRA REPORt/CostTable_Materials_2025.xls" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+                <div class="download-file">
+                    <a href="SUPRA REPORt/CostTable_ProcessMultipliers_2025.xlsx" download>
+                        <i class="fas fa-download"></i> Process Multipliers
+                    </a>
                 </div>
-                <h3>CostTable_ProcessMultipliers_2025.xlsx</h3>
-                <p>Process multipliers cost table</p>
-                <a href="SUPRA REPORt/CostTable_ProcessMultipliers_2025.xlsx" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+                <div class="download-file">
+                    <a href="SUPRA REPORt/CostTable_Processes_2025.xls" download>
+                        <i class="fas fa-download"></i> Processes
+                    </a>
                 </div>
-                <h3>CostTable_Processes_2025.xls</h3>
-                <p>Processes cost table for 2025</p>
-                <a href="SUPRA REPORt/CostTable_Processes_2025.xls" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+                <div class="download-file">
+                    <a href="SUPRA REPORt/CostTable_Tooling_2025.xlsx" download>
+                        <i class="fas fa-download"></i> Tooling
+                    </a>
                 </div>
-                <h3>CostTable_Tooling_2025.xlsx</h3>
-                <p>Tooling cost table for 2025</p>
-                <a href="SUPRA REPORt/CostTable_Tooling_2025.xlsx" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-        </div>
-
-        <h2 class="section-title">Additional Files</h2>
-        <div class="files-grid">
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-excel"></i>
+                <div class="download-file">
+                    <a href="SUPRA REPORt/Structural Equivalency Spreadsheet (SES)_SUPRA SAEINDIA 2025.xls" download>
+                        <i class="fas fa-download"></i> SES Spreadsheet
+                    </a>
                 </div>
-                <h3>Structural Equivalency Spreadsheet (SES)_SUPRA SAEINDIA 2025.xls</h3>
-                <p>Structural equivalency spreadsheet</p>
-                <a href="SUPRA REPORt/Structural Equivalency Spreadsheet (SES)_SUPRA SAEINDIA 2025.xls" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <h3>USER_GUIDE.md</h3>
-                <p>User guide for cost report tools</p>
-                <a href="SUPRA REPORt/USER_GUIDE.md" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-image"></i>
-                </div>
-                <h3>TEAM_LOGO_PLACEHOLDER.png</h3>
-                <p>Team logo placeholder</p>
-                <a href="SUPRA REPORt/TEAM_LOGO_PLACEHOLDER.png" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-        </div>
-
-        <h2 class="section-title">Python Scripts</h2>
-        <div class="files-grid">
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-code"></i>
-                </div>
-                <h3>build_workbook.py</h3>
-                <p>Main workbook builder script</p>
-                <a href="SUPRA REPORt/build_workbook.py" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-code"></i>
-                </div>
-                <h3>add_advanced_validation.py</h3>
-                <p>Advanced validation script</p>
-                <a href="SUPRA REPORt/add_advanced_validation.py" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-code"></i>
-                </div>
-                <h3>add_validation_penalty.py</h3>
-                <p>Validation penalty script</p>
-                <a href="SUPRA REPORt/add_validation_penalty.py" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-code"></i>
-                </div>
-                <h3>enhance_workbook.py</h3>
-                <p>Workbook enhancement script</p>
-                <a href="SUPRA REPORt/enhance_workbook.py" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
-            </div>
-
-            <div class="file-card">
-                <div class="file-icon">
-                    <i class="fas fa-file-code"></i>
-                </div>
-                <h3>export_to_pdf.py</h3>
-                <p>PDF export script</p>
-                <a href="SUPRA REPORt/export_to_pdf.py" download class="download-btn">
-                    <i class="fas fa-download"></i> Download
-                </a>
             </div>
         </div>
     </div>
+
+    <script>
+        function installPWA() {
+            // Check if PWA install prompt is available
+            if (window.deferredPrompt) {
+                window.deferredPrompt.prompt();
+                window.deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    window.deferredPrompt = null;
+                });
+            } else {
+                // Fallback: show instructions for manual install
+                alert('To add to home screen:\n\n1. Tap Share button in browser\n2. Tap "Add to Home Screen"\n3. Confirm installation');
+            }
+        }
+
+        // Capture PWA install prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            window.deferredPrompt = e;
+        });
+    </script>
 </body>
 </html>
