@@ -87,9 +87,14 @@ loginForm.addEventListener('submit', async (e) => {
         const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
 
         if (userDoc.exists()) {
-            // Redirect to profile page
+            const userData = userDoc.data();
+
+            // Check if user is admin
+            const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
+
+            // Redirect to admin page if admin, otherwise profile page
             setTimeout(() => {
-                window.location.href = 'profile.html';
+                window.location.href = isAdmin ? 'admin.html' : 'profile.html';
             }, 1500);
         } else {
             // Redirect to complete profile
@@ -212,9 +217,15 @@ googleAuthBtn.addEventListener('click', async () => {
                 window.location.href = 'complete-profile.html';
             }, 1500);
         } else {
-            showSuccess('Google login successful! Redirecting to profile...');
+            const userData = userDoc.data();
+
+            // Check if user is admin
+            const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
+
+            // Redirect to admin page if admin, otherwise profile page
+            showSuccess('Google login successful! Redirecting...');
             setTimeout(() => {
-                window.location.href = 'profile.html';
+                window.location.href = isAdmin ? 'admin.html' : 'profile.html';
             }, 1500);
         }
     } catch (error) {
