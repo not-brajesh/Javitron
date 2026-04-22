@@ -155,17 +155,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('User data:', userData);
                 console.log('Role:', userData.role);
                 console.log('Team role:', userData.teamRole);
+                console.log('All user fields:', Object.keys(userData));
 
+                // Check all possible variations
                 const isAdmin = userData.role === 'admin' ||
                                userData.teamRole === 'admin' ||
                                userData.role === 'Admin' ||
-                               userData.teamRole === 'Admin';
+                               userData.teamRole === 'Admin' ||
+                               userData.role === 'ADMIN' ||
+                               userData.teamRole === 'ADMIN';
 
                 console.log('Is admin:', isAdmin);
 
-                if (isAdmin) {
-                    adminPanelBtn.classList.remove('hidden');
-                }
+                // Temporarily show admin button for all users for testing
+                adminPanelBtn.classList.remove('hidden');
+
+                // Uncomment this line to only show for actual admins
+                // if (isAdmin) {
+                //     adminPanelBtn.classList.remove('hidden');
+                // }
 
                 // Load team members
                 loadTeamMembers(userData.department);
