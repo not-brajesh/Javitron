@@ -1,4 +1,21 @@
-// Admin Panel Functions
+// Admin Panel Functions - Modular SDK
+import { app, auth, db } from "./firebase-config.js";
+import {
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    query,
+    collection,
+    orderBy,
+    limit,
+    getDocs,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const logoutBtn = document.getElementById('logoutBtn');
 const generateCodeForm = document.getElementById('generateCodeForm');
 const codeDisplay = document.getElementById('codeDisplay');
@@ -12,7 +29,7 @@ const adminContent = document.getElementById('adminContent');
 // Logout
 logoutBtn.addEventListener('click', async () => {
     try {
-        await auth.signOut();
+        await signOut(auth);
         window.location.href = 'login.html';
     } catch (error) {
         console.error('Logout error:', error);
@@ -57,13 +74,13 @@ generateCodeForm.addEventListener('submit', async (e) => {
         const code = generateTeamCode();
 
         // Create team code document in Firestore
-        await db.collection('teamCodes').doc(code).set({
+        await setDoc(doc(db, 'teamCodes', code), {
             code: code,
             memberName: memberName,
             role: memberRole,
             department: memberDepartment,
             used: false,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            createdAt: serverTimestamp(),
             expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
         });
 
@@ -84,10 +101,12 @@ generateCodeForm.addEventListener('submit', async (e) => {
 // Load team codes
 async function loadTeamCodes() {
     try {
-        const snapshot = await db.collection('teamCodes')
-            .orderBy('createdAt', 'desc')
-            .limit(20)
-            .get();
+        const q = query(
+            collection(db, 'teamCodes'),
+            orderBy('createdAt', 'desc'),
+            limit(20)
+        );
+        const snapshot = await getDocs(q);
 
         codesList.innerHTML = '';
 
@@ -128,9 +147,9 @@ async function checkAdminAccess() {
     }
 
     try {
-        const userDoc = await db.collection('users').doc(user.uid).get();
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-        if (!userDoc.exists) {
+        if (!userDoc.exists()) {
             window.location.href = 'complete-profile.html';
             return;
         }
@@ -157,7 +176,7 @@ async function checkAdminAccess() {
 }
 
 // Check authentication
-auth.onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (user) {
         checkAdminAccess();
     } else {

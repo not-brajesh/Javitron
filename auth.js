@@ -1,4 +1,23 @@
-// Authentication Functions
+// Authentication Functions - Modular SDK
+import { app, auth, db } from "./firebase-config.js";
+import {
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signInWithPopup,
+    GoogleAuthProvider,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// Initialize Google Provider
+const googleProvider = new GoogleAuthProvider();
+
 const loginForm = document.getElementById('loginForm');
 const registerForm = document.getElementById('registerForm');
 const loginTab = document.getElementById('loginTab');
@@ -54,13 +73,13 @@ loginForm.addEventListener('submit', async (e) => {
 
     try {
         loginForm.classList.add('loading');
-        const userCredential = await auth.signInWithEmailAndPassword(email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         showSuccess('Login successful! Redirecting...');
 
         // Check if user profile exists
-        const userDoc = await db.collection('users').doc(userCredential.user.uid).get();
+        const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
 
-        if (userDoc.exists) {
+        if (userDoc.exists()) {
             // Redirect to profile page
             setTimeout(() => {
                 window.location.href = 'profile.html';
@@ -102,9 +121,9 @@ registerForm.addEventListener('submit', async (e) => {
         registerForm.classList.add('loading');
 
         // Verify team code
-        const teamCodeDoc = await db.collection('teamCodes').doc(teamCode).get();
+        const teamCodeDoc = await getDoc(doc(db, 'teamCodes', teamCode));
 
-        if (!teamCodeDoc.exists) {
+        if (!teamCodeDoc.exists()) {
             registerForm.classList.remove('loading');
             showError('Invalid team code. Please contact your team admin for the correct code.');
             return;
@@ -127,24 +146,24 @@ registerForm.addEventListener('submit', async (e) => {
         }
 
         // Create user account
-        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
 
         // Create user document in Firestore
-        await db.collection('users').doc(userCredential.user.uid).set({
+        await setDoc(doc(db, 'users', userCredential.user.uid), {
             name: name,
             email: email,
             teamCode: teamCode,
             teamRole: teamCodeData.role || 'member',
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            createdAt: serverTimestamp(),
             role: 'member', // Default role
             profileCompleted: false
         });
 
         // Mark team code as used
-        await db.collection('teamCodes').doc(teamCode).update({
+        await updateDoc(doc(db, 'teamCodes', teamCode), {
             used: true,
             usedBy: userCredential.user.uid,
-            usedAt: firebase.firestore.FieldValue.serverTimestamp()
+            usedAt: serverTimestamp()
         });
 
         showSuccess('Registration successful! Redirecting to complete profile...');
@@ -164,19 +183,19 @@ googleAuthBtn.addEventListener('click', async () => {
     googleAuthBtn.classList.add('loading');
 
     try {
-        const result = await auth.signInWithPopup(window.googleProvider);
+        const result = await signInWithPopup(auth, googleProvider);
         const user = result.user;
 
         // Check if user profile exists
-        const userDoc = await db.collection('users').doc(user.uid).get();
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-        if (!userDoc.exists) {
+        if (!userDoc.exists()) {
             // Create user document
-            await db.collection('users').doc(user.uid).set({
+            await setDoc(doc(db, 'users', user.uid), {
                 name: user.displayName,
                 email: user.email,
                 photoURL: user.photoURL,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                createdAt: serverTimestamp(),
                 role: 'member',
                 profileCompleted: false
             });
@@ -198,7 +217,7 @@ googleAuthBtn.addEventListener('click', async () => {
 });
 
 // Auth State Observer
-auth.onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (user) {
         // User is signed in
         console.log('User is signed in:', user.email);

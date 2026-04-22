@@ -1,4 +1,20 @@
-// Profile Completion Functions
+// Profile Completion Functions - Modular SDK
+import { app, auth, db, storage } from "./firebase-config.js";
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    doc,
+    getDoc,
+    updateDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import {
+    ref,
+    uploadBytes,
+    getDownloadURL
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
 const profileForm = document.getElementById('profileForm');
 const photoInput = document.getElementById('photoInput');
 const photoPreview = document.getElementById('photoPreview');
@@ -48,9 +64,9 @@ function showSuccess(message) {
 async function uploadPhoto(userId, file) {
     if (!file) return null;
 
-    const storageRef = storage.ref(`profile-photos/${userId}/${Date.now()}_${file.name}`);
-    const snapshot = await storageRef.put(file);
-    return await snapshot.ref.getDownloadURL();
+    const storageRef = ref(storage, `profile-photos/${userId}/${Date.now()}_${file.name}`);
+    const snapshot = await uploadBytes(storageRef, file);
+    return await getDownloadURL(snapshot.ref);
 }
 
 // Submit profile form
@@ -75,7 +91,7 @@ profileForm.addEventListener('submit', async (e) => {
         }
 
         // Update user profile in Firestore
-        await db.collection('users').doc(user.uid).update({
+        await updateDoc(doc(db, 'users', user.uid), {
             department: document.getElementById('department').value,
             role: document.getElementById('role').value,
             linkedin: document.getElementById('linkedin').value,
@@ -84,7 +100,7 @@ profileForm.addEventListener('submit', async (e) => {
             bio: document.getElementById('bio').value,
             photoURL: photoURL,
             profileCompleted: true,
-            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            updatedAt: serverTimestamp()
         });
 
         showSuccess('Profile completed successfully! Redirecting to profile page...');
@@ -99,13 +115,13 @@ profileForm.addEventListener('submit', async (e) => {
 });
 
 // Check authentication
-auth.onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = 'login.html';
     } else {
         // Check if profile is already completed
-        db.collection('users').doc(user.uid).get().then((doc) => {
-            if (doc.exists && doc.data().profileCompleted) {
+        getDoc(doc(db, 'users', user.uid)).then((doc) => {
+            if (doc.exists() && doc.data().profileCompleted) {
                 window.location.href = 'profile.html';
             }
         });

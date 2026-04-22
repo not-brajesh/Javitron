@@ -1,4 +1,14 @@
-// Profile Page Functions
+// Profile Page Functions - Modular SDK
+import { app, auth, db } from "./firebase-config.js";
+import {
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
 const logoutBtn = document.getElementById('logoutBtn');
 const loading = document.getElementById('loading');
 const profileContent = document.getElementById('profileContent');
@@ -6,7 +16,7 @@ const profileContent = document.getElementById('profileContent');
 // Logout
 logoutBtn.addEventListener('click', async () => {
     try {
-        await auth.signOut();
+        await signOut(auth);
         window.location.href = 'login.html';
     } catch (error) {
         console.error('Logout error:', error);
@@ -22,9 +32,9 @@ async function loadProfile() {
     }
 
     try {
-        const userDoc = await db.collection('users').doc(user.uid).get();
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-        if (userDoc.exists) {
+        if (userDoc.exists()) {
             const userData = userDoc.data();
 
             // Update profile photo
@@ -89,7 +99,7 @@ async function loadProfile() {
 }
 
 // Check authentication
-auth.onAuthStateChanged((user) => {
+onAuthStateChanged(auth, (user) => {
     if (user) {
         loadProfile();
     } else {
