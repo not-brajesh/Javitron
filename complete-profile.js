@@ -124,7 +124,7 @@ async function loadExistingProfile() {
     }
 }
 
-// Submit profile form (optimized)
+// Submit profile form (optimized with timeout)
 profileForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     clearMessages();
@@ -139,24 +139,21 @@ profileForm.addEventListener('submit', async (e) => {
     try {
         showLoading('Updating profile...');
 
-        // Get existing data first (only in edit mode)
-        let existingPhotoURL = user.photoURL;
-        if (isEditMode) {
-            try {
-                const userDoc = await getDoc(doc(db, 'users', user.uid));
-                if (userDoc.exists()) {
-                    existingPhotoURL = userDoc.data().photoURL || user.photoURL;
-                }
-            } catch (error) {
-                console.error('Error fetching existing data:', error);
-            }
-        }
+        // Simple approach - don't fetch existing data in edit mode, just use what's there
+        let photoURL = user.photoURL;
 
-        // Upload photo if selected (parallel processing)
-        let photoURL = existingPhotoURL;
+        // Upload photo if selected
         if (photoFile) {
             showLoading('Uploading photo...');
-            photoURL = await uploadPhoto(user.uid, photoFile);
+            try {
+                const storageRef = ref(storage, `profile-photos/${user.uid}/${Date.now()}_${photoFile.name}`);
+                const snapshot = await uploadBytes(storageRef, photoFile);
+                photoURL = await getDownloadURL(snapshot.ref);
+            } catch (uploadError) {
+                console.error('Photo upload failed:', uploadError);
+                // Continue with existing photo if upload fails
+                photoURL = user.photoURL;
+            }
         }
 
         // Prepare profile data
@@ -173,13 +170,22 @@ profileForm.addEventListener('submit', async (e) => {
             updatedAt: serverTimestamp()
         };
 
-        // Save to Firestore
-        if (isEditMode) {
-            await updateDoc(doc(db, 'users', user.uid), profileData);
-        } else {
+        // Save to Firestore with timeout
+        const savePromise = isEditMode
+            ? updateDoc(doc(db, 'users', user.uid), profileData)
+            : setDoc(doc(db, 'users', user.uid), profileData);
+
+        if (!isEditMode) {
             profileData.createdAt = serverTimestamp();
-            await setDoc(doc(db, 'users', user.uid), profileData);
         }
+
+        // Add timeout to prevent hanging
+        await Promise.race([
+            savePromise,
+            new Promise((_, reject) =>
+                setTimeout(() => reject(new Error('Save timeout')), 10000)
+            )
+        ]);
 
         hideLoading();
         showSuccess(isEditMode ? 'Profile updated successfully!' : 'Profile completed successfully!');
@@ -187,11 +193,15 @@ profileForm.addEventListener('submit', async (e) => {
         // Quick redirect
         setTimeout(() => {
             window.location.href = 'profile.html';
-        }, 800);
+        }, 500);
     } catch (error) {
         hideLoading();
         console.error('Profile update error:', error);
-        showError(error.message || 'Failed to update profile. Please try again.');
+        if (error.message === 'Save timeout') {
+            showError('Update taking too long. Please try again.');
+        } else {
+            showError(error.message || 'Failed to update profile. Please try again.');
+        }
     }
 });
 

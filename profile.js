@@ -6,17 +6,29 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
     doc,
-    getDoc
+    getDoc,
+    collection,
+    getDocs,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
     const editProfileBtn = document.getElementById('editProfileBtn');
+    const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
 
     console.log('DOM loaded - editProfileBtn:', editProfileBtn);
+
+    // Go to Website
+    if (goToWebsiteBtn) {
+        goToWebsiteBtn.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+    }
 
     // Logout
     if (logoutBtn) {
@@ -122,6 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show profile content
                 loading.style.display = 'none';
                 profileContent.style.display = 'block';
+
+                // Load team members
+                loadTeamMembers(userData.department);
             } else {
                 // User document doesn't exist, redirect to complete profile
                 window.location.href = 'complete-profile.html';
@@ -129,6 +144,52 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Error loading profile:', error);
             loading.innerHTML = '<p style="color: #ff6b6b;">Error loading profile. Please try again.</p>';
+        }
+    }
+
+    // Load team members
+    async function loadTeamMembers(userDepartment) {
+        try {
+            const teamMembersGrid = document.getElementById('teamMembersGrid');
+            if (!teamMembersGrid) return;
+
+            // Query users by department
+            const usersQuery = query(
+                collection(db, 'users'),
+                where('department', '==', userDepartment)
+            );
+
+            const querySnapshot = await getDocs(usersQuery);
+            let membersHTML = '';
+
+            querySnapshot.forEach((doc) => {
+                const memberData = doc.data();
+                const memberUID = doc.id;
+
+                // Skip current user
+                if (memberUID === auth.currentUser.uid) return;
+
+                const photoHTML = memberData.photoURL
+                    ? `<img src="${memberData.photoURL}" alt="${memberData.name}">`
+                    : '<i class="fas fa-user"></i>';
+
+                const name = memberData.name || 'Unknown';
+                const role = memberData.role ? memberData.role.charAt(0).toUpperCase() + memberData.role.slice(1) : 'Member';
+
+                membersHTML += `
+                    <div class="team-member-card">
+                        <div class="team-member-photo">
+                            ${photoHTML}
+                        </div>
+                        <div class="team-member-name">${name}</div>
+                        <div class="team-member-role">${role}</div>
+                    </div>
+                `;
+            });
+
+            teamMembersGrid.innerHTML = membersHTML || '<p style="color: rgba(255,255,255,0.6); grid-column: 1/-1; text-align: center;">No team members found in your department.</p>';
+        } catch (error) {
+            console.error('Error loading team members:', error);
         }
     }
 

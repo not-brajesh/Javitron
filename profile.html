@@ -78,6 +78,24 @@
             transform: translateY(-2px);
         }
 
+        .btn-website {
+            background: rgba(107, 255, 107, 0.2);
+            color: #6bff6b;
+            border: 1px solid rgba(107, 255, 107, 0.3);
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+
+        .btn-website:hover {
+            background: rgba(107, 255, 107, 0.3);
+            transform: translateY(-2px);
+        }
+
         .profile-content {
             max-width: 800px;
             margin: 0 auto;
@@ -218,6 +236,72 @@
             margin: 0;
         }
 
+        .team-members-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-members-section h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .team-members-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .team-member-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-member-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .team-member-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 0.5rem;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .team-member-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .team-member-role {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
         .loading {
             text-align: center;
             padding: 3rem;
@@ -276,6 +360,9 @@
         <div class="profile-header">
             <h1>My Profile</h1>
             <div class="profile-actions">
+                <button class="btn-website" id="goToWebsiteBtn">
+                    <i class="fas fa-home"></i> Go to Website
+                </button>
                 <button class="btn-edit" id="editProfileBtn">
                     <i class="fas fa-edit"></i> Edit Profile
                 </button>
@@ -327,6 +414,13 @@
                     <div class="profile-bio" id="bioSection" style="display: none;">
                         <h3>About</h3>
                         <p id="profileBio">Loading...</p>
+                    </div>
+
+                    <div class="team-members-section">
+                        <h3>Team Members</h3>
+                        <div class="team-members-grid" id="teamMembersGrid">
+                            <!-- Team members will be loaded here -->
+                        </div>
                     </div>
                 </div>
             </div>
