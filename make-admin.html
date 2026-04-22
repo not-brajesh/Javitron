@@ -17,6 +17,17 @@
             text-align: center;
             color: #ff6b35;
         }
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
         button {
             display: block;
             width: 100%;
@@ -48,56 +59,70 @@
     </style>
 </head>
 <body>
-    <h1>Make Current User Admin</h1>
-    <p>This will make your current logged-in account an admin.</p>
-    <button id="makeAdminBtn">Click to make yourself admin</button>
+    <h1>Make User Admin</h1>
+    <p>Enter email address to make that user an admin.</p>
+    <input type="email" id="emailInput" placeholder="Enter email address" value="kbrajesh5688@gmail.com">
+    <button id="makeAdminBtn">Click to make admin</button>
     <div id="result"></div>
 
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
 
     <script>
         document.getElementById('makeAdminBtn').addEventListener('click', async () => {
+            const email = document.getElementById('emailInput').value.trim();
             const resultDiv = document.getElementById('result');
             const button = document.getElementById('makeAdminBtn');
+
+            if (!email) {
+                resultDiv.innerHTML = '<p class="error">Please enter an email address</p>';
+                return;
+            }
 
             try {
                 button.disabled = true;
                 button.textContent = 'Processing...';
-                resultDiv.innerHTML = '<p>Checking authentication...</p>';
+                resultDiv.innerHTML = '<p>Searching for user...</p>';
 
-                // Check if user is logged in
-                const user = firebase.auth().currentUser;
-                if (!user) {
-                    resultDiv.innerHTML = '<p class="error">Please login first at <a href="login.html">login.html</a></p>';
+                // Query users collection to find the user by email
+                const snapshot = await firebase.firestore().collection('users').where('email', '==', email).get();
+
+                if (snapshot.empty) {
+                    resultDiv.innerHTML = `<p class="error">User not found with email: ${email}</p>`;
+                    resultDiv.innerHTML += '<p style="margin-top: 10px;">Make sure you have logged in at least once to create your profile.</p>';
                     button.disabled = false;
-                    button.textContent = 'Click to make yourself admin';
+                    button.textContent = 'Click to make admin';
                     return;
                 }
 
-                resultDiv.innerHTML = `<p>Found logged-in user: ${user.email}</p>`;
+                let userId = null;
+                snapshot.forEach((doc) => {
+                    userId = doc.id;
+                });
+
+                resultDiv.innerHTML = `<p>Found user with email: ${email}</p>`;
                 resultDiv.innerHTML += '<p>Updating user role to admin...</p>';
 
-                // Update user role to admin in Firestore
-                await firebase.firestore().collection('users').doc(user.uid).update({
+                // Update user role to admin
+                await firebase.firestore().collection('users').doc(userId).update({
                     role: 'admin',
                     teamRole: 'admin'
                 });
 
-                resultDiv.innerHTML = '<p class="success">Successfully made you an admin!</p>';
-                resultDiv.innerHTML += '<p style="margin-top: 10px;">You can now access the <a href="admin.html">Admin Panel</a></p>';
+                resultDiv.innerHTML = '<p class="success">Successfully made user an admin!</p>';
+                resultDiv.innerHTML += '<p style="margin-top: 10px;">User can now access the <a href="admin.html">Admin Panel</a></p>';
+                resultDiv.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for changes to take effect.</p>';
                 button.textContent = 'Done!';
 
-                console.log('Admin created successfully for:', user.email);
+                console.log('Admin created successfully for:', email);
 
             } catch (error) {
                 resultDiv.innerHTML = `<p class="error">Error: ${error.message}</p>`;
                 console.error('Error making admin:', error);
                 button.disabled = false;
-                button.textContent = 'Click to make yourself admin';
+                button.textContent = 'Click to make admin';
             }
         });
     </script>
