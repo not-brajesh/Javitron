@@ -477,8 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
             );
 
             // Apply mobile optimizations to renderer
-            const pixelRatio = this.isMobile ? Math.min(window.devicePixelRatio, 1.5) : Math.min(window.devicePixelRatio, 2);
-            const antialias = this.isMobile && window.innerWidth < 400 ? false : true;
+            const pixelRatio = this.isMobile ? Math.min(window.devicePixelRatio, 1) : Math.min(window.devicePixelRatio, 1.5);
+            const antialias = this.isMobile ? false : true;
 
             this.renderer = new THREE.WebGLRenderer({
                 antialias: antialias,
@@ -489,7 +489,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             this.renderer.setSize(container.clientWidth, container.clientHeight);
             this.renderer.setPixelRatio(pixelRatio);
-            this.renderer.shadowMap.enabled = true;
+            this.renderer.shadowMap.enabled = !this.isMobile;
             this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
             this.renderer.toneMappingExposure = 2.4;
@@ -510,8 +510,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Position: upper-left-front of the world. FIXED forever.
             const sun = new THREE.DirectionalLight(0xfff5e0, 6.0); // warm white
             sun.position.set(-8, 12, 6);   // left side, high, slightly forward
-            sun.castShadow = true;
-            const shadowSize = this.isMobile ? 2048 : 4096;
+            sun.castShadow = !this.isMobile;
+            const shadowSize = this.isMobile ? 1024 : 2048;
             sun.shadow.mapSize.set(shadowSize, shadowSize);
             sun.shadow.camera.near = 0.5;
             sun.shadow.camera.far = 40;
@@ -520,10 +520,8 @@ document.addEventListener('DOMContentLoaded', () => {
             sun.shadow.camera.top = 6;
             sun.shadow.camera.bottom = -6;
             sun.shadow.bias = -0.0001;
-            sun.shadow.radius = 4;         // soft shadow edges
             this.scene.add(sun);
 
-            // FILL LIGHT — opposite side, very dim, reveals shadow detail
             const fill = new THREE.DirectionalLight(0xc0d8ff, 1.2); // cool blue fill
             fill.position.set(10, 4, -4);  // right-back, low
             this.scene.add(fill);
@@ -532,27 +530,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const ambient = new THREE.AmbientLight(0x334455, 0.8);
             this.scene.add(ambient);
 
-            // RIM LIGHT — back edge highlight, separates car from bg
-            const rim = new THREE.SpotLight(0x88aaff, 3.0);
-            rim.position.set(4, 6, -8);
-            rim.lookAt(0, 0, 0);
-            rim.penumbra = 0.6;
-            rim.angle = Math.PI / 5;
-            this.scene.add(rim);
+            // RIM LIGHT — back edge highlight, separates car from bg (disable on mobile)
+            if (!this.isMobile) {
+                const rim = new THREE.SpotLight(0x88aaff, 3.0);
+                rim.position.set(4, 6, -8);
+                rim.lookAt(0, 0, 0);
+                rim.penumbra = 0.6;
+                rim.angle = Math.PI / 5;
+                this.scene.add(rim);
+            }
 
             // UNDERBODY RED ACCENT GLOW — brand color, subtle
             const under = new THREE.PointLight(0xc8102e, 1.2, 8);
             under.position.set(0, -1.5, 1);
             this.scene.add(under);
 
-            // GROUND SHADOW PLANE — receives shadows only, transparent
-            const groundGeo = new THREE.PlaneGeometry(200, 200);
-            const groundMat = new THREE.ShadowMaterial({ opacity: 0.35 });
-            const ground = new THREE.Mesh(groundGeo, groundMat);
-            ground.rotation.x = -Math.PI / 2;
-            ground.position.y = -0.05;
-            ground.receiveShadow = true;
-            this.scene.add(ground);
+            // GROUND SHADOW PLANE — receives shadows only, transparent (disable on mobile)
+            if (!this.isMobile) {
+                const groundGeo = new THREE.PlaneGeometry(200, 200);
+                const groundMat = new THREE.ShadowMaterial({ opacity: 0.35 });
+                const ground = new THREE.Mesh(groundGeo, groundMat);
+                ground.rotation.x = -Math.PI / 2;
+                ground.position.y = -0.05;
+                ground.receiveShadow = true;
+                this.scene.add(ground);
+            }
         },
 
         loadModel(container) {
