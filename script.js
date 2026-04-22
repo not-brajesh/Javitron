@@ -976,18 +976,18 @@ document.addEventListener('DOMContentLoaded', () => {
        6. HAMBURGER / MOBILE MENU
        ============================================================ */
     const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
+    const navMenu = document.getElementById('navMenu');
 
     hamburger?.addEventListener('click', () => {
-        hamburger.classList.toggle('open');
-        mobileMenu?.classList.toggle('open');
-        document.body.style.overflow = mobileMenu?.classList.contains('open') ? 'hidden' : '';
+        hamburger.classList.toggle('active');
+        navMenu?.classList.toggle('active');
+        document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
     });
 
-    document.querySelectorAll('.mobile-link').forEach(link => {
+    document.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
         link.addEventListener('click', () => {
-            hamburger?.classList.remove('open');
-            mobileMenu?.classList.remove('open');
+            hamburger?.classList.remove('active');
+            navMenu?.classList.remove('active');
             document.body.style.overflow = '';
         });
     });
