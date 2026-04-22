@@ -19,10 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const editProfileBtn = document.getElementById('editProfileBtn');
     const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
     const chatBtn = document.getElementById('chatBtn');
+    const adminPanelBtn = document.getElementById('adminPanelBtn');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
 
     console.log('DOM loaded - editProfileBtn:', editProfileBtn);
+
+    // Admin Panel
+    if (adminPanelBtn) {
+        adminPanelBtn.addEventListener('click', () => {
+            window.location.href = 'admin.html';
+        });
+    }
 
     // Chat
     if (chatBtn) {
@@ -142,6 +150,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Show profile content
                 loading.style.display = 'none';
                 profileContent.style.display = 'block';
+
+                // Show admin button if user is admin
+                if (userData.role === 'admin' || userData.teamRole === 'admin') {
+                    adminPanelBtn.classList.remove('hidden');
+                }
 
                 // Load team members
                 loadTeamMembers(userData.department);
