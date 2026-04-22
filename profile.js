@@ -151,8 +151,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 loading.style.display = 'none';
                 profileContent.style.display = 'block';
 
-                // Show admin button if user is admin
-                if (userData.role === 'admin' || userData.teamRole === 'admin') {
+                // Show admin button if user is admin (check multiple possible field names)
+                console.log('User data:', userData);
+                console.log('Role:', userData.role);
+                console.log('Team role:', userData.teamRole);
+
+                const isAdmin = userData.role === 'admin' ||
+                               userData.teamRole === 'admin' ||
+                               userData.role === 'Admin' ||
+                               userData.teamRole === 'Admin';
+
+                console.log('Is admin:', isAdmin);
+
+                if (isAdmin) {
                     adminPanelBtn.classList.remove('hidden');
                 }
 
