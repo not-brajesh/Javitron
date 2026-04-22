@@ -1,12 +1,12 @@
 // Firebase Configuration
-// Replace with your actual Firebase project configuration
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyDPHtx1sQQ6lpaUKzM8U6Hkg9kHNjJt19w",
+    authDomain: "javitron-cbe04.firebaseapp.com",
+    projectId: "javitron-cbe04",
+    storageBucket: "javitron-cbe04.firebasestorage.app",
+    messagingSenderId: "433920700552",
+    appId: "1:433920700552:web:7932125587d4b91b07ef3d",
+    measurementId: "G-F2K6S0NY84"
 };
 
 // Initialize Firebase
