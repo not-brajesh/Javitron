@@ -190,49 +190,61 @@ registerForm.addEventListener('submit', async (e) => {
 });
 
 // Google Authentication
-googleAuthBtn.addEventListener('click', async () => {
-    clearMessages();
-    googleAuthBtn.classList.add('loading');
+if (googleAuthBtn) {
+    console.log('Google login button found');
+    googleAuthBtn.addEventListener('click', async () => {
+        console.log('Google login button clicked');
+        clearMessages();
+        googleAuthBtn.classList.add('loading');
 
-    try {
-        const result = await signInWithPopup(auth, googleProvider);
-        const user = result.user;
+        try {
+            console.log('Attempting Google sign in...');
+            const result = await signInWithPopup(auth, googleProvider);
+            const user = result.user;
+            console.log('Google sign in successful:', user.email);
 
-        // Check if user profile exists
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
+            // Check if user profile exists
+            const userDoc = await getDoc(doc(db, 'users', user.uid));
 
-        if (!userDoc.exists()) {
-            // Create user document
-            await setDoc(doc(db, 'users', user.uid), {
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoURL,
-                createdAt: serverTimestamp(),
-                role: 'member',
-                profileCompleted: false
-            });
+            if (!userDoc.exists()) {
+                console.log('User document does not exist, creating...');
+                // Create user document
+                await setDoc(doc(db, 'users', user.uid), {
+                    name: user.displayName,
+                    email: user.email,
+                    photoURL: user.photoURL,
+                    createdAt: serverTimestamp(),
+                    role: 'member',
+                    profileCompleted: false
+                });
 
-            showSuccess('Google login successful! Redirecting to complete profile...');
-            setTimeout(() => {
-                window.location.href = 'complete-profile.html';
-            }, 1500);
-        } else {
-            const userData = userDoc.data();
+                showSuccess('Google login successful! Redirecting to complete profile...');
+                setTimeout(() => {
+                    window.location.href = 'complete-profile.html';
+                }, 1500);
+            } else {
+                console.log('User document exists');
+                const userData = userDoc.data();
 
-            // Check if user is admin
-            const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
+                // Check if user is admin
+                const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
+                console.log('Is admin:', isAdmin);
 
-            // Redirect to admin page if admin, otherwise profile page
-            showSuccess('Google login successful! Redirecting...');
-            setTimeout(() => {
-                window.location.href = isAdmin ? 'admin.html' : 'profile.html';
-            }, 1500);
+                // Redirect to admin page if admin, otherwise profile page
+                showSuccess('Google login successful! Redirecting...');
+                setTimeout(() => {
+                    window.location.href = isAdmin ? 'admin.html' : 'profile.html';
+                }, 1500);
+            }
+        } catch (error) {
+            console.error('Google login error:', error);
+            googleAuthBtn.classList.remove('loading');
+            showError(error.message);
         }
-    } catch (error) {
-        googleAuthBtn.classList.remove('loading');
-        showError(error.message);
-    }
-});
+    });
+} else {
+    console.log('Google login button not found');
+}
 
 // Auth State Observer
 onAuthStateChanged(auth, (user) => {
