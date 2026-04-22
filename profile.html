@@ -600,6 +600,126 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Apps Section Styles */
+        .apps-section {
+            padding: 2rem 5%;
+            margin-top: 2rem;
+        }
+
+        .apps-section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .app-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            border-color: rgba(255, 107, 53, 0.5);
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
+        .app-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .app-card p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .app-card .admin-only {
+            background: linear-gradient(135deg, #c8102e 0%, #ff6b35 100%);
+        }
+
+        /* Responsive Apps Section */
+        @media (max-width: 768px) {
+            .apps-section {
+                padding: 1.5rem 4%;
+            }
+
+            .apps-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+
+            .app-card {
+                padding: 1.5rem;
+            }
+
+            .app-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+
+            .app-card h3 {
+                font-size: 1rem;
+            }
+
+            .app-card p {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .apps-section {
+                padding: 1rem 3%;
+            }
+
+            .apps-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 0.75rem;
+            }
+
+            .app-card {
+                padding: 1rem;
+            }
+
+            .app-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -622,6 +742,62 @@
                 <button class="btn-logout" id="logoutBtn">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
+            </div>
+        </div>
+
+        <!-- Apps Section -->
+        <div class="apps-section">
+            <h2>Apps</h2>
+            <div class="apps-grid">
+                <div class="app-card" onclick="window.location.href='chat.html'">
+                    <div class="app-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Team Chat</h3>
+                    <p>Chat with team members</p>
+                </div>
+                <div class="app-card" onclick="window.location.href='index.html'">
+                    <div class="app-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Website</h3>
+                    <p>Visit main website</p>
+                </div>
+                <div class="app-card" onclick="window.location.href='admin.html'">
+                    <div class="app-icon admin-only">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <h3>Admin Panel</h3>
+                    <p>Manage team & codes</p>
+                </div>
+                <div class="app-card" onclick="window.location.href='supra-download.html'">
+                    <div class="app-icon">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <h3>Supra Cost Report</h3>
+                    <p>Download cost report app</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <h3>Schedule</h3>
+                    <p>Coming soon</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Tasks</h3>
+                    <p>Coming soon</p>
+                </div>
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Documents</h3>
+                    <p>Coming soon</p>
+                </div>
             </div>
         </div>
 

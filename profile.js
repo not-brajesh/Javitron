@@ -167,13 +167,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 console.log('Is admin:', isAdmin);
 
-                // Temporarily show admin button for all users for testing
-                adminPanelBtn.classList.remove('hidden');
+                // Show admin button for admins only
+                if (isAdmin) {
+                    adminPanelBtn.classList.remove('hidden');
+                } else {
+                    adminPanelBtn.classList.add('hidden');
+                }
 
-                // Uncomment this line to only show for actual admins
-                // if (isAdmin) {
-                //     adminPanelBtn.classList.remove('hidden');
-                // }
+                // Hide admin-only app card for non-admins
+                const adminAppCard = document.querySelector('.app-card .admin-only')?.closest('.app-card');
+                if (adminAppCard) {
+                    if (!isAdmin) {
+                        adminAppCard.style.display = 'none';
+                    }
+                }
 
                 // Load team members
                 loadTeamMembers(userData.department);
