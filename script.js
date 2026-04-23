@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startAutoSlide() {
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 6500);
+        slideInterval = setInterval(nextSlide, 8000);
     }
 
     nextBtn?.addEventListener('click', () => { nextSlide(); startAutoSlide(); });
