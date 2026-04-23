@@ -21,10 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatBtn = document.getElementById('chatBtn');
     const adminPanelBtn = document.getElementById('adminPanelBtn');
     const updateProfileForm = document.getElementById('updateProfileForm');
-    const updateRoleBtn = document.getElementById('updateRoleBtn');
-    const makeEveryoneAdminBtn = document.getElementById('makeEveryoneAdminBtn');
     const profileUpdateResult = document.getElementById('profileUpdateResult');
-    const roleResult = document.getElementById('roleResult');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
 
@@ -37,11 +34,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Update Profile Name
+    // Update Profile (Name and Role)
     if (updateProfileForm) {
         updateProfileForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const newName = document.getElementById('updateName').value;
+            const newRole = document.getElementById('updateRole').value;
 
             try {
                 const user = auth.currentUser;
@@ -52,14 +50,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 profileUpdateResult.style.display = 'block';
                 profileUpdateResult.style.background = 'rgba(255, 255, 255, 0.1)';
-                profileUpdateResult.innerHTML = '<p>Updating your name...</p>';
+                profileUpdateResult.innerHTML = '<p>Updating your profile...</p>';
 
                 await updateDoc(doc(db, 'users', user.uid), {
-                    name: newName
+                    name: newName,
+                    role: newRole,
+                    teamRole: newRole
                 });
 
                 profileUpdateResult.style.background = 'rgba(0, 255, 0, 0.2)';
-                profileUpdateResult.innerHTML = '<p style="color: #4ade80;">Success! Your name has been updated.</p>';
+                profileUpdateResult.innerHTML = '<p style="color: #4ade80;">Success! Your profile has been updated.</p>';
+                profileUpdateResult.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for role changes to take effect.</p>';
 
                 // Update the displayed name on the page
                 const profileName = document.getElementById('profileName');
@@ -67,107 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     profileName.textContent = newName;
                 }
 
+                // Update the displayed role on the page
+                const profileRole = document.getElementById('profileRole');
+                if (profileRole) {
+                    profileRole.textContent = newRole.charAt(0).toUpperCase() + newRole.slice(1);
+                }
+
                 updateProfileForm.reset();
 
-                console.log('User name updated successfully');
+                console.log('User profile updated successfully');
 
             } catch (error) {
                 profileUpdateResult.style.background = 'rgba(255, 0, 0, 0.2)';
                 profileUpdateResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
-                console.error('Error updating user name:', error);
-            }
-        });
-    }
-
-    // Update My Role
-    if (updateRoleBtn) {
-        updateRoleBtn.addEventListener('click', async () => {
-            if (!confirm('Are you sure you want to make yourself an admin?')) {
-                return;
-            }
-
-            try {
-                const user = auth.currentUser;
-                if (!user) {
-                    alert('You must be logged in to update your role.');
-                    return;
-                }
-
-                roleResult.style.display = 'block';
-                roleResult.style.background = 'rgba(255, 255, 255, 0.1)';
-                roleResult.innerHTML = '<p>Updating your role to admin...</p>';
-
-                await updateDoc(doc(db, 'users', user.uid), {
-                    role: 'admin',
-                    teamRole: 'admin'
-                });
-
-                roleResult.style.background = 'rgba(0, 255, 0, 0.2)';
-                roleResult.innerHTML = '<p style="color: #4ade80;">Success! You are now an admin.</p>';
-                roleResult.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for changes to take effect.</p>';
-
-                console.log('User role updated to admin');
-
-            } catch (error) {
-                roleResult.style.background = 'rgba(255, 0, 0, 0.2)';
-                roleResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
-                console.error('Error updating user role:', error);
-            }
-        });
-    }
-
-    // Make Everyone Admin
-    if (makeEveryoneAdminBtn) {
-        makeEveryoneAdminBtn.addEventListener('click', async () => {
-            if (!confirm('Are you sure you want to make ALL users admins? This action cannot be undone.')) {
-                return;
-            }
-
-            try {
-                roleResult.style.display = 'block';
-                roleResult.style.background = 'rgba(255, 255, 255, 0.1)';
-                roleResult.innerHTML = '<p>Fetching all users...</p>';
-
-                const usersSnapshot = await getDocs(collection(db, 'users'));
-                const totalUsers = usersSnapshot.size;
-
-                if (totalUsers === 0) {
-                    roleResult.style.background = 'rgba(255, 0, 0, 0.2)';
-                    roleResult.innerHTML = '<p style="color: #ff6b6b;">No users found in the system.</p>';
-                    return;
-                }
-
-                roleResult.innerHTML = `<p>Found ${totalUsers} users. Updating roles...</p>`;
-
-                let updatedCount = 0;
-                let errorCount = 0;
-
-                for (const userDoc of usersSnapshot.docs) {
-                    try {
-                        await updateDoc(doc(db, 'users', userDoc.id), {
-                            role: 'admin',
-                            teamRole: 'admin'
-                        });
-                        updatedCount++;
-                    } catch (error) {
-                        console.error('Error updating user:', userDoc.id, error);
-                        errorCount++;
-                    }
-                }
-
-                roleResult.style.background = 'rgba(0, 255, 0, 0.2)';
-                roleResult.innerHTML = `<p style="color: #4ade80;">Successfully made ${updatedCount} users admins!</p>`;
-                if (errorCount > 0) {
-                    roleResult.innerHTML += `<p style="color: #ff6b6b;">Failed to update ${errorCount} users.</p>`;
-                }
-                roleResult.innerHTML += '<p style="margin-top: 10px;">Users should logout and login again for changes to take effect.</p>';
-
-                console.log(`Made ${updatedCount} users admins, ${errorCount} errors`);
-
-            } catch (error) {
-                roleResult.style.background = 'rgba(255, 0, 0, 0.2)';
-                roleResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
-                console.error('Error making everyone admin:', error);
+                console.error('Error updating user profile:', error);
             }
         });
     }

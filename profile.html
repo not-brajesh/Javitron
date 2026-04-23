@@ -690,6 +690,29 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+        }
+
+        .form-group select option {
+            background: #1a0a2e;
+            color: #fff;
+        }
+
         /* Responsive Apps Section */
         @media (max-width: 768px) {
             .apps-section {
@@ -777,25 +800,21 @@
                     <label>Name</label>
                     <input type="text" id="updateName" placeholder="Your Name" required>
                 </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="updateRole" required>
+                        <option value="member">Team Member</option>
+                        <option value="lead">Team Lead</option>
+                        <option value="vice-captain">Vice Captain</option>
+                        <option value="captain">Captain</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn-role-update" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                    <i class="fas fa-user-edit"></i> Update Name
+                    <i class="fas fa-user-edit"></i> Update Profile
                 </button>
             </form>
             <div id="profileUpdateResult" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
-        </div>
-
-        <!-- Role Management Section -->
-        <div class="profile-card">
-            <h2>Role Management</h2>
-            <div class="role-actions">
-                <button class="btn-role-update" id="updateRoleBtn">
-                    <i class="fas fa-user-shield"></i> Update My Role
-                </button>
-                <button class="btn-make-admin" id="makeEveryoneAdminBtn">
-                    <i class="fas fa-users-cog"></i> Make Everyone Admin
-                </button>
-            </div>
-            <div id="roleResult" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
         </div>
 
         <!-- Apps Section -->
