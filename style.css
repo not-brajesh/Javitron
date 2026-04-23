@@ -5476,3 +5476,211 @@ a:not(.btn):not(.nav-link):hover {
         transform: translateY(-3px);
     }
 }
+
+/* ============================================
+   MICRO POLISH FIXES - Production Grade
+   ============================================ */
+
+/* 1. FIX GLOBAL TRANSITION - Performance */
+/* Remove: * { transition: all 0.3s ease; } */
+/* Apply only to interactive elements */
+button, a, .btn, .card, .nav-menu a, .team-card, .gallery-item, 
+.showcase-item, .vehicle-card, .feature-card, .glass-card {
+    transition: all 0.3s ease;
+}
+
+/* 2. NAVBAR BLUR + DEPTH IMPROVEMENT */
+.navbar {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    background: rgba(10, 4, 20, 0.6);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.navbar.scrolled {
+    background: rgba(10, 4, 20, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+/* 3. HERO SECTION HEIGHT FIX */
+.hero-section {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+}
+
+@media (max-width: 768px) {
+    .hero-section {
+        min-height: 90vh;
+        min-height: 90dvh;
+    }
+}
+
+/* Ensure carousel fills height */
+.carousel-container {
+    min-height: 100%;
+}
+
+.carousel-slide {
+    min-height: 100%;
+}
+
+/* 4. IMAGE CONSISTENCY FIX */
+img {
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Team images maintain aspect ratio */
+.team-card img,
+.gallery-item img,
+.showcase-img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+/* Vehicle showcase images */
+.vehicle-card img {
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+/* 5. SECTION CONTAINER ALIGNMENT */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+    }
+}
+
+/* Section wrapper consistency */
+section > .container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 7. SCROLLBAR CUSTOMIZATION (Premium Touch) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(10, 4, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #c8102e, #ff3c5f);
+    border-radius: 10px;
+    border: 2px solid rgba(10, 4, 20, 0.5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ff3c5f, #c8102e);
+    box-shadow: 0 0 10px rgba(200, 16, 46, 0.5);
+}
+
+/* Firefox scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #c8102e rgba(10, 4, 20, 0.5);
+}
+
+/* 8. BUTTON ACCESSIBILITY - Focus Styles */
+.btn:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #c8102e;
+    outline-offset: 2px;
+    box-shadow: 0 0 15px rgba(200, 16, 46, 0.5);
+}
+
+/* Skip to main content link for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--accent);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 100;
+    border-radius: 0 0 4px 0;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* 9. HOVER PERFORMANCE OPTIMIZATION */
+.team-card,
+.gallery-item,
+.showcase-item,
+.vehicle-card,
+.feature-card,
+.btn,
+.nav-menu a {
+    will-change: transform;
+    transform: translateZ(0); /* Force GPU acceleration */
+}
+
+/* Remove will-change on mobile for battery savings */
+@media (max-width: 768px) {
+    .team-card,
+    .gallery-item,
+    .showcase-item,
+    .vehicle-card,
+    .feature-card,
+    .btn,
+    .nav-menu a {
+        will-change: auto;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .carousel-slide {
+        animation: none !important;
+    }
+    
+    .btn-cta {
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .navbar {
+        background: rgba(10, 4, 20, 0.95);
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .btn:focus-visible {
+        outline: 3px solid #fff;
+        outline-offset: 3px;
+    }
+}
