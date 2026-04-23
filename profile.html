@@ -10,10 +10,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
+        :root {
+            --bg-dark: #0a0414;
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --bg-glass-hover: rgba(255, 255, 255, 0.08);
+            --accent: #c8102e;
+            --accent-cyan: #00c8ff;
+            --text-light: #f0f0f0;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border-hover: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px rgba(10, 4, 20, 0.4);
+            --glass-shadow-hover: 0 12px 48px rgba(200, 16, 46, 0.25);
+            --transition-mid: 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-fast: 0.2s ease;
+        }
+
         .profile-container {
             min-height: 100vh;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+            background: linear-gradient(135deg, #0a0414 0%, #1a0a2e 50%, #0a0414 100%);
             padding: 2rem;
+            position: relative;
+        }
+
+        .profile-container::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(200, 16, 46, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 200, 255, 0.1) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
         }
 
         .profile-header {
@@ -21,124 +48,143 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
         }
 
         .profile-header h1 {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 3rem;
-            color: #fff;
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin: 0;
+            letter-spacing: 0.1em;
+            text-shadow: 0 0 40px rgba(200, 16, 46, 0.3);
         }
 
         .btn-logout {
-            padding: 0.8rem 1.5rem;
-            background: rgba(255, 107, 53, 0.2);
-            border: 1px solid rgba(255, 107, 53, 0.5);
-            border-radius: 10px;
-            color: #ff6b35;
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.2) 0%, rgba(200, 16, 46, 0.1) 100%);
+            color: #fff;
+            border: 1px solid rgba(200, 16, 46, 0.5);
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            cursor: pointer;
             font-family: 'Outfit', sans-serif;
             font-size: 0.9rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-logout {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+        .btn-logout::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
 
         .btn-logout:hover {
-            background: rgba(255, 107, 107, 0.3);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.4) 0%, rgba(200, 16, 46, 0.2) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(200, 16, 46, 0.3);
+            border-color: var(--accent);
         }
 
-        .btn-chat {
-            background: rgba(107, 107, 255, 0.2);
-            color: #6b6bff;
-            border: 1px solid rgba(107, 107, 255, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
+        .profile-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .profile-actions button {
+            background: var(--bg-glass);
+            color: var(--text-light);
+            border: 1px solid var(--glass-border);
+            padding: 0.7rem 1.4rem;
+            border-radius: 10px;
             cursor: pointer;
             font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all var(--transition-fast);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .btn-chat:hover {
-            background: rgba(107, 107, 255, 0.3);
-            transform: translateY(-2px);
+        .profile-actions button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .profile-actions button:hover {
+            background: var(--bg-glass-hover);
+            transform: translateY(-3px);
+            border-color: var(--glass-border-hover);
+            box-shadow: var(--glass-shadow-hover);
         }
 
         .btn-admin {
-            background: rgba(255, 215, 0, 0.2);
-            color: #ffd700;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
+            border-color: rgba(200, 16, 46, 0.5);
+            color: #fff;
+        }
+
+        .btn-admin:hover {
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.3) 0%, rgba(200, 16, 46, 0.1) 100%);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(200, 16, 46, 0.3);
         }
 
         .btn-admin.hidden {
             display: none;
         }
 
-        .btn-admin:hover {
-            background: rgba(255, 215, 0, 0.3);
-            transform: translateY(-2px);
+        .btn-chat {
+            border-color: rgba(0, 200, 255, 0.4);
+        }
+
+        .btn-chat:hover {
+            background: linear-gradient(135deg, rgba(0, 200, 255, 0.2) 0%, rgba(0, 200, 255, 0.05) 100%);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 8px 24px rgba(0, 200, 255, 0.25);
         }
 
         .btn-edit {
-            background: rgba(255, 107, 53, 0.2);
-            color: #ff6b35;
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
+            border-color: rgba(200, 16, 46, 0.4);
         }
 
         .btn-edit:hover {
-            background: rgba(255, 107, 53, 0.3);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(200, 16, 46, 0.25) 0%, rgba(200, 16, 46, 0.05) 100%);
+            border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(200, 16, 46, 0.25);
         }
 
         .btn-website {
-            background: rgba(107, 255, 107, 0.2);
-            color: #6bff6b;
-            border: 1px solid rgba(107, 255, 107, 0.3);
-            padding: 0.5rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Outfit', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            margin-right: 0.5rem;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .btn-website:hover {
-            background: rgba(107, 255, 107, 0.3);
-            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15);
         }
 
         .profile-content {
             max-width: 800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         .profile-card {
