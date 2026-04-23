@@ -14,12 +14,14 @@ import {
     orderBy,
     limit,
     getDocs,
-    serverTimestamp
+    serverTimestamp,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const logoutBtn = document.getElementById('logoutBtn');
 const goToProfileBtn = document.getElementById('goToProfileBtn');
 const generateCodeForm = document.getElementById('generateCodeForm');
+const removeMemberForm = document.getElementById('removeMemberForm');
 const codeDisplay = document.getElementById('codeDisplay');
 const generatedCode = document.getElementById('generatedCode');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
@@ -27,6 +29,7 @@ const codesList = document.getElementById('codesList');
 const errorMessage = document.getElementById('errorMessage');
 const loading = document.getElementById('loading');
 const adminContent = document.getElementById('adminContent');
+const removeMemberResult = document.getElementById('removeMemberResult');
 
 // Go to Profile
 if (goToProfileBtn) {
@@ -44,6 +47,61 @@ logoutBtn.addEventListener('click', async () => {
         console.error('Logout error:', error);
     }
 });
+
+// Remove Member
+if (removeMemberForm) {
+    removeMemberForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('removeMemberEmail').value;
+
+        if (!confirm(`Are you sure you want to remove member with email: ${email}? This action cannot be undone.`)) {
+            return;
+        }
+
+        try {
+            removeMemberResult.style.display = 'block';
+            removeMemberResult.style.background = 'rgba(255, 255, 255, 0.1)';
+            removeMemberResult.innerHTML = '<p>Searching for member...</p>';
+
+            // Find user by email
+            const usersSnapshot = await getDocs(collection(db, 'users'));
+            let foundUser = null;
+            let foundUserId = null;
+
+            for (const userDoc of usersSnapshot.docs) {
+                if (userDoc.data().email === email) {
+                    foundUser = userDoc.data();
+                    foundUserId = userDoc.id;
+                    break;
+                }
+            }
+
+            if (!foundUser) {
+                removeMemberResult.style.background = 'rgba(255, 0, 0, 0.2)';
+                removeMemberResult.innerHTML = '<p style="color: #ff6b6b;">Member not found with this email.</p>';
+                return;
+            }
+
+            removeMemberResult.innerHTML = `<p>Found member: ${foundUser.name || foundUser.email}. Removing...</p>`;
+
+            // Delete user from Firestore
+            await deleteDoc(doc(db, 'users', foundUserId));
+
+            removeMemberResult.style.background = 'rgba(0, 255, 0, 0.2)';
+            removeMemberResult.innerHTML = `<p style="color: #4ade80;">Successfully removed member: ${foundUser.name || foundUser.email}</p>`;
+
+            // Clear form
+            removeMemberForm.reset();
+
+            console.log('Member removed successfully:', foundUserId);
+
+        } catch (error) {
+            removeMemberResult.style.background = 'rgba(255, 0, 0, 0.2)';
+            removeMemberResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
+            console.error('Error removing member:', error);
+        }
+    });
+}
 
 // Generate random team code
 function generateTeamCode() {

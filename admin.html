@@ -512,6 +512,18 @@
                 </div>
 
                 <div class="admin-section">
+                    <h2>Remove Team Member</h2>
+                    <form id="removeMemberForm">
+                        <div class="form-group">
+                            <label>Member Email</label>
+                            <input type="email" id="removeMemberEmail" placeholder="member@example.com" required>
+                        </div>
+                        <button type="submit" class="btn-generate" style="background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);">Remove Member</button>
+                    </form>
+                    <div id="removeMemberResult" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
+                </div>
+
+                <div class="admin-section">
                     <h2>Team Codes</h2>
                     <div class="codes-list" id="codesList">
                         <!-- Codes will be loaded here -->
