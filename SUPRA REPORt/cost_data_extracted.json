@@ -1,0 +1,443 @@
+{
+  "fasteners": [
+    {
+      "id": 1,
+      "name": "Steel Loop Straps, Rubber-Cushioned",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 2,
+      "name": "Galvanized Steel Loop Straps",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 3,
+      "name": "Galvanized Steel Loop Straps, Rubber coated",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 4,
+      "name": "Metal fixed loop swivel snap",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 5,
+      "name": "Hose Clamp, Spring Steel",
+      "unitCost": "[C1]*[Size1]",
+      "unit": "piece"
+    },
+    {
+      "id": 6,
+      "name": "Hose Clamp, Constant Tension",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 7,
+      "name": "Hose Clamp, Miniature Bolt",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 8,
+      "name": "Hose Clamp, Single Wire",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 9,
+      "name": "Hose Clamp, V-Band Quick Release",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 10,
+      "name": "Hose Clamp, Worm Drive",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 11,
+      "name": "Retaining Ring, R-ring",
+      "unitCost": "[C1]*([Size1]^2)+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 12,
+      "name": "Retaining Ring, Internal",
+      "unitCost": "[C1]*([Size1]^2)+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 13,
+      "name": "Retaining Ring, External",
+      "unitCost": "[C1]*([Size1]^2)+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 14,
+      "name": "Retaining Ring, Spiral",
+      "unitCost": "[C1]*([Size1]^2)+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 15,
+      "name": "Alcoa Camloc Fastener 1/4 turn",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 16,
+      "name": "Bolt, Aluminum",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 17,
+      "name": "Bolt, Banjo",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 18,
+      "name": "Bolt, Custom Design, Student Made",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 19,
+      "name": "Bolt, Grade 10.9 (SAE 8)",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 20,
+      "name": "Bolt, Grade 12.9",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 21,
+      "name": "Bolt, Grade 6.8 (SAE 3) and All Grades less than Metric 8.8",
+      "unitCost": "[C1]/105154*[Size1]1^2*[Size1]2*SQRT([Size1]2)+([C2]*E[Size1]P(0.319*[Size1]1))",
+      "unit": "piece"
+    },
+    {
+      "id": 22,
+      "name": "Bolt, Grade 8.8 (SAE 5)",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 23,
+      "name": "Bolt, Grade AN",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 24,
+      "name": "Bolt, Grade NAS 12-Point",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 25,
+      "name": "Bolt, Grade NAS 6-Point",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 26,
+      "name": "Buckle, side release, metal",
+      "unitCost": "[C1]*[Size1]+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 27,
+      "name": "Clevis",
+      "unitCost": "[C1]*[Size1]^2+[C2]",
+      "unit": "piece"
+    },
+    {
+      "id": 28,
+      "name": "Dzus Fastener, 1/4 Turn, Slotted Head",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 29,
+      "name": "Dzus Fastener, 1/4 Turn, Wing Head",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 30,
+      "name": "Eyebolt, Threaded, Steel",
+      "unitCost": "[Quantity]*(([C1]*EXP([C2]*[Size1])))",
+      "unit": "piece"
+    },
+    {
+      "id": 31,
+      "name": "Hook and Loop, Hook Side (Velcro)",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 32,
+      "name": "Hook and Loop, Loop Side (Velcro)",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 33,
+      "name": "Nut, Custom Design, Student Made",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 34,
+      "name": "Nut, Grade 10.9 (SAE 8)",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 35,
+      "name": "Nut, Grade 12.9",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 36,
+      "name": "Nut, Grade 6.8 (SAE 3) and All Grades less than Metric 8.8",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 37,
+      "name": "Nut, Grade 8.8 (SAE 5)",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 38,
+      "name": "Nut, Grade AN",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 39,
+      "name": "Nut, Grade NAS 12-Point",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 40,
+      "name": "Nut, Grade NAS 6-Point",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 41,
+      "name": "Nut, Lug",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 42,
+      "name": "Nut, Panel Retained",
+      "unitCost": "[Quantity]*([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 43,
+      "name": "Nutsert (J-Nut)",
+      "unitCost": "[C1]*EXP([C2]*[Size1])",
+      "unit": "piece"
+    },
+    {
+      "id": 44,
+      "name": "Pin, Cotter, Straight",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 45,
+      "name": "Pin, Cotter, Hairpin",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 46,
+      "name": "Pin, Plastic Push",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 47,
+      "name": "Pin, Safety, Coiled Wire",
+      "unitCost": "[Quantity]*([C1]*[Size1]+[C2])",
+      "unit": "piece"
+    },
+    {
+      "id": 48,
+      "name": "Pin, Safety, Square Retainer Snap",
+      "unitCost": "[Quantity]*([C1]*[Size1]*[Size2]+[C2])",
+      "unit": "piece"
+    },
+    {
+      "id": 49,
+      "name": "Pin, Quick Release",
+      "unitCost": "[Quantity]*([C1]*[Size1]^2*[Size2]+[C2])",
+      "unit": "piece"
+    },
+    {
+      "id": 50,
+      "name": "Rivet, Pop",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 51,
+      "name": "Safety Wire",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 52,
+      "name": "Stud, Grade 10.9 (SAE 8)",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 53,
+      "name": "Stud, Grade 12.9",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 54,
+      "name": "Stud, Grade 8.8 (SAE 5)",
+      "unitCost": "[C1]/105154*[Size1]^2*[Size2]*SQRT([Size2])+([C2]*EXP(0.319*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 55,
+      "name": "Tapered Pin, Threaded (AN386)",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 56,
+      "name": "Tie Wrap",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 57,
+      "name": "Thread Insert",
+      "unitCost": "[Quantity]*([C1]*[Size1])",
+      "unit": "piece"
+    },
+    {
+      "id": 58,
+      "name": "Washer, Crush",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 59,
+      "name": "Washer, Grade 10.9 (SAE 8)",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 60,
+      "name": "Washer, Grade 12.9",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 61,
+      "name": "Washer, Grade 6.8 (SAE 3) and All Grades less than Metric 8.8",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 62,
+      "name": "Washer, Grade 8.8 (SAE 5)",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 63,
+      "name": "Washer, Grade AN",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 64,
+      "name": "Washer, Grade NAS 12-Point",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 65,
+      "name": "Washer, Grade NAS 6-Point",
+      "unitCost": "([C1]*EXP([C2]*[Size1]))",
+      "unit": "piece"
+    },
+    {
+      "id": 86,
+      "name": "Adapter, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 87,
+      "name": "Coupling, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 88,
+      "name": "Elbow, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 89,
+      "name": "Tee, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 90,
+      "name": "Cap, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 91,
+      "name": "Plug, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 92,
+      "name": "Nut, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    },
+    {
+      "id": 93,
+      "name": "Sleeve, AN",
+      "unitCost": NaN,
+      "unit": "piece"
+    }
+  ],
+  "tooling": []
+}
