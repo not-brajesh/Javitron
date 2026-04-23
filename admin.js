@@ -20,6 +20,7 @@ import {
 const logoutBtn = document.getElementById('logoutBtn');
 const goToProfileBtn = document.getElementById('goToProfileBtn');
 const generateCodeForm = document.getElementById('generateCodeForm');
+const makeEveryoneAdminBtn = document.getElementById('makeEveryoneAdminBtn');
 const codeDisplay = document.getElementById('codeDisplay');
 const generatedCode = document.getElementById('generatedCode');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
@@ -27,11 +28,70 @@ const codesList = document.getElementById('codesList');
 const errorMessage = document.getElementById('errorMessage');
 const loading = document.getElementById('loading');
 const adminContent = document.getElementById('adminContent');
+const makeEveryoneAdminResult = document.getElementById('makeEveryoneAdminResult');
 
 // Go to Profile
 if (goToProfileBtn) {
     goToProfileBtn.addEventListener('click', () => {
         window.location.href = 'profile.html';
+    });
+}
+
+// Make Everyone Admin
+if (makeEveryoneAdminBtn) {
+    makeEveryoneAdminBtn.addEventListener('click', async () => {
+        if (!confirm('Are you sure you want to make ALL users admins? This action cannot be undone.')) {
+            return;
+        }
+
+        try {
+            makeEveryoneAdminResult.style.display = 'block';
+            makeEveryoneAdminResult.style.background = 'rgba(255, 255, 255, 0.1)';
+            makeEveryoneAdminResult.innerHTML = '<p>Fetching all users...</p>';
+
+            // Get all users from Firestore
+            const usersSnapshot = await getDocs(collection(db, 'users'));
+            const totalUsers = usersSnapshot.size;
+
+            if (totalUsers === 0) {
+                makeEveryoneAdminResult.style.background = 'rgba(255, 0, 0, 0.2)';
+                makeEveryoneAdminResult.innerHTML = '<p style="color: #ff6b6b;">No users found in the system.</p>';
+                return;
+            }
+
+            makeEveryoneAdminResult.innerHTML = `<p>Found ${totalUsers} users. Updating roles...</p>`;
+
+            let updatedCount = 0;
+            let errorCount = 0;
+
+            // Update each user to admin
+            for (const userDoc of usersSnapshot.docs) {
+                try {
+                    await updateDoc(doc(db, 'users', userDoc.id), {
+                        role: 'admin',
+                        teamRole: 'admin'
+                    });
+                    updatedCount++;
+                } catch (error) {
+                    console.error('Error updating user:', userDoc.id, error);
+                    errorCount++;
+                }
+            }
+
+            makeEveryoneAdminResult.style.background = 'rgba(0, 255, 0, 0.2)';
+            makeEveryoneAdminResult.innerHTML = `<p style="color: #4ade80;">Successfully made ${updatedCount} users admins!</p>`;
+            if (errorCount > 0) {
+                makeEveryoneAdminResult.innerHTML += `<p style="color: #ff6b6b;">Failed to update ${errorCount} users.</p>`;
+            }
+            makeEveryoneAdminResult.innerHTML += '<p style="margin-top: 10px;">Users should logout and login again for changes to take effect.</p>';
+
+            console.log(`Made ${updatedCount} users admins, ${errorCount} errors`);
+
+        } catch (error) {
+            makeEveryoneAdminResult.style.background = 'rgba(255, 0, 0, 0.2)';
+            makeEveryoneAdminResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
+            console.error('Error making everyone admin:', error);
+        }
     });
 }
 
