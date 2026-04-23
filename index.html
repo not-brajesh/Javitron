@@ -37,13 +37,6 @@
 </head>
 
 <body>
-    <!-- DEBUG: Test menu visibility -->
-    <div id="menu-debug" style="position: fixed; top: 100px; left: 10px; z-index: 100000; background: red; color: white; padding: 10px; border-radius: 5px; display: none;">
-        Menu should be visible!
-    </div>
-    <button onclick="document.getElementById('navMenu').style.cssText='display:flex!important;position:fixed;top:70px;left:0;width:100%;height:auto;background:red;z-index:100000;'; document.getElementById('menu-debug').style.display='block'; alert('Menu forced open!');" style="position: fixed; bottom: 10px; right: 10px; z-index: 100000; background: #ff6b35; color: white; border: none; padding: 10px; border-radius: 5px; font-size: 12px;">
-        FORCE OPEN MENU
-    </button>
 
     <!-- CINEMATIC LOADING SCREEN -->
     <div id="cinematic-loader">
@@ -110,12 +103,23 @@
             <a href="login.html" class="nav-btn">Login</a>
         </div>
 
-        <button class="hamburger" id="hamburger" onclick="document.getElementById('navMenu').classList.toggle('active'); this.classList.toggle('active'); console.log('Hamburger clicked inline!');" style="background: #ff6b35; border: 2px solid white; cursor: pointer;">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <button class="mobile-nav-btn" id="mobileNavBtn" onclick="openMobileNav()">☰ MENU</button>
     </nav>
+
+    <!-- Mobile Navigation Overlay -->
+    <div class="mobile-nav-overlay" id="mobileNavOverlay">
+        <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+        <a href="#home" class="nav-link" onclick="closeMobileNav()">Home</a>
+        <a href="#about" class="nav-link" onclick="closeMobileNav()">About</a>
+        <a href="#team" class="nav-link" onclick="closeMobileNav()">Team</a>
+        <a href="#vehicle" class="nav-link" onclick="closeMobileNav()">Vehicle</a>
+        <a href="#achievements" class="nav-link" onclick="closeMobileNav()">Achievements</a>
+        <a href="#competitions" class="nav-link" onclick="closeMobileNav()">Competitions</a>
+        <a href="#gallery" class="nav-link" onclick="closeMobileNav()">Gallery</a>
+        <a href="#sponsors" class="nav-link" onclick="closeMobileNav()">Sponsors</a>
+        <a href="#contact" class="nav-link" onclick="closeMobileNav()">Contact</a>
+        <a href="login.html" class="nav-btn" onclick="closeMobileNav()">Login</a>
+    </div>
 
     <!-- ===================== HERO CAROUSEL ===================== -->
     <header id="home" class="hero-carousel normal-content">
@@ -1188,6 +1192,29 @@
 
     <script src="script.js"></script>
     <script>
+        // Mobile Navigation Functions
+        function openMobileNav() {
+            console.log('Opening mobile nav');
+            const overlay = document.getElementById('mobileNavOverlay');
+            if (overlay) {
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                console.log('Mobile nav opened');
+            } else {
+                console.error('Mobile nav overlay not found!');
+            }
+        }
+
+        function closeMobileNav() {
+            console.log('Closing mobile nav');
+            const overlay = document.getElementById('mobileNavOverlay');
+            if (overlay) {
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+                console.log('Mobile nav closed');
+            }
+        }
+
         // Journey Overlay Logic
         const logo = document.getElementById('logoSwitch');
         const journeyOverlay = document.getElementById('journey-overlay');
