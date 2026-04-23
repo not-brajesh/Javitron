@@ -11,8 +11,15 @@
         }
     </style>
 
+    <!-- Performance: Preconnect to required origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://www.gstatic.com">
+    
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap"
         rel="stylesheet">
@@ -187,25 +194,25 @@
     <!-- ===================== ABOUT SECTION ===================== -->
     <section id="about" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— About Us</div>
                 <h2>Who We Are</h2>
                 <p>Team Javitron Racing is a Formula Student racing team from Ajeenkya D. Y. Patil University, Pune. We are passionate engineering students dedicated to designing, manufacturing, and racing go-karts. Built our first competition kart in just 1 month using CAD, FEA analysis, custom chassis design, and optimized powertrain engineering.</p>
             </div>
             <div class="team-grid">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Innovation</h3>
                         <p>Pushing boundaries with cutting-edge engineering solutions and creative problem-solving.</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Teamwork</h3>
                         <p>20+ members collaborating across multiple departments to achieve common goals.</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Excellence</h3>
                         <p>Commitment to precision, quality, and continuous improvement in everything we do.</p>
@@ -218,14 +225,14 @@
     <!-- ===================== ACHIEVEMENTS SECTION ===================== -->
     <section id="achievements" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Our Legacy</div>
                 <h2>Achievements</h2>
                 <p>Celebrating our victories and milestones in Formula Student competitions.</p>
             </div>
 
             <div class="team-grid">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">1st Place</h3>
@@ -234,7 +241,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🎖️</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">Winner</h3>
@@ -243,7 +250,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🥈</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">2nd Place</h3>
@@ -252,7 +259,7 @@
                         <div style="font-size: 0.8rem; color: var(--text-dim); margin-top: 1rem;">GKDC 2026</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-3 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">📊</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--accent);">AIR 6</h3>
@@ -268,7 +275,7 @@
     <!-- ===================== VEHICLE SECTION ===================== -->
     <section id="vehicle" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Our Machine</div>
                 <h2>The Vehicle</h2>
                 <p>Engineering excellence in every component. Meet our Formula Student race car.</p>
@@ -276,7 +283,7 @@
 
             <!-- Vehicle Overview -->
             <div class="team-grid">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Javitron Racing Kart</h3>
                         <p style="margin-bottom: 1.5rem;">Built in just 30 days, our competition kart features lightweight chassis, high-performance braking, and optimized aerodynamics for track dominance.</p>
@@ -300,7 +307,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Key Features</h3>
                         <ul style="list-style: none; padding: 0;">
@@ -322,7 +329,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Performance</h3>
                         <p style="margin-bottom: 1rem;">Achieved 1st place in Autocross at GKDC 2026 with superior handling and acceleration.</p>
@@ -337,21 +344,21 @@
                 <h2>Design → Manufacturing → Testing</h2>
             </div>
             <div class="process-flow-container">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">01</h3>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Design</h3>
                         <p>CAD modeling, CFD analysis, FEA simulation, and iterative optimization for maximum performance.</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">02</h3>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Manufacturing</h3>
                         <p>Precision CNC machining, tube frame fabrication, carbon fiber layup, and quality control.</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem; color: var(--accent);">03</h3>
                         <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 1rem;">Testing</h3>
@@ -365,7 +372,7 @@
     <!-- ===================== TEAM SECTION (Normal Mode) ===================== -->
     <section id="team" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— The Team</div>
                 <h2>Meet Our<br>Team</h2>
                 <p>20+ passionate engineering students across multiple departments building championship-winning vehicles.</p>
@@ -497,14 +504,14 @@
     <!-- ===================== JOURNEY / PROCESS SECTION ===================== -->
     <section id="journey" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Our Process</div>
                 <h2>The Journey</h2>
                 <p>From concept to competition, our systematic approach to building championship-winning vehicles.</p>
             </div>
 
             <div class="team-grid" style="max-width: 900px; margin: 0 auto;">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="padding: 2rem;">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                             <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">1</div>
@@ -514,7 +521,7 @@
                         <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">3-4 Months</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="padding: 2rem;">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                             <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">2</div>
@@ -524,7 +531,7 @@
                         <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">4-5 Months</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="padding: 2rem;">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                             <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">3</div>
@@ -534,7 +541,7 @@
                         <div style="font-size: 0.8rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;">2-3 Months</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-3 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-info" style="padding: 2rem;">
                         <div style="display: flex; align-items: center; margin-bottom: 1rem;">
                             <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 1rem; font-family: var(--font-display); font-size: 1.5rem; color: var(--text-light);">4</div>
@@ -551,7 +558,7 @@
     <!-- ===================== COMPETITIONS SECTION ===================== -->
     <section id="competitions" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Where We Race</div>
                 <h2>Competitions</h2>
                 <p>Competing at the highest level of Formula Student across India.</p>
@@ -625,25 +632,25 @@
                 <h2>Highlights</h2>
             </div>
             <div class="team-grid">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">1st</span>
                         <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Autocross</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">2nd</span>
                         <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Acceleration</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">✓</span>
                         <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Endurance</div>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-3 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <span style="font-family: var(--font-display); font-size: 2.5rem; color: var(--accent);">100%</span>
                         <div style="font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); margin-top: 0.5rem;">Tech Inspection</div>
@@ -656,7 +663,7 @@
     <!-- ===================== SHOWCASE SECTION ===================== -->
     <section id="showcase" class="showcase-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— The Lineup</div>
                 <h2>Engineering<br>Masterpieces</h2>
                 <p>Discover our lineup of track-focused and luxury grand tourers.</p>
@@ -875,7 +882,7 @@
     <!-- ===================== GALLERY SECTION ===================== -->
     <section id="gallery" class="showcase-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Visual Journey</div>
                 <h2>Gallery</h2>
                 <p>Behind the scenes: our workshop, cars, team, and competition moments.</p>
@@ -962,49 +969,49 @@
     <!-- ===================== HIGHLIGHTS / MEDIA SECTION ===================== -->
     <section id="highlights" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Media</div>
                 <h2>Highlights</h2>
                 <p>Instagram-style highlights from our journey.</p>
             </div>
 
             <div class="team-grid">
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🏁</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">GKDC 2024</h3>
                         <p>Our championship run at Formula Bharat</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Practice Sessions</h3>
                         <p>Driver training and track testing</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-2 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="200">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🛠️</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Workshops</h3>
                         <p>Manufacturing and fabrication</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-3 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="300">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🎨</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Designing</h3>
                         <p>CAD modeling and CFD analysis</p>
                     </div>
                 </div>
-                <div class="team-card fade-up glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">👥</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Meetings</h3>
                         <p>Team coordination and planning</p>
                     </div>
                 </div>
-                <div class="team-card fade-up delay-1 glass-panel">
+                <div class="team-card glass-panel" data-aos="fade-up" data-aos-delay="100">
                     <div class="team-info" style="text-align: center; padding: 2rem;">
                         <div style="font-size: 3rem; margin-bottom: 1rem;">🏆</div>
                         <h3 style="font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 0.5rem;">Awards</h3>
@@ -1018,7 +1025,7 @@
     <!-- ===================== RECRUITMENT / JOIN US SECTION ===================== -->
     <section id="recruitment" class="team-section normal-content">
         <div class="container">
-            <div class="section-header fade-up">
+            <div class="section-header" data-aos="fade-up">
                 <div class="section-label">— Join Us</div>
                 <h2>Recruitment</h2>
                 <p>Be part of Team Javitron Racing and build your engineering career.</p>
