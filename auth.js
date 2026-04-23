@@ -78,16 +78,25 @@ loginForm.addEventListener('submit', async (e) => {
     const email = document.getElementById('loginEmail').value;
     const password = document.getElementById('loginPassword').value;
 
+    console.log('Login attempt started for:', email);
+
     try {
         loginForm.classList.add('loading');
+        console.log('Calling signInWithEmailAndPassword...');
+
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        console.log('Login successful, user:', userCredential.user.uid);
+
         showSuccess('Login successful! Redirecting...');
 
         // Check if user profile exists
+        console.log('Checking user profile in Firestore...');
         const userDoc = await getDoc(doc(db, 'users', userCredential.user.uid));
+        console.log('User profile exists:', userDoc.exists());
 
         if (userDoc.exists()) {
             const userData = userDoc.data();
+            console.log('User role:', userData.role);
 
             // Check if user is admin
             const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
@@ -97,16 +106,34 @@ loginForm.addEventListener('submit', async (e) => {
                 window.location.href = isAdmin ? 'admin.html' : 'profile.html';
             }, 1500);
         } else {
+            console.log('No profile found, redirecting to complete profile...');
             // Redirect to complete profile
             setTimeout(() => {
                 window.location.href = 'complete-profile.html';
             }, 1500);
         }
     } catch (error) {
+        console.error('Login error:', error.code, error.message);
+        showError(getAuthErrorMessage(error.code) || error.message);
+    } finally {
+        console.log('Login attempt completed, removing loading state');
         loginForm.classList.remove('loading');
-        showError(error.message);
     }
 });
+
+// Get user-friendly error messages
+function getAuthErrorMessage(code) {
+    const messages = {
+        'auth/user-not-found': 'No account found with this email. Please register first.',
+        'auth/wrong-password': 'Incorrect password. Please try again.',
+        'auth/invalid-email': 'Please enter a valid email address.',
+        'auth/user-disabled': 'This account has been disabled.',
+        'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
+        'auth/network-request-failed': 'Network error. Please check your internet connection.',
+        'auth/invalid-credential': 'Invalid email or password. Please try again.'
+    };
+    return messages[code];
+}
 
 // Email/Password Registration
 registerForm.addEventListener('submit', async (e) => {
