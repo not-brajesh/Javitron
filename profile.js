@@ -16,11 +16,13 @@ import {
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
+    const editProfileBtn = document.getElementById('editProfileBtn');
     const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
     const chatBtn = document.getElementById('chatBtn');
     const adminPanelBtn = document.getElementById('adminPanelBtn');
-    const updateProfileForm = document.getElementById('updateProfileForm');
-    const profileUpdateResult = document.getElementById('profileUpdateResult');
+    const editProfileModal = document.getElementById('editProfileModal');
+    const editProfileForm = document.getElementById('editProfileForm');
+    const cancelEditProfileBtn = document.getElementById('cancelEditProfile');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
 
@@ -31,12 +33,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Update Profile (Name and Role)
-    if (updateProfileForm) {
-        updateProfileForm.addEventListener('submit', async (e) => {
+    // Edit Profile Button - Open Modal
+    if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', () => {
+            const profileName = document.getElementById('profileName');
+            if (profileName) {
+                document.getElementById('editProfileName').value = profileName.textContent;
+            }
+            editProfileModal.classList.add('active');
+        });
+    }
+
+    // Cancel Edit Profile
+    if (cancelEditProfileBtn) {
+        cancelEditProfileBtn.addEventListener('click', () => {
+            editProfileModal.classList.remove('active');
+        });
+    }
+
+    // Save Profile Changes
+    if (editProfileForm) {
+        editProfileForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const newName = document.getElementById('updateName').value;
-            const newRole = document.getElementById('updateRole').value;
+            const newName = document.getElementById('editProfileName').value;
 
             try {
                 const user = auth.currentUser;
@@ -45,19 +64,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                profileUpdateResult.style.display = 'block';
-                profileUpdateResult.style.background = 'rgba(255, 255, 255, 0.1)';
-                profileUpdateResult.innerHTML = '<p>Updating your profile...</p>';
-
                 await updateDoc(doc(db, 'users', user.uid), {
-                    name: newName,
-                    role: newRole,
-                    teamRole: newRole
+                    name: newName
                 });
 
-                profileUpdateResult.style.background = 'rgba(0, 255, 0, 0.2)';
-                profileUpdateResult.innerHTML = '<p style="color: #4ade80;">Success! Your profile has been updated.</p>';
-                profileUpdateResult.innerHTML += '<p style="margin-top: 10px;">Please logout and login again for role changes to take effect.</p>';
+                editProfileModal.classList.remove('active');
 
                 // Update the displayed name on the page
                 const profileName = document.getElementById('profileName');
@@ -65,19 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     profileName.textContent = newName;
                 }
 
-                // Update the displayed role on the page
-                const profileRole = document.getElementById('profileRole');
-                if (profileRole) {
-                    profileRole.textContent = newRole.charAt(0).toUpperCase() + newRole.slice(1);
-                }
-
-                updateProfileForm.reset();
-
-                console.log('User profile updated successfully');
+                alert('Profile updated successfully!');
+                console.log('User name updated successfully');
 
             } catch (error) {
-                profileUpdateResult.style.background = 'rgba(255, 0, 0, 0.2)';
-                profileUpdateResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
+                alert('Error updating profile: ' + error.message);
                 console.error('Error updating user profile:', error);
             }
         });
