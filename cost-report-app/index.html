@@ -14,8 +14,74 @@
     <title>SUPRA SAEINDIA Cost Report - Javitron</title>
     <script type="module" crossorigin src="./assets/index-DQ0lPwaa.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-C5zfTLSS.css">
-  <link rel="manifest" href="./manifest.webmanifest"></head>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <style>
+    .download-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 107, 53, 0.6);
+    }
+    .download-btn.hidden {
+      display: none;
+    }
+  </style>
+</head>
   <body>
     <div id="root"></div>
+    <button id="downloadBtn" class="download-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      Download App
+    </button>
+    <script>
+      const downloadBtn = document.getElementById('downloadBtn');
+      let deferredPrompt;
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        downloadBtn.classList.remove('hidden');
+      });
+
+      downloadBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          if (outcome === 'accepted') {
+            downloadBtn.classList.add('hidden');
+          }
+          deferredPrompt = null;
+        } else {
+          // Fallback for browsers that don't support PWA install prompt
+          alert('To download this app for offline use:\n\n1. Tap the Share button in your browser\n2. Tap "Add to Home Screen" or "Install App"\n3. Confirm the installation');
+        }
+      });
+
+      // Hide button if already installed
+      window.addEventListener('appinstalled', () => {
+        downloadBtn.classList.add('hidden');
+      });
+    </script>
   </body>
 </html>
