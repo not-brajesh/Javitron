@@ -4365,3 +4365,102 @@ p {
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: clamp(2rem, 4vw, 3rem);
 }
+
+/* ============================================================
+   GLOBAL RESPONSIVE SMOOTH TRANSITIONS
+   ============================================================ */
+
+/* Smooth transitions for all interactive elements */
+*,
+*::before,
+*::after {
+    transition: width 0.3s ease, height 0.3s ease, padding 0.3s ease, margin 0.3s ease, font-size 0.3s ease;
+}
+
+/* Prevent layout shift during resize */
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+/* Ensure images don't overflow */
+img, video, svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Container queries support for modern browsers */
+@supports (container-type: inline-size) {
+    .responsive-container {
+        container-type: inline-size;
+    }
+}
+
+/* Fluid spacing system */
+:root {
+    --space-xs: clamp(0.5rem, 1vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 1.5vw, 1rem);
+    --space-md: clamp(1rem, 2vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 3vw, 2rem);
+    --space-xl: clamp(2rem, 4vw, 3rem);
+    --space-2xl: clamp(3rem, 6vw, 4rem);
+}
+
+/* Large screen optimizations */
+@media (min-width: 1200px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1400px) {
+    html {
+        font-size: 20px;
+    }
+}
+
+/* High DPI / Retina screen optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Print styles */
+@media print {
+    *,
+    *::before,
+    *::after {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+    
+    .navbar,
+    .cursor,
+    .cursor-follower {
+        display: none !important;
+    }
+}

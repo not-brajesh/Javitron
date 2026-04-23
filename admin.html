@@ -678,6 +678,55 @@
                 font-size: 0.9rem;
             }
         }
+
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .admin-container {
+                padding: 3rem;
+            }
+
+            .admin-content {
+                max-width: 1400px;
+            }
+
+            .admin-section {
+                padding: 2.5rem;
+            }
+
+            .admin-header h1 {
+                font-size: 4rem;
+            }
+
+            .admin-section h2 {
+                font-size: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1400px) {
+            .admin-content {
+                max-width: 1600px;
+            }
+
+            .codes-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Fluid typography for better scaling */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .admin-header h1 {
+                font-size: clamp(2rem, 5vw, 3rem);
+            }
+
+            .admin-section h2 {
+                font-size: clamp(1.25rem, 3vw, 1.75rem);
+            }
+        }
     </style>
 </head>
 <body>

@@ -373,6 +373,60 @@
                 font-size: 0.8rem;
             }
         }
+
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .auth-container {
+                padding: 3rem;
+            }
+
+            .auth-box {
+                max-width: 500px;
+                padding: 3.5rem;
+            }
+
+            .auth-header h1 {
+                font-size: 3rem;
+            }
+
+            .auth-header p {
+                font-size: 1.1rem;
+            }
+
+            .form-group label {
+                font-size: 1rem;
+            }
+
+            .form-group input,
+            .form-group select {
+                font-size: 1.1rem;
+                padding: 1rem;
+            }
+
+            .btn-auth {
+                padding: 1rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1400px) {
+            .auth-box {
+                max-width: 550px;
+                padding: 4rem;
+            }
+        }
+
+        /* Fluid typography for better scaling */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .auth-header h1 {
+                font-size: clamp(1.75rem, 4vw, 2.5rem);
+            }
+
+            .auth-box {
+                padding: clamp(2rem, 5vw, 3rem);
+            }
+        }
     </style>
 </head>
 <body>

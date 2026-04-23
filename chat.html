@@ -779,6 +779,96 @@
                 font-size: 1rem;
             }
         }
+
+        /* Large screens */
+        @media (min-width: 1200px) {
+            .chat-container {
+                max-width: 1600px;
+            }
+
+            .chat-sidebar {
+                width: 350px;
+            }
+
+            .sidebar-header h2 {
+                font-size: 1.75rem;
+            }
+
+            .chat-item {
+                padding: 1.25rem;
+            }
+
+            .chat-item-avatar {
+                width: 50px;
+                height: 50px;
+            }
+
+            .chat-header {
+                padding: 1.5rem 2rem;
+            }
+
+            .chat-header-avatar {
+                width: 55px;
+                height: 55px;
+            }
+
+            .chat-header-name {
+                font-size: 1.25rem;
+            }
+
+            .chat-messages {
+                padding: 2rem;
+            }
+
+            .message {
+                max-width: 70%;
+                padding: 1.25rem;
+            }
+
+            .chat-input-area {
+                padding: 1.5rem 2rem;
+            }
+
+            .chat-input {
+                padding: 1.25rem;
+                font-size: 1.1rem;
+            }
+
+            .chat-send-btn {
+                padding: 1rem 1.75rem;
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Extra large screens */
+        @media (min-width: 1400px) {
+            .chat-container {
+                max-width: 1800px;
+            }
+
+            .chat-sidebar {
+                width: 400px;
+            }
+
+            .message {
+                max-width: 65%;
+            }
+        }
+
+        /* Fluid typography for better scaling */
+        @media (min-width: 768px) and (max-width: 1199px) {
+            .sidebar-header h2 {
+                font-size: clamp(1.25rem, 3vw, 1.5rem);
+            }
+
+            .chat-header-name {
+                font-size: clamp(1rem, 2.5vw, 1.25rem);
+            }
+
+            .message {
+                max-width: clamp(75%, 5vw, 85%);
+            }
+        }
     </style>
 </head>
 <body>
