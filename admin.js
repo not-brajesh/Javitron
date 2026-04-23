@@ -26,10 +26,15 @@ const codeDisplay = document.getElementById('codeDisplay');
 const generatedCode = document.getElementById('generatedCode');
 const copyCodeBtn = document.getElementById('copyCodeBtn');
 const codesList = document.getElementById('codesList');
+const membersList = document.getElementById('membersList');
 const errorMessage = document.getElementById('errorMessage');
 const loading = document.getElementById('loading');
 const adminContent = document.getElementById('adminContent');
 const removeMemberResult = document.getElementById('removeMemberResult');
+const editMemberModal = document.getElementById('editMemberModal');
+const editMemberForm = document.getElementById('editMemberForm');
+const cancelEditMemberBtn = document.getElementById('cancelEditMember');
+let currentEditingMemberId = null;
 
 // Go to Profile
 if (goToProfileBtn) {
@@ -102,6 +107,106 @@ if (removeMemberForm) {
         }
     });
 }
+
+// Load all members
+async function loadMembers() {
+    try {
+        const usersSnapshot = await getDocs(collection(db, 'users'));
+        membersList.innerHTML = '';
+
+        if (usersSnapshot.empty) {
+            membersList.innerHTML = '<p style="color: rgba(255, 255, 255, 0.6); text-align: center;">No members found.</p>';
+            return;
+        }
+
+        usersSnapshot.forEach(doc => {
+            const member = doc.data();
+            const memberItem = document.createElement('div');
+            memberItem.className = 'member-item';
+            memberItem.innerHTML = `
+                <div class="member-info">
+                    <h4>${member.name || member.email}</h4>
+                    <p>${member.email}</p>
+                    <p>Department: ${member.department || 'Not specified'}</p>
+                    <span class="member-role">${member.role || 'member'}</span>
+                </div>
+                <div class="member-actions">
+                    <button class="btn-edit-member" onclick="editMember('${doc.id}', '${member.name || ''}', '${member.role || 'member'}', '${member.department || 'Mechanical'}')">
+                        Edit
+                    </button>
+                    <button class="btn-remove-member" onclick="removeMember('${doc.id}', '${member.name || member.email}')">
+                        Remove
+                    </button>
+                </div>
+            `;
+            membersList.appendChild(memberItem);
+        });
+    } catch (error) {
+        console.error('Error loading members:', error);
+        membersList.innerHTML = '<p style="color: #ff6b6b; text-align: center;">Error loading members.</p>';
+    }
+}
+
+// Edit member
+window.editMember = function(memberId, name, role, department) {
+    currentEditingMemberId = memberId;
+    document.getElementById('editMemberName').value = name;
+    document.getElementById('editMemberRole').value = role;
+    document.getElementById('editMemberDepartment').value = department;
+    editMemberModal.classList.add('active');
+};
+
+// Cancel edit member
+if (cancelEditMemberBtn) {
+    cancelEditMemberBtn.addEventListener('click', () => {
+        editMemberModal.classList.remove('active');
+        currentEditingMemberId = null;
+    });
+}
+
+// Save member changes
+if (editMemberForm) {
+    editMemberForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const newName = document.getElementById('editMemberName').value;
+        const newRole = document.getElementById('editMemberRole').value;
+        const newDepartment = document.getElementById('editMemberDepartment').value;
+
+        try {
+            await updateDoc(doc(db, 'users', currentEditingMemberId), {
+                name: newName,
+                role: newRole,
+                teamRole: newRole,
+                department: newDepartment
+            });
+
+            editMemberModal.classList.remove('active');
+            currentEditingMemberId = null;
+            loadMembers();
+            alert('Member updated successfully!');
+        } catch (error) {
+            console.error('Error updating member:', error);
+            alert('Error updating member: ' + error.message);
+        }
+    });
+}
+
+// Remove member
+window.removeMember = function(memberId, memberName) {
+    if (!confirm(`Are you sure you want to remove ${memberName}? This action cannot be undone.`)) {
+        return;
+    }
+
+    deleteDoc(doc(db, 'users', memberId))
+        .then(() => {
+            loadMembers();
+            alert('Member removed successfully!');
+        })
+        .catch(error => {
+            console.error('Error removing member:', error);
+            alert('Error removing member: ' + error.message);
+        });
+};
 
 // Generate random team code
 function generateTeamCode() {
@@ -241,6 +346,7 @@ async function checkAdminAccess() {
         loading.style.display = 'none';
         adminContent.style.display = 'block';
         loadTeamCodes();
+        loadMembers();
     } catch (error) {
         console.error('Error checking admin access:', error);
         showError('Error checking admin access. Please try again.');

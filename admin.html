@@ -239,6 +239,184 @@
             color: #ff6b6b;
         }
 
+        .members-list {
+            margin-top: 2rem;
+        }
+
+        .member-item {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .member-info {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .member-info h4 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-info p {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 0.3rem;
+        }
+
+        .member-info .member-role {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ff6b35;
+            margin-top: 0.5rem;
+        }
+
+        .member-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .member-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit-member {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-edit-member:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-remove-member {
+            background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+            color: #fff;
+        }
+
+        .btn-remove-member:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 68, 68, 0.4);
+        }
+
+        .edit-member-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .edit-member-modal.active {
+            display: flex;
+        }
+
+        .edit-member-form {
+            background: #1a0a2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .edit-member-form h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .edit-member-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .edit-member-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .edit-member-form input,
+        .edit-member-form select {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+        }
+
+        .edit-member-form select option {
+            background: #1a0a2e;
+            color: #fff;
+        }
+
+        .edit-member-form .form-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .edit-member-form .form-actions button {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-save-member {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+        }
+
+        .btn-cancel-edit {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-cancel-edit:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .loading {
             text-align: center;
             padding: 3rem;
@@ -524,12 +702,56 @@
                 </div>
 
                 <div class="admin-section">
+                    <h2>Team Members</h2>
+                    <div class="members-list" id="membersList">
+                        <!-- Members will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="admin-section">
                     <h2>Team Codes</h2>
                     <div class="codes-list" id="codesList">
                         <!-- Codes will be loaded here -->
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Edit Member Modal -->
+    <div class="edit-member-modal" id="editMemberModal">
+        <div class="edit-member-form">
+            <h3>Edit Member</h3>
+            <form id="editMemberForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="editMemberName" required>
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    <select id="editMemberRole" required>
+                        <option value="member">Team Member</option>
+                        <option value="lead">Team Lead</option>
+                        <option value="vice-captain">Vice Captain</option>
+                        <option value="captain">Captain</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Department</label>
+                    <select id="editMemberDepartment" required>
+                        <option value="Mechanical">Mechanical</option>
+                        <option value="Electrical">Electrical</option>
+                        <option value="Software">Software</option>
+                        <option value="Design">Design</option>
+                        <option value="Management">Management</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel-edit" id="cancelEditMember">Cancel</button>
+                    <button type="submit" class="btn-save-member">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 
