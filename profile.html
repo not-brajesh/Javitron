@@ -656,6 +656,40 @@
             background: linear-gradient(135deg, #c8102e 0%, #ff6b35 100%);
         }
 
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         /* Responsive Apps Section */
         @media (max-width: 768px) {
             .apps-section {
@@ -733,6 +767,21 @@
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
+        </div>
+
+        <!-- Profile Info Update Section -->
+        <div class="profile-card">
+            <h2>Profile Info Update</h2>
+            <form id="updateProfileForm">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" id="updateName" placeholder="Your Name" required>
+                </div>
+                <button type="submit" class="btn-role-update" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                    <i class="fas fa-user-edit"></i> Update Name
+                </button>
+            </form>
+            <div id="profileUpdateResult" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
         </div>
 
         <!-- Role Management Section -->

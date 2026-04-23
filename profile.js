@@ -20,8 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
     const chatBtn = document.getElementById('chatBtn');
     const adminPanelBtn = document.getElementById('adminPanelBtn');
+    const updateProfileForm = document.getElementById('updateProfileForm');
     const updateRoleBtn = document.getElementById('updateRoleBtn');
     const makeEveryoneAdminBtn = document.getElementById('makeEveryoneAdminBtn');
+    const profileUpdateResult = document.getElementById('profileUpdateResult');
     const roleResult = document.getElementById('roleResult');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
@@ -32,6 +34,48 @@ document.addEventListener('DOMContentLoaded', () => {
     if (adminPanelBtn) {
         adminPanelBtn.addEventListener('click', () => {
             window.location.href = 'admin.html';
+        });
+    }
+
+    // Update Profile Name
+    if (updateProfileForm) {
+        updateProfileForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newName = document.getElementById('updateName').value;
+
+            try {
+                const user = auth.currentUser;
+                if (!user) {
+                    alert('You must be logged in to update your profile.');
+                    return;
+                }
+
+                profileUpdateResult.style.display = 'block';
+                profileUpdateResult.style.background = 'rgba(255, 255, 255, 0.1)';
+                profileUpdateResult.innerHTML = '<p>Updating your name...</p>';
+
+                await updateDoc(doc(db, 'users', user.uid), {
+                    name: newName
+                });
+
+                profileUpdateResult.style.background = 'rgba(0, 255, 0, 0.2)';
+                profileUpdateResult.innerHTML = '<p style="color: #4ade80;">Success! Your name has been updated.</p>';
+
+                // Update the displayed name on the page
+                const profileName = document.getElementById('profileName');
+                if (profileName) {
+                    profileName.textContent = newName;
+                }
+
+                updateProfileForm.reset();
+
+                console.log('User name updated successfully');
+
+            } catch (error) {
+                profileUpdateResult.style.background = 'rgba(255, 0, 0, 0.2)';
+                profileUpdateResult.innerHTML = `<p style="color: #ff6b6b;">Error: ${error.message}</p>`;
+                console.error('Error updating user name:', error);
+            }
         });
     }
 
