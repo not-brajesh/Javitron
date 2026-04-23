@@ -623,6 +623,10 @@ body.transition-active .team-story-section {
     padding: 10px;
     background: transparent;
     border: none;
+    position: relative;
+    z-index: 10000;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .hamburger span {
@@ -632,6 +636,7 @@ body.transition-active .team-story-section {
     background: #fff;
     border-radius: 3px;
     transition: all 0.3s ease;
+    pointer-events: none;
 }
 
 .hamburger.active span:nth-child(1) {

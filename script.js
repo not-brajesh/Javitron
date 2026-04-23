@@ -979,12 +979,33 @@ document.addEventListener('DOMContentLoaded', () => {
        ============================================================ */
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
+    
+    console.log('Hamburger element:', hamburger);
+    console.log('NavMenu element:', navMenu);
 
-    hamburger?.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navMenu?.classList.toggle('active');
-        document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
-    });
+    if (hamburger) {
+        hamburger.addEventListener('click', (e) => {
+            console.log('Hamburger clicked!');
+            e.preventDefault();
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            navMenu?.classList.toggle('active');
+            document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
+            console.log('Menu active:', navMenu?.classList.contains('active'));
+        });
+        
+        // Also handle touch events for mobile
+        hamburger.addEventListener('touchend', (e) => {
+            console.log('Hamburger touched!');
+            e.preventDefault();
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            navMenu?.classList.toggle('active');
+            document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
+        });
+    } else {
+        console.error('Hamburger button not found!');
+    }
 
     document.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
         link.addEventListener('click', () => {
