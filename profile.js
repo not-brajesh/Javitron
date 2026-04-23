@@ -16,7 +16,6 @@ import {
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', () => {
     const logoutBtn = document.getElementById('logoutBtn');
-    const editProfileBtn = document.getElementById('editProfileBtn');
     const goToWebsiteBtn = document.getElementById('goToWebsiteBtn');
     const chatBtn = document.getElementById('chatBtn');
     const adminPanelBtn = document.getElementById('adminPanelBtn');
@@ -24,8 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const profileUpdateResult = document.getElementById('profileUpdateResult');
     const loading = document.getElementById('loading');
     const profileContent = document.getElementById('profileContent');
-
-    console.log('DOM loaded - editProfileBtn:', editProfileBtn);
 
     // Admin Panel
     if (adminPanelBtn) {
