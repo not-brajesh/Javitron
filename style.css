@@ -4792,3 +4792,390 @@ img, video, svg {
         padding: 10px 20px;
     }
 }
+
+/* ============================================
+   PREMIUM ANIMATIONS & INTERACTIONS
+   ============================================ */
+
+/* Navbar Active Link Highlight */
+.nav-menu a.active {
+    color: var(--accent);
+    position: relative;
+}
+
+.nav-menu a.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+}
+
+/* Enhanced Button Hover Effects */
+.btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.4);
+}
+
+.btn:active {
+    transform: scale(0.98);
+    transition: all 0.1s ease;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.5);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* Button Glow Effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Card Hover Effects - Lift & Shadow */
+.team-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.team-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+/* Gallery Card Hover */
+.gallery-item {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+    transition: transform 0.6s ease;
+}
+
+/* Showcase Item Hover */
+.showcase-item {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.showcase-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.showcase-item:hover .showcase-img {
+    transform: scale(1.05);
+}
+
+.showcase-item:hover .showcase-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, transparent 100%);
+}
+
+/* Vehicle Card Hover */
+.vehicle-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vehicle-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+}
+
+.vehicle-card:hover img {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+/* Feature Card Hover */
+.feature-card {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    border-color: rgba(200, 16, 46, 0.3);
+}
+
+/* Section Transitions - Smooth Flow */
+section {
+    position: relative;
+}
+
+section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: linear-gradient(to bottom, transparent, rgba(10, 4, 20, 0.5));
+    pointer-events: none;
+}
+
+/* Hero Entrance Animations */
+@keyframes heroTextReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heroButtonReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-content h1 {
+    animation: heroTextReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    opacity: 0;
+}
+
+.carousel-content p {
+    animation: heroTextReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+    opacity: 0;
+}
+
+.hero-actions {
+    animation: heroButtonReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    opacity: 0;
+}
+
+/* Scroll Reveal Animation Base */
+[data-aos] {
+    pointer-events: none;
+}
+
+[data-aos].aos-animate {
+    pointer-events: auto;
+}
+
+/* AOS Custom Animations */
+[data-aos="fade-up"] {
+    transform: translateY(30px);
+    opacity: 0;
+    transition-property: transform, opacity;
+}
+
+[data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+[data-aos="fade-in"] {
+    opacity: 0;
+    transition-property: opacity;
+}
+
+[data-aos="fade-in"].aos-animate {
+    opacity: 1;
+}
+
+[data-aos="zoom-in"] {
+    transform: scale(0.9);
+    opacity: 0;
+    transition-property: transform, opacity;
+}
+
+[data-aos="zoom-in"].aos-animate {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Link Hover Effects */
+a:not(.btn):not(.nav-link) {
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+a:not(.btn):not(.nav-link):hover {
+    color: var(--accent);
+}
+
+/* Stats Counter Animation */
+.stat-value {
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover .stat-value {
+    transform: scale(1.1);
+}
+
+/* Footer Link Hover */
+.footer-links a {
+    position: relative;
+    transition: all 0.3s ease;
+    padding-left: 0;
+}
+
+.footer-links a::before {
+    content: '';
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.footer-links a:hover {
+    padding-left: 15px;
+    color: var(--accent);
+}
+
+.footer-links a:hover::before {
+    width: 10px;
+}
+
+/* Newsletter Input Focus */
+.newsletter-input {
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(200, 16, 46, 0.3);
+    outline: none;
+}
+
+/* Go to Top Button */
+.go-top {
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.go-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.go-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(200, 16, 46, 0.4);
+}
+
+/* Loading State for Buttons */
+.btn.loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: button-spin 0.8s linear infinite;
+}
+
+@keyframes button-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Parallax Effect for Hero Background */
+.carousel-slide {
+    transition: transform 0.1s linear;
+}
+
+/* Smooth Section Reveal */
+.reveal-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile Reduced Animations */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .carousel-content h1,
+    .carousel-content p,
+    .hero-actions {
+        animation: none;
+        opacity: 1;
+    }
+}
+
+/* Small Mobile - Disable complex animations */
+@media (max-width: 480px) {
+    .team-card:hover,
+    .gallery-item:hover,
+    .showcase-item:hover,
+    .vehicle-card:hover,
+    .feature-card:hover {
+        transform: translateY(-3px);
+    }
+}

@@ -1252,11 +1252,38 @@
                 duration: 800,
                 easing: 'ease-out-cubic',
                 once: true,
-                offset: 50,
-                delay: 100,
-                disable: window.innerWidth < 320 // Disable on very small screens
+                offset: 100,
+                delay: 0,
+                disable: window.innerWidth < 320
             });
         }
+
+        // Active Section Highlighting on Scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-menu a[href^="#"]');
+        
+        function highlightNavOnScroll() {
+            let current = '';
+            const scrollPos = window.scrollY + 150;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightNavOnScroll);
+        highlightNavOnScroll(); // Initial call
 
         // Journey Overlay Logic
         const logo = document.getElementById('logoSwitch');
