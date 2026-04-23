@@ -4871,6 +4871,99 @@ button:contains("Achievement") {
     z-index: 2;
 }
 
+/* HERO GLASSMORPHISM CARDS */
+.hero-glass-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    
+    padding: 18px 24px;
+    margin-bottom: 16px;
+    
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Red Accent Glow */
+.hero-glass-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    
+    background: linear-gradient(
+        120deg,
+        rgba(200, 16, 46, 0.15),
+        transparent 60%
+    );
+    
+    pointer-events: none;
+}
+
+/* Glossy Shine Effect */
+.hero-glass-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    
+    background: linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.25),
+        transparent
+    );
+    
+    opacity: 0.2;
+    filter: blur(8px);
+    pointer-events: none;
+}
+
+/* Hover Interaction */
+.hero-glass-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(200, 16, 46, 0.3);
+}
+
+/* Icon Styling */
+.hero-glass-card .card-icon {
+    color: #c8102e;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Text Styling inside cards */
+.hero-glass-card h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin: 0;
+    color: #fff;
+}
+
+.hero-glass-card h1 em {
+    font-style: normal;
+    color: #c8102e;
+    display: block;
+    margin-top: 0.3rem;
+}
+
 /* TEXT CONTRAST FIXES */
 .carousel-content h1 {
     text-shadow: none;
@@ -4896,6 +4989,23 @@ button:contains("Achievement") {
 .card-text,
 p {
     color: rgba(255, 255, 255, 0.9);
+}
+
+/* Responsive Glass Cards */
+@media (max-width: 768px) {
+    .hero-glass-card {
+        padding: 14px 16px;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    
+    .hero-glass-card .card-icon {
+        font-size: 18px;
+    }
+    
+    .hero-glass-card h1 {
+        font-size: clamp(1.5rem, 8vw, 2rem);
+    }
 }
 
 /* SECTION SPACING STANDARDIZATION */
