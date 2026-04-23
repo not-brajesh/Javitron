@@ -20,6 +20,10 @@
     <!-- Preload critical fonts -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap" as="style">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- Preload hero images for instant loading (LCP optimization) -->
+    <link rel="preload" href="assets/image_1.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="assets/image_1.png" as="image" type="image/png" fetchpriority="high">
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Outfit:wght@300;400;600;800&display=swap"
         rel="stylesheet">
@@ -133,7 +137,7 @@
     <!-- ===================== HERO CAROUSEL ===================== -->
     <header id="home" class="hero-carousel normal-content">
 
-        <div class="carousel-slide active" style="background-image: url('assets/image_1.png');">
+        <div class="carousel-slide active" style="background-image: url('assets/image_1.webp'), url('assets/image_1.png');" data-hero="true">
             <div class="slide-noise"></div>
             <div class="carousel-content">
                 <div class="hero-eyebrow">— Formula Student Racing</div>
@@ -147,7 +151,7 @@
             <div class="slide-counter">01 / 03</div>
         </div>
 
-        <div class="carousel-slide" style="background-image: url('assets/image_2.png');">
+        <div class="carousel-slide" style="background-image: url('assets/image_2.webp'), url('assets/image_2.png');" data-hero="true">
             <div class="slide-noise"></div>
             <div class="carousel-content">
                 <div class="hero-eyebrow">— GKDC 2026</div>
@@ -161,7 +165,7 @@
             <div class="slide-counter">02 / 03</div>
         </div>
 
-        <div class="carousel-slide" style="background-image: url('assets/image_3.png');">
+        <div class="carousel-slide" style="background-image: url('assets/image_3.webp'), url('assets/image_3.png');" data-hero="true">
             <div class="slide-noise"></div>
             <div class="carousel-content">
                 <div class="hero-eyebrow">— Cleanest Pit Award</div>
@@ -392,7 +396,10 @@
                 <div class="team-card fade-up">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Captain</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_9.png" alt="Ashutosh" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_9.webp" type="image/webp">
+                            <img src="assets/image_9.png" alt="Ashutosh" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -409,7 +416,10 @@
                 <div class="team-card fade-up delay-1">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Vice Captain</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_10.png" alt="Preet" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_10.webp" type="image/webp">
+                            <img src="assets/image_10.png" alt="Preet" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -426,7 +436,10 @@
                 <div class="team-card fade-up delay-2">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Driver</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_11.png" alt="Harshal" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_11.webp" type="image/webp">
+                            <img src="assets/image_11.png" alt="Harshal" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -443,7 +456,10 @@
                 <div class="team-card fade-up">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Braking Head</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_15.png" alt="Sahil" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_15.webp" type="image/webp">
+                            <img src="assets/image_15.png" alt="Sahil" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -460,7 +476,10 @@
                 <div class="team-card fade-up delay-1">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Management Head</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_16.png" alt="Nitisha" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_16.webp" type="image/webp">
+                            <img src="assets/image_16.png" alt="Nitisha" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -477,7 +496,10 @@
                 <div class="team-card fade-up delay-2">
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">Electrical Head</div>
                     <div class="img-wrapper">
-                        <img src="assets/image_17.png" alt="Pranay" loading="lazy">
+                        <picture>
+                            <source srcset="assets/image_17.webp" type="image/webp">
+                            <img src="assets/image_17.png" alt="Pranay" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
@@ -671,7 +693,7 @@
         </div>
         <div class="showcase-grid">
             <div class="showcase-item fade-up" data-cursor="explore">
-                <div class="showcase-img" style="background-image: url('assets/image_5.png');"></div>
+                <div class="showcase-img" style="background-image: url('assets/image_5.webp'), url('assets/image_5.png');" loading="lazy"></div>
                 <div class="showcase-overlay">
                     <div class="overlay-label">Track Weapon</div>
                     <h3>JAVITRON Apex</h3>
@@ -680,7 +702,7 @@
                 </div>
             </div>
             <div class="showcase-item fade-up delay-1" data-cursor="explore">
-                <div class="showcase-img" style="background-image: url('assets/image_6.png');"></div>
+                <div class="showcase-img" style="background-image: url('assets/image_6.webp'), url('assets/image_6.png');" loading="lazy"></div>
                 <div class="showcase-overlay">
                     <div class="overlay-label">Stealth Edition</div>
                     <h3>JAVITRON Stealth</h3>
@@ -689,7 +711,7 @@
                 </div>
             </div>
             <div class="showcase-item fade-up delay-2" data-cursor="explore">
-                <div class="showcase-img" style="background-image: url('assets/image_3.png');"></div>
+                <div class="showcase-img" style="background-image: url('assets/image_3.webp'), url('assets/image_3.png');" loading="lazy"></div>
                 <div class="showcase-overlay">
                     <div class="overlay-label">Grand Tourer</div>
                     <h3>JAVITRON GT</h3>
@@ -698,7 +720,7 @@
                 </div>
             </div>
             <div class="showcase-item fade-up delay-3" data-cursor="explore">
-                <div class="showcase-img" style="background-image: url('assets/image_8.png');"></div>
+                <div class="showcase-img" style="background-image: url('assets/image_8.webp'), url('assets/image_8.png');" loading="lazy"></div>
                 <div class="showcase-overlay">
                     <div class="overlay-label">Future Series</div>
                     <h3>JAVITRON Electron</h3>
@@ -899,7 +921,7 @@
 
             <div class="showcase-grid">
                 <div class="showcase-item fade-up" data-category="workshop">
-                    <div class="showcase-img" style="background-image: url('assets/image_5.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_5.webp'), url('assets/image_5.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Workshop</div>
                         <h3>Manufacturing Process</h3>
@@ -907,7 +929,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-1" data-category="vehicles">
-                    <div class="showcase-img" style="background-image: url('assets/image_6.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_6.webp'), url('assets/image_6.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Vehicles</div>
                         <h3>Javitron Mk-III</h3>
@@ -915,7 +937,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-2" data-category="team">
-                    <div class="showcase-img" style="background-image: url('assets/image_9.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_9.webp'), url('assets/image_9.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Team</div>
                         <h3>Our Engineers</h3>
@@ -923,7 +945,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-3" data-category="competition">
-                    <div class="showcase-img" style="background-image: url('assets/image_3.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_3.webp'), url('assets/image_3.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Competition</div>
                         <h3>Track Action</h3>
@@ -931,7 +953,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up" data-category="workshop">
-                    <div class="showcase-img" style="background-image: url('assets/image_7.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_7.webp'), url('assets/image_7.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Workshop</div>
                         <h3>Fabrication</h3>
@@ -939,7 +961,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-1" data-category="vehicles">
-                    <div class="showcase-img" style="background-image: url('assets/image_1.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_12.webp'), url('assets/image_12.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Vehicles</div>
                         <h3>Aerodynamics</h3>
@@ -947,7 +969,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-2" data-category="team">
-                    <div class="showcase-img" style="background-image: url('assets/image_10.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_10.webp'), url('assets/image_10.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Team</div>
                         <h3>Collaboration</h3>
@@ -955,7 +977,7 @@
                     </div>
                 </div>
                 <div class="showcase-item fade-up delay-3" data-category="competition">
-                    <div class="showcase-img" style="background-image: url('assets/image_2.png');"></div>
+                    <div class="showcase-img" style="background-image: url('assets/image_2.webp'), url('assets/image_2.png');" loading="lazy"></div>
                     <div class="showcase-overlay">
                         <div class="overlay-label">Competition</div>
                         <h3>Victory</h3>
