@@ -165,13 +165,20 @@ async function checkAdminAccess() {
 
         const userData = userDoc.data();
 
+        console.log('User data:', userData);
+        console.log('User role:', userData.role);
+        console.log('User teamRole:', userData.teamRole);
+
         // Check if user has admin role
         if (userData.role !== 'admin' && userData.teamRole !== 'admin') {
+            console.log('Access denied - user is not admin');
             showError('Access denied. Admin privileges required.');
             loading.innerHTML = '<p style="color: #ff6b6b;">Access denied. Admin privileges required.</p>';
+            loading.innerHTML += '<p style="margin-top: 10px; font-size: 0.9rem;">Your role: ' + (userData.role || 'none') + '</p>';
             return;
         }
 
+        console.log('Access granted - user is admin');
         // User is admin, show admin content
         loading.style.display = 'none';
         adminContent.style.display = 'block';
