@@ -983,15 +983,35 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Hamburger element:', hamburger);
     console.log('NavMenu element:', navMenu);
 
-    if (hamburger) {
+    if (hamburger && navMenu) {
+        console.log('Hamburger and navMenu found!');
+        
+        function toggleMenu() {
+            const isActive = navMenu.classList.contains('active');
+            console.log('Current menu state:', isActive);
+            
+            if (isActive) {
+                // Close menu
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                navMenu.style.display = 'none';
+                document.body.style.overflow = '';
+                console.log('Menu closed');
+            } else {
+                // Open menu
+                hamburger.classList.add('active');
+                navMenu.classList.add('active');
+                navMenu.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+                console.log('Menu opened');
+            }
+        }
+        
         hamburger.addEventListener('click', (e) => {
             console.log('Hamburger clicked!');
             e.preventDefault();
             e.stopPropagation();
-            hamburger.classList.toggle('active');
-            navMenu?.classList.toggle('active');
-            document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
-            console.log('Menu active:', navMenu?.classList.contains('active'));
+            toggleMenu();
         });
         
         // Also handle touch events for mobile
@@ -999,12 +1019,10 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Hamburger touched!');
             e.preventDefault();
             e.stopPropagation();
-            hamburger.classList.toggle('active');
-            navMenu?.classList.toggle('active');
-            document.body.style.overflow = navMenu?.classList.contains('active') ? 'hidden' : '';
+            toggleMenu();
         });
     } else {
-        console.error('Hamburger button not found!');
+        console.error('Hamburger or navMenu not found!', {hamburger, navMenu});
     }
 
     document.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
