@@ -602,17 +602,7 @@
         }
 
         /* Apps Section Styles */
-        .apps-section {
-            padding: 2rem 5%;
-            margin-top: 2rem;
-        }
-
-        .apps-section h2 {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 1.5rem;
-        }
+        
 
         .apps-grid {
             display: grid;
@@ -743,6 +733,20 @@
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </div>
+        </div>
+
+        <!-- Role Management Section -->
+        <div class="profile-card">
+            <h2>Role Management</h2>
+            <div class="role-actions">
+                <button class="btn-role-update" id="updateRoleBtn">
+                    <i class="fas fa-user-shield"></i> Update My Role
+                </button>
+                <button class="btn-make-admin" id="makeEveryoneAdminBtn">
+                    <i class="fas fa-users-cog"></i> Make Everyone Admin
+                </button>
+            </div>
+            <div id="roleResult" style="margin-top: 1rem; padding: 1rem; border-radius: 8px; display: none;"></div>
         </div>
 
         <!-- Apps Section -->
