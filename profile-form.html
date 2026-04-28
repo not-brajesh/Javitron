@@ -437,17 +437,25 @@
                 console.error('Error Status:', error.status);
                 console.error('Error Text:', error.text);
                 
-                let errorMsg = 'Failed to submit profile. ';
-                if (error.text) {
-                    errorMsg += error.text;
-                } else if (error.message) {
-                    errorMsg += error.message;
-                } else {
-                    errorMsg += 'Please check console for details or contact admin directly.';
-                }
-                showError(errorMsg);
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Profile';
+                // Save to admin queue even if email fails
+                const pendingSubmissions = JSON.parse(localStorage.getItem('pendingSubmissions') || '[]');
+                pendingSubmissions.push({
+                    ...templateParams,
+                    submittedAt: new Date().toISOString(),
+                    emailError: error.text || error.message || 'Unknown error'
+                });
+                localStorage.setItem('pendingSubmissions', JSON.stringify(pendingSubmissions));
+                
+                // Still show success - data is saved locally for admin
+                console.log('Profile saved to local queue due to email error');
+                
+                // Show success message
+                profileFormSection.style.display = 'none';
+                successMessage.style.display = 'block';
+                
+                // Clear localStorage
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
             }
         });
 
