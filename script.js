@@ -1247,75 +1247,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!teamContainer) return;
 
         // Try to get team members from localStorage
-        let teamMembers = localStorage.getItem('teamMembers');
+        const teamMembersData = localStorage.getItem('teamMembers');
         
-        if (teamMembers) {
-            teamMembers = JSON.parse(teamMembers);
-        } else {
-            // Fallback: Default team members if localStorage is empty
-            teamMembers = [
-                {
-                    name: 'Ashutosh',
-                    role: 'Team Captain & Driver',
-                    badge: 'Captain',
-                    department: 'Robotics',
-                    image: 'assets/team/image_9',
-                    linkedin: '#',
-                    instagram: '#'
-                },
-                {
-                    name: 'Preet',
-                    role: 'Vice Captain',
-                    badge: 'Vice Captain',
-                    department: 'Robotics',
-                    image: 'assets/team/image_10',
-                    linkedin: '#',
-                    instagram: '#'
-                },
-                {
-                    name: 'Harshal',
-                    role: 'Driver',
-                    badge: 'Driver',
-                    department: 'Robotics',
-                    image: 'assets/team/image_11',
-                    linkedin: '#',
-                    instagram: '#'
-                },
-                {
-                    name: 'Sahil',
-                    role: 'Braking Head',
-                    badge: 'Braking Head',
-                    department: 'Robotics',
-                    image: 'assets/team/image_15',
-                    linkedin: '#',
-                    instagram: '#'
-                },
-                {
-                    name: 'Nitisha',
-                    role: 'Management Head',
-                    badge: 'Management Head',
-                    department: 'Robotics',
-                    image: 'assets/team/image_16',
-                    linkedin: '#',
-                    instagram: '#'
-                },
-                {
-                    name: 'Pranay',
-                    role: 'Electrical Head',
-                    badge: 'Electrical Head',
-                    department: 'Robotics',
-                    image: 'assets/team/image_17',
-                    linkedin: '#',
-                    instagram: '#'
-                }
-            ];
-            
-            // Save default members to localStorage
-            localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+        if (!teamMembersData) {
+            // No additional members in localStorage, hide the container
+            teamContainer.style.display = 'none';
+            return;
         }
+
+        const teamMembers = JSON.parse(teamMembersData);
 
         // Clear container
         teamContainer.innerHTML = '';
+        teamContainer.style.display = 'grid';
 
         // Generate team cards
         teamMembers.forEach((member, index) => {
