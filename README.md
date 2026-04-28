@@ -427,3 +427,22 @@ Agar tu chahe to ab main **Raspberry Pi ka exact Pixhawk wiring** bhi step by st
 
 ```
 -----
+
+
+
+
+
+
+
+
+
+
+
+sudo apt update
+sudo apt install raspi-config
+
+
+sudo nano /boot/config.txt
+
+
+
