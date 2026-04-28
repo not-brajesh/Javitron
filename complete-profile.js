@@ -83,6 +83,54 @@ function showSuccess(message) {
     errorMessage.style.display = 'none';
 }
 
+// Add user to team members localStorage
+function addToTeamMembers(user, profileData) {
+    try {
+        // Get existing team members
+        let teamMembers = localStorage.getItem('teamMembers');
+        let membersArray = teamMembers ? JSON.parse(teamMembers) : [];
+
+        // Check if user already exists
+        const existingIndex = membersArray.findIndex(m => m.uid === user.uid);
+
+        // Create member object
+        const memberData = {
+            uid: user.uid,
+            name: user.displayName || profileData.name || 'Team Member',
+            role: getRoleLabel(profileData.role),
+            badge: getRoleLabel(profileData.role),
+            department: profileData.department,
+            image: profileData.photoURL || 'assets/team/image_9', // Fallback image
+            linkedin: profileData.linkedin || '#',
+            instagram: profileData.instagram || '#'
+        };
+
+        // Update or add member
+        if (existingIndex >= 0) {
+            membersArray[existingIndex] = memberData;
+        } else {
+            membersArray.push(memberData);
+        }
+
+        // Save to localStorage
+        localStorage.setItem('teamMembers', JSON.stringify(membersArray));
+    } catch (error) {
+        console.error('Error adding to team members:', error);
+    }
+}
+
+// Get role label from role value
+function getRoleLabel(role) {
+    const roleLabels = {
+        'member': 'Team Member',
+        'lead': 'Team Lead',
+        'vice-captain': 'Vice Captain',
+        'captain': 'Captain',
+        'admin': 'Admin'
+    };
+    return roleLabels[role] || 'Team Member';
+}
+
 // Upload photo to Firebase Storage (optimized)
 async function uploadPhoto(userId, file) {
     if (!file) return null;
@@ -189,6 +237,9 @@ profileForm.addEventListener('submit', async (e) => {
 
         hideLoading();
         showSuccess(isEditMode ? 'Profile updated successfully!' : 'Profile completed successfully!');
+
+        // Add to team members localStorage
+        addToTeamMembers(user, profileData);
 
         // Quick redirect
         setTimeout(() => {
