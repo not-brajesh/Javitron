@@ -98,6 +98,15 @@ loginForm.addEventListener('submit', async (e) => {
             const userData = userDoc.data();
             console.log('User role:', userData.role);
 
+            // Save user data to localStorage for admin checks
+            localStorage.setItem('currentUser', JSON.stringify({
+                uid: userCredential.user.uid,
+                email: userCredential.user.email,
+                displayName: userCredential.user.displayName,
+                role: userData.role,
+                teamRole: userData.teamRole
+            }));
+
             // Check if user is admin
             const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';
 
@@ -252,6 +261,15 @@ if (googleAuthBtn) {
             } else {
                 console.log('User document exists');
                 const userData = userDoc.data();
+
+                // Save user data to localStorage for admin checks
+                localStorage.setItem('currentUser', JSON.stringify({
+                    uid: user.uid,
+                    email: user.email,
+                    displayName: user.displayName,
+                    role: userData.role,
+                    teamRole: userData.teamRole
+                }));
 
                 // Check if user is admin
                 const isAdmin = userData.role === 'admin' || userData.teamRole === 'admin';

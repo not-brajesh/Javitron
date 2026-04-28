@@ -1246,6 +1246,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamContainer = document.getElementById('team-dynamic');
         if (!teamContainer) return;
 
+        // Check if current user is admin
+        const isAdmin = checkAdminAccess();
+        
+        // Show/hide admin controls
+        const adminControls = document.getElementById('adminControls');
+        if (adminControls && isAdmin) {
+            adminControls.style.display = 'flex';
+        }
+
         // Try to get team members from localStorage
         const teamMembersData = localStorage.getItem('teamMembers');
         
@@ -1265,8 +1274,16 @@ document.addEventListener('DOMContentLoaded', () => {
         teamMembers.forEach((member, index) => {
             const delayClass = index % 3 === 1 ? 'delay-1' : index % 3 === 2 ? 'delay-2' : '';
             
+            // Add remove button for admin
+            const removeButton = isAdmin ? `
+                <button class="remove-member-btn" data-uid="${member.uid}" style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 0, 0, 0.2); color: #ff6b6b; border: 1px solid rgba(255, 0, 0, 0.3); padding: 0.3rem 0.6rem; border-radius: 15px; font-size: 0.7rem; cursor: pointer; z-index: 10; transition: all 0.3s ease;">
+                    <i class="fas fa-trash"></i>
+                </button>
+            ` : '';
+            
             const cardHTML = `
-                <div class="team-card fade-up ${delayClass}">
+                <div class="team-card fade-up ${delayClass}" data-uid="${member.uid}">
+                    ${removeButton}
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">${member.badge || member.role}</div>
                     <div class="img-wrapper">
                         <picture>
@@ -1292,9 +1309,56 @@ document.addEventListener('DOMContentLoaded', () => {
             teamContainer.innerHTML += cardHTML;
         });
 
+        // Add event listeners for remove buttons
+        if (isAdmin) {
+            document.querySelectorAll('.remove-member-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const uid = btn.getAttribute('data-uid');
+                    removeTeamMember(uid);
+                });
+            });
+        }
+
         // Re-initialize AOS for new elements
         if (typeof AOS !== 'undefined') {
             AOS.refresh();
+        }
+    }
+
+    // Check if current user is admin
+    function checkAdminAccess() {
+        try {
+            // Get current user from localStorage (from Firebase auth)
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) return false;
+            
+            // Check if user has admin role
+            return currentUser.role === 'admin' || currentUser.teamRole === 'admin';
+        } catch (error) {
+            console.error('Error checking admin access:', error);
+            return false;
+        }
+    }
+
+    // Remove team member
+    function removeTeamMember(uid) {
+        if (!confirm('Are you sure you want to remove this team member?')) return;
+        
+        try {
+            let teamMembers = localStorage.getItem('teamMembers');
+            if (!teamMembers) return;
+            
+            let membersArray = JSON.parse(teamMembers);
+            membersArray = membersArray.filter(m => m.uid !== uid);
+            
+            localStorage.setItem('teamMembers', JSON.stringify(membersArray));
+            
+            // Reload team members
+            loadTeamMembers();
+        } catch (error) {
+            console.error('Error removing team member:', error);
+            alert('Failed to remove team member. Please try again.');
         }
     }
 
