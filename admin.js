@@ -332,6 +332,15 @@ async function checkAdminAccess() {
         console.log('User role:', userData.role);
         console.log('User teamRole:', userData.teamRole);
 
+        // Save user data to localStorage for admin checks
+        localStorage.setItem('currentUser', JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            role: userData.role,
+            teamRole: userData.teamRole
+        }));
+
         // Check if user has admin role
         if (userData.role !== 'admin' && userData.teamRole !== 'admin') {
             console.log('Access denied - user is not admin');

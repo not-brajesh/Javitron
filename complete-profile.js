@@ -238,6 +238,15 @@ profileForm.addEventListener('submit', async (e) => {
         hideLoading();
         showSuccess(isEditMode ? 'Profile updated successfully!' : 'Profile completed successfully!');
 
+        // Update currentUser in localStorage with new role
+        localStorage.setItem('currentUser', JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName,
+            role: profileData.role,
+            teamRole: profileData.role
+        }));
+
         // Add to team members localStorage
         addToTeamMembers(user, profileData);
 
