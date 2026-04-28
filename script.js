@@ -339,7 +339,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mouseParallax: { x: 0, y: 0 }, // desktop fallback
 
         CONFIG: {
-            modelPath: './assets/car.glb',
+            modelPath: './assets/3d/car.glb',
             fov: 45,
 
             // Responsive scaling multipliers
