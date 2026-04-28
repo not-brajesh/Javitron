@@ -1242,6 +1242,16 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ============================================================
        12. DYNAMIC TEAM MEMBERS - Load from localStorage
        ============================================================ */
+    
+    // Convert name to image filename (lowercase, no spaces)
+    function getMemberImage(name) {
+        if (!name) return 'assets/team-images/default.jpg';
+        
+        // Convert to lowercase and remove spaces
+        const imageName = name.toLowerCase().replace(/\s+/g, '');
+        return `assets/team-images/${imageName}.jpg`;
+    }
+
     function loadTeamMembers() {
         const teamContainer = document.getElementById('team-dynamic');
         if (!teamContainer) return;
@@ -1274,6 +1284,9 @@ document.addEventListener('DOMContentLoaded', () => {
         teamMembers.forEach((member, index) => {
             const delayClass = index % 3 === 1 ? 'delay-1' : index % 3 === 2 ? 'delay-2' : '';
             
+            // Get auto-assigned image
+            const memberImage = getMemberImage(member.name);
+            
             // Add remove button for admin
             const removeButton = isAdmin ? `
                 <button class="remove-member-btn" data-uid="${member.uid}" style="position: absolute; top: 1rem; left: 1rem; background: rgba(255, 0, 0, 0.2); color: #ff6b6b; border: 1px solid rgba(255, 0, 0, 0.3); padding: 0.3rem 0.6rem; border-radius: 15px; font-size: 0.7rem; cursor: pointer; z-index: 10; transition: all 0.3s ease;">
@@ -1286,10 +1299,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     ${removeButton}
                     <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">${member.badge || member.role}</div>
                     <div class="img-wrapper">
-                        <picture>
-                            <source srcset="${member.image}.webp" type="image/webp">
-                            <img src="${member.image}.png" alt="${member.name}" loading="lazy" width="400" height="400" decoding="async">
-                        </picture>
+                        <img src="${memberImage}" alt="${member.name}" loading="lazy" width="400" height="400" decoding="async" onerror="this.src='assets/team-images/default.jpg'">
                         <div class="card-shine"></div>
                     </div>
                     <div class="team-info">
