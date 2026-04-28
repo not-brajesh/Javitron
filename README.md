@@ -1,3 +1,9 @@
+pip3 install dronekit pymavlink
+
+
+
+
+
 #link : https://not-brajesh.github.io/Javitron/
 
 
