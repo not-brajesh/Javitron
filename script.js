@@ -1362,6 +1362,86 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Add Member Modal functionality
+    const addMemberBtn = document.getElementById('addMemberBtn');
+    const addMemberModal = document.getElementById('addMemberModal');
+    const cancelAddMemberBtn = document.getElementById('cancelAddMember');
+    const addMemberForm = document.getElementById('addMemberForm');
+
+    // Open modal
+    if (addMemberBtn) {
+        addMemberBtn.addEventListener('click', () => {
+            addMemberModal.style.display = 'flex';
+        });
+    }
+
+    // Close modal
+    if (cancelAddMemberBtn) {
+        cancelAddMemberBtn.addEventListener('click', () => {
+            addMemberModal.style.display = 'none';
+            addMemberForm.reset();
+        });
+    }
+
+    // Close modal on outside click
+    if (addMemberModal) {
+        addMemberModal.addEventListener('click', (e) => {
+            if (e.target === addMemberModal) {
+                addMemberModal.style.display = 'none';
+                addMemberForm.reset();
+            }
+        });
+    }
+
+    // Handle add member form submission
+    if (addMemberForm) {
+        addMemberForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('addMemberName').value;
+            const role = document.getElementById('addMemberRole').value;
+            const department = document.getElementById('addMemberDepartment').value;
+            const linkedin = document.getElementById('addMemberLinkedin').value || '#';
+            const instagram = document.getElementById('addMemberInstagram').value || '#';
+
+            try {
+                // Get existing team members
+                let teamMembers = localStorage.getItem('teamMembers');
+                let membersArray = teamMembers ? JSON.parse(teamMembers) : [];
+
+                // Create new member object
+                const newMember = {
+                    uid: 'manual_' + Date.now(), // Generate unique ID for manually added members
+                    name: name,
+                    role: role,
+                    badge: role,
+                    department: department,
+                    image: 'assets/team/image_9', // Default image
+                    linkedin: linkedin,
+                    instagram: instagram
+                };
+
+                // Add to array
+                membersArray.push(newMember);
+
+                // Save to localStorage
+                localStorage.setItem('teamMembers', JSON.stringify(membersArray));
+
+                // Close modal and reset form
+                addMemberModal.style.display = 'none';
+                addMemberForm.reset();
+
+                // Reload team members
+                loadTeamMembers();
+
+                alert('Team member added successfully!');
+            } catch (error) {
+                console.error('Error adding team member:', error);
+                alert('Failed to add team member. Please try again.');
+            }
+        });
+    }
+
     // Load team members when DOM is ready
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', loadTeamMembers);
