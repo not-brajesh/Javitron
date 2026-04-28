@@ -1238,4 +1238,127 @@ document.addEventListener('DOMContentLoaded', () => {
         labelObserver.observe(label);
     });
 
+
+    /* ============================================================
+       12. DYNAMIC TEAM MEMBERS - Load from localStorage
+       ============================================================ */
+    function loadTeamMembers() {
+        const teamContainer = document.getElementById('team-dynamic');
+        if (!teamContainer) return;
+
+        // Try to get team members from localStorage
+        let teamMembers = localStorage.getItem('teamMembers');
+        
+        if (teamMembers) {
+            teamMembers = JSON.parse(teamMembers);
+        } else {
+            // Fallback: Default team members if localStorage is empty
+            teamMembers = [
+                {
+                    name: 'Ashutosh',
+                    role: 'Team Captain & Driver',
+                    badge: 'Captain',
+                    department: 'Robotics',
+                    image: 'assets/team/image_9',
+                    linkedin: '#',
+                    instagram: '#'
+                },
+                {
+                    name: 'Preet',
+                    role: 'Vice Captain',
+                    badge: 'Vice Captain',
+                    department: 'Robotics',
+                    image: 'assets/team/image_10',
+                    linkedin: '#',
+                    instagram: '#'
+                },
+                {
+                    name: 'Harshal',
+                    role: 'Driver',
+                    badge: 'Driver',
+                    department: 'Robotics',
+                    image: 'assets/team/image_11',
+                    linkedin: '#',
+                    instagram: '#'
+                },
+                {
+                    name: 'Sahil',
+                    role: 'Braking Head',
+                    badge: 'Braking Head',
+                    department: 'Robotics',
+                    image: 'assets/team/image_15',
+                    linkedin: '#',
+                    instagram: '#'
+                },
+                {
+                    name: 'Nitisha',
+                    role: 'Management Head',
+                    badge: 'Management Head',
+                    department: 'Robotics',
+                    image: 'assets/team/image_16',
+                    linkedin: '#',
+                    instagram: '#'
+                },
+                {
+                    name: 'Pranay',
+                    role: 'Electrical Head',
+                    badge: 'Electrical Head',
+                    department: 'Robotics',
+                    image: 'assets/team/image_17',
+                    linkedin: '#',
+                    instagram: '#'
+                }
+            ];
+            
+            // Save default members to localStorage
+            localStorage.setItem('teamMembers', JSON.stringify(teamMembers));
+        }
+
+        // Clear container
+        teamContainer.innerHTML = '';
+
+        // Generate team cards
+        teamMembers.forEach((member, index) => {
+            const delayClass = index % 3 === 1 ? 'delay-1' : index % 3 === 2 ? 'delay-2' : '';
+            
+            const cardHTML = `
+                <div class="team-card fade-up ${delayClass}">
+                    <div style="position: absolute; top: 1rem; right: 1rem; background: var(--accent); color: var(--text-light); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; z-index: 5;">${member.badge || member.role}</div>
+                    <div class="img-wrapper">
+                        <picture>
+                            <source srcset="${member.image}.webp" type="image/webp">
+                            <img src="${member.image}.png" alt="${member.name}" loading="lazy" width="400" height="400" decoding="async">
+                        </picture>
+                        <div class="card-shine"></div>
+                    </div>
+                    <div class="team-info">
+                        <div class="glass-text-block">
+                            <h3>${member.name}</h3>
+                            <span>${member.role}</span>
+                            <div style="font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-top: 0.5rem;">${member.department}</div>
+                            <div class="team-socials">
+                                <a href="${member.linkedin}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                                <a href="${member.instagram}" target="_blank"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            teamContainer.innerHTML += cardHTML;
+        });
+
+        // Re-initialize AOS for new elements
+        if (typeof AOS !== 'undefined') {
+            AOS.refresh();
+        }
+    }
+
+    // Load team members when DOM is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadTeamMembers);
+    } else {
+        loadTeamMembers();
+    }
+
 });
