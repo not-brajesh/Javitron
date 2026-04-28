@@ -1,4 +1,4 @@
-pip3 install dronekit pymavlink
+
 
 
 
