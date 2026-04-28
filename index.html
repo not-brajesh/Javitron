@@ -47,6 +47,7 @@
     <script src="firebase-config.js"></script>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="team-selector.css">
 </head>
 
 <body>
@@ -83,6 +84,31 @@
         </div>
     </div>
 
+    <!-- TEAM SELECTION OVERLAY -->
+    <div id="team-selector" class="team-selector-overlay" style="display: none;">
+        <div class="team-selector-content">
+            <div class="team-selector-logo">JAVITRON</div>
+            <h2 class="team-selector-title">Choose Your Division</h2>
+            <p class="team-selector-subtitle">Select which team you want to explore</p>
+            
+            <div class="team-selector-cards">
+                <div class="team-card-option" data-team="gokart" onclick="selectTeam('gokart')">
+                    <div class="team-card-icon">🏎️</div>
+                    <h3>GoKart</h3>
+                    <p>GKDC Racing Team<br>All India Rank 6</p>
+                    <div class="team-card-badge">1st Autocross</div>
+                </div>
+                
+                <div class="team-card-option" data-team="formulastudent" onclick="selectTeam('formulastudent')">
+                    <div class="team-card-icon">🏁</div>
+                    <h3>Formula Student</h3>
+                    <p>Formula Student Racing<br>Engineering Excellence</p>
+                    <div class="team-card-badge">FS Competition</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- CURSOR -->
     <div class="cursor" id="cursor"></div>
     <div class="cursor-follower" id="cursorFollower"></div>
@@ -113,6 +139,10 @@
             <a href="#gallery" class="nav-link">Gallery</a>
             <a href="#sponsors" class="nav-link">Sponsors</a>
             <a href="#contact" class="nav-link">Contact</a>
+            <div class="team-switcher" id="teamSwitcher" onclick="showTeamSelector()" title="Switch Team">
+                <span class="team-switcher-icon" id="teamSwitcherIcon">🏎️</span>
+                <span class="team-switcher-text" id="teamSwitcherText">GoKart</span>
+            </div>
             <a href="login-simple.html" class="nav-btn">Login</a>
         </div>
 
@@ -122,6 +152,10 @@
     <!-- Mobile Navigation Overlay -->
     <div class="mobile-nav-overlay" id="mobileNavOverlay">
         <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+        <div class="mobile-team-switcher" onclick="closeMobileNav(); showTeamSelector();" style="margin: 1rem 0; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 10px; text-align: center; cursor: pointer;">
+            <span id="mobileTeamIcon">🏎️</span>
+            <span id="mobileTeamText" style="color: #fff; margin-left: 0.5rem;">Switch Team (GoKart)</span>
+        </div>
         <a href="#home" class="nav-link" onclick="closeMobileNav()">Home</a>
         <a href="#about" class="nav-link" onclick="closeMobileNav()">About</a>
         <a href="#team" class="nav-link" onclick="closeMobileNav()">Team</a>

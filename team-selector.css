@@ -1,0 +1,204 @@
+/* ================== TEAM SELECTOR STYLES ================== */
+
+.team-selector-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a0414 0%, #1a0a2e 50%, #0a0414 100%);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.team-selector-overlay.active {
+    opacity: 1;
+}
+
+.team-selector-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 900px;
+    width: 90%;
+}
+
+.team-selector-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent) 50%, #00c8ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    letter-spacing: 0.2em;
+}
+
+.team-selector-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.team-selector-subtitle {
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.team-selector-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.team-card-option {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.team-card-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(200, 16, 46, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.team-card-option:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent);
+    box-shadow: 0 20px 40px rgba(200, 16, 46, 0.3);
+}
+
+.team-card-option:hover::before {
+    opacity: 1;
+}
+
+.team-card-option.selected {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(200, 16, 46, 0.2) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.team-card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.team-card-option h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+.team-card-option p {
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.team-card-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Team Switcher Button in Navbar */
+.team-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.team-switcher:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: var(--accent);
+}
+
+.team-switcher-icon {
+    font-size: 1rem;
+}
+
+.team-switcher-text {
+    color: #fff;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Hide/Show content based on team */
+.gokart-only,
+.formulastudent-only {
+    display: none;
+}
+
+body[data-team="gokart"] .gokart-only,
+body[data-team="formulastudent"] .formulastudent-only {
+    display: block;
+}
+
+body[data-team="gokart"] .formulastudent-content,
+body[data-team="formulastudent"] .gokart-content {
+    display: none;
+}
+
+/* Responsive team selector */
+@media (max-width: 768px) {
+    .team-selector-cards {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .team-selector-logo {
+        font-size: 2rem;
+    }
+    
+    .team-selector-title {
+        font-size: 1.8rem;
+    }
+    
+    .team-card-option {
+        padding: 2rem 1.5rem;
+    }
+    
+    .team-card-icon {
+        font-size: 3rem;
+    }
+    
+    .team-card-option h3 {
+        font-size: 1.5rem;
+    }
+}

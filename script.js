@@ -211,11 +211,142 @@ document.addEventListener('DOMContentLoaded', () => {
             // Remove loader after fade out animation
             setTimeout(() => {
                 cinematicLoader.style.display = 'none';
-                // Animate navbar and hero content in
-                animatePageEntry();
+                
+                // Check if team is already selected
+                const savedTeam = localStorage.getItem('selectedTeam');
+                if (savedTeam) {
+                    // Apply saved team
+                    applyTeamSelection(savedTeam);
+                    // Animate navbar and hero content in
+                    animatePageEntry();
+                } else {
+                    // Show team selector
+                    showTeamSelector();
+                }
             }, 800);
         }
     }, 2500);
+
+    /* ============================================================
+       2.5 TEAM SELECTOR
+       ============================================================ */
+    const teamSelector = document.getElementById('team-selector');
+    
+    function showTeamSelector() {
+        if (teamSelector) {
+            teamSelector.style.display = 'flex';
+            // Force reflow
+            void teamSelector.offsetWidth;
+            teamSelector.classList.add('active');
+        }
+    }
+    
+    window.showTeamSelector = showTeamSelector;
+    
+    window.selectTeam = function(team) {
+        // Save selection
+        localStorage.setItem('selectedTeam', team);
+        
+        // Apply selection
+        applyTeamSelection(team);
+        
+        // Hide team selector
+        if (teamSelector) {
+            teamSelector.classList.remove('active');
+            setTimeout(() => {
+                teamSelector.style.display = 'none';
+                // Animate page entry if not already done
+                animatePageEntry();
+            }, 800);
+        }
+    };
+    
+    function applyTeamSelection(team) {
+        // Set body attribute for CSS targeting
+        document.body.setAttribute('data-team', team);
+        
+        // Update navbar switcher
+        const switcherIcon = document.getElementById('teamSwitcherIcon');
+        const switcherText = document.getElementById('teamSwitcherText');
+        
+        if (switcherIcon && switcherText) {
+            if (team === 'gokart') {
+                switcherIcon.textContent = '🏎️';
+                switcherText.textContent = 'GoKart';
+            } else {
+                switcherIcon.textContent = '🏁';
+                switcherText.textContent = 'Formula Student';
+            }
+        }
+        
+        // Update mobile team switcher
+        const mobileTeamIcon = document.getElementById('mobileTeamIcon');
+        const mobileTeamText = document.getElementById('mobileTeamText');
+        
+        if (mobileTeamIcon && mobileTeamText) {
+            if (team === 'gokart') {
+                mobileTeamIcon.textContent = '🏎️';
+                mobileTeamText.textContent = 'Switch Team (GoKart)';
+            } else {
+                mobileTeamIcon.textContent = '🏁';
+                mobileTeamText.textContent = 'Switch Team (Formula Student)';
+            }
+        }
+        
+        // Update page content based on team
+        updateContentForTeam(team);
+    }
+    
+    function updateContentForTeam(team) {
+        // Update hero text
+        const heroEyebrow = document.querySelector('.hero-eyebrow');
+        if (heroEyebrow) {
+            if (team === 'gokart') {
+                heroEyebrow.textContent = '— GKDC Racing';
+            } else {
+                heroEyebrow.textContent = '— Formula Student Racing';
+            }
+        }
+        
+        // Update hero description
+        const heroParagraph = document.querySelector('.carousel-content > p');
+        if (heroParagraph) {
+            if (team === 'gokart') {
+                heroParagraph.textContent = 'GoKart Racing Team – AIR 6 Overall, 1st in Autocross at GKDC 2026';
+            } else {
+                heroParagraph.textContent = 'Formula Student Racing Team – Engineering Excellence in Motorsports';
+            }
+        }
+        
+        // Update achievements visibility
+        const gokartAchievements = document.querySelectorAll('.gokart-achievement');
+        const fsAchievements = document.querySelectorAll('.fs-achievement');
+        
+        gokartAchievements.forEach(el => {
+            el.style.display = team === 'gokart' ? 'block' : 'none';
+        });
+        
+        fsAchievements.forEach(el => {
+            el.style.display = team === 'formulastudent' ? 'block' : 'none';
+        });
+        
+        // Update vehicle section
+        const vehicleTitle = document.querySelector('#vehicle h2');
+        if (vehicleTitle) {
+            if (team === 'gokart') {
+                vehicleTitle.textContent = 'The GoKart';
+            } else {
+                vehicleTitle.textContent = 'The Formula Car';
+            }
+        }
+        
+        // Update page title
+        document.title = team === 'gokart' 
+            ? 'JAVITRON | GoKart Racing Team' 
+            : 'JAVITRON | Formula Student Team';
+        
+        console.log('Team switched to:', team);
+    }
 
     function animatePageEntry() {
         // Stagger navbar logo and links

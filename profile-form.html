@@ -407,16 +407,22 @@
                 linkedin: document.getElementById('userLinkedin').value,
                 instagram: document.getElementById('userInstagram').value,
                 bio: document.getElementById('userBio').value,
-                to_email: 'javitron.web@gmail.com' // Replace with admin email
+                to_email: 'javitron.web@gmail.com'
             };
+
+            console.log('EmailJS Config:');
+            console.log('Service ID: service_ncgpx0i');
+            console.log('Template ID: template_y78awrs');
+            console.log('Template Params:', templateParams);
 
             try {
                 // Send email using EmailJS
-                await emailjs.send(
-                    'service_ncgpx0i', // Replace with your service ID
-                    'template_y78awrs', // Replace with your template ID
+                const response = await emailjs.send(
+                    'service_ncgpx0i',
+                    'template_y78awrs',
                     templateParams
                 );
+                console.log('EmailJS Success:', response);
 
                 // Show success message
                 profileFormSection.style.display = 'none';
@@ -428,7 +434,18 @@
 
             } catch (error) {
                 console.error('EmailJS Error:', error);
-                showError('Failed to submit profile. Please try again or contact admin directly.');
+                console.error('Error Status:', error.status);
+                console.error('Error Text:', error.text);
+                
+                let errorMsg = 'Failed to submit profile. ';
+                if (error.text) {
+                    errorMsg += error.text;
+                } else if (error.message) {
+                    errorMsg += error.message;
+                } else {
+                    errorMsg += 'Please check console for details or contact admin directly.';
+                }
+                showError(errorMsg);
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Profile';
             }
